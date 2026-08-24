@@ -14,6 +14,48 @@
 % Custom Color Definitions for Bar Charts
 \definecolor{barAgentic}{RGB}{30, 136, 229}
 
+% ============================================================================
+% RESULT PARAMETERS -- the ONLY block to edit when results change (e.g. once
+% the zero-day / leave-one-family-out evaluation is finished). Every number
+% below is referenced by macro everywhere it appears in the paper (abstract,
+% Table II, Results, Conclusion) -- change the value once here and it updates
+% everywhere at once. The architecture/methodology sections (III) reference
+% no numbers from this block and do not need to change.
+%
+% NOTE: Fig. 2's per-family precision chart (Section IV-E) uses its own
+% literal values in a \foreach list, for TikZ/pgfmath safety -- if these
+% change, update that \foreach list too (search "GameHack/91.67").
+% ============================================================================
+\newcommand{\DatasetTotal}{5,138}   % total graph instances
+\newcommand{\TrainCount}{3,596}     % train split size
+\newcommand{\ValCount}{513}         % validation split size
+\newcommand{\TestCount}{1,029}      % held-out test split size
+
+\newcommand{\MulticlassAcc}{99.61\%}    % 11-class accuracy
+\newcommand{\MulticlassF1}{99.17\%}     % 11-class macro F1
+\newcommand{\MulticlassMacroP}{98.49\%} % 11-class macro precision
+\newcommand{\MulticlassMacroR}{99.89\%} % 11-class macro recall
+
+\newcommand{\BinaryAcc}{99.71\%}   % binary accuracy
+\newcommand{\BinaryPrec}{99.56\%}  % binary precision
+\newcommand{\BinaryRec}{99.78\%}   % binary recall
+
+\newcommand{\AblGnnAcc}{99.32\%}   % ablation: GNN-only accuracy
+\newcommand{\AblGnnPrec}{98.47\%}  % ablation: GNN-only precision
+\newcommand{\AblGnnRec}{100.0\%}   % ablation: GNN-only recall
+\newcommand{\AblPacxAcc}{56.27\%}  % ablation: PAC-X-only accuracy
+
+\newcommand{\RetrainPreAcc}{99.61\%}   % unguarded-retrain repro: before
+\newcommand{\RetrainPostAcc}{98.64\%}  % unguarded-retrain repro: after (best-epoch)
+\newcommand{\RetrainMidAcc}{80.08\%}   % unguarded-retrain repro: worst mid-run epoch
+
+\newcommand{\BenignPrec}{99.83\%}    % per-class: Benign precision
+\newcommand{\GandcrabRec}{99.14\%}   % per-class: Gandcrab recall
+\newcommand{\GameHackPrec}{91.67\%}  % per-class: GameHack precision (lowest)
+\newcommand{\GameHackN}{11}          % per-class: GameHack held-out support
+\newcommand{\DarkKometPrec}{95.45\%} % per-class: DarkKomet precision (2nd-lowest)
+\newcommand{\DarkKometN}{21}         % per-class: DarkKomet held-out support
+
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -48,7 +90,7 @@ dhm23cs@cmrit.ac.in}
 \maketitle
 
 \begin{abstract}
-Cloud computing environments are increasingly targeted by sophisticated cyber threats, making robust, dynamic, and transparent Application Programming Interface (API) security critical for modern microservices. However, the sheer volume of API telemetry generated across cloud platforms does not guarantee the rapid identification of zero-day threats, as traditional security mechanisms rely heavily on static rule signatures or generic metadata that fail to capture obfuscated behavioral semantics. Static rule-based heuristic systems struggle with evasion techniques such as dynamic library hooking and API aliasing, while conventional deep learning classifiers function as opaque ``black boxes,'' lacking the structural context and human-interpretable reasoning required for immediate security operations center (SOC) response. To address these fundamental gaps, we propose Agentic-PACX, a hybrid threat intelligence framework integrating a Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT). The framework standardizes heterogeneous cloud API streams via a universal input adapter, projecting execution logs into a 4-node topological graph analyzed concurrently across rule-based and neural pathways. The core novelty lies in the dynamic decision fusion layer orchestrated by cognitive Large Language Model (LLM) agents. Agent 1 evaluates dynamic trust scores to generate auditable natural language explainable AI (XAI) forensic reports, while Agent 2 intercepts low-confidence zero-day detections to autonomously trigger active transfer-learning self-healing cycles without manual analyst intervention. Evaluated on a held-out test set of 1,029 real PE-malware graph instances -- from a stratified 70/10/20 train/validation/test split in which the validation split, not the test split, drives early stopping and checkpoint selection -- the MalwareGAT pathway achieves 99.61\% accuracy and a 99.17\% macro F1-score across 11 real-world malware families, and 99.71\% accuracy, 99.56\% precision, and 99.78\% recall on the underlying binary benign/malicious detection task. An ablation study confirms that the Decision Fusion Layer safely defers to the structural pathway on this dataset's native tabular modality -- its measured value here lies in arbitration and safety on pathway disagreement rather than a numeric accuracy lift -- while the PAC-X heuristic pathway's interpretability advantage is realized on raw API-log/text telemetry, its intended input modality.
+Cloud computing environments are increasingly targeted by sophisticated cyber threats, making robust, dynamic, and transparent Application Programming Interface (API) security critical for modern microservices. However, the sheer volume of API telemetry generated across cloud platforms does not guarantee the rapid identification of zero-day threats, as traditional security mechanisms rely heavily on static rule signatures or generic metadata that fail to capture obfuscated behavioral semantics. Static rule-based heuristic systems struggle with evasion techniques such as dynamic library hooking and API aliasing, while conventional deep learning classifiers function as opaque ``black boxes,'' lacking the structural context and human-interpretable reasoning required for immediate security operations center (SOC) response. To address these fundamental gaps, we propose Agentic-PACX, a hybrid threat intelligence framework integrating a Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT). The framework standardizes heterogeneous cloud API streams via a universal input adapter, projecting execution logs into a 4-node topological graph analyzed concurrently across rule-based and neural pathways. The core novelty lies in the dynamic decision fusion layer orchestrated by cognitive Large Language Model (LLM) agents. Agent 1 evaluates dynamic trust scores to generate auditable natural language explainable AI (XAI) forensic reports, while Agent 2 intercepts low-confidence zero-day detections to autonomously trigger active transfer-learning self-healing cycles without manual analyst intervention. Evaluated on a held-out test set of \TestCount{} real PE-malware graph instances -- from a stratified 70/10/20 train/validation/test split in which the validation split, not the test split, drives early stopping and checkpoint selection -- the MalwareGAT pathway achieves \MulticlassAcc{} accuracy and a \MulticlassF1{} macro F1-score across 11 real-world malware families, and \BinaryAcc{} accuracy, \BinaryPrec{} precision, and \BinaryRec{} recall on the underlying binary benign/malicious detection task. An ablation study confirms that the Decision Fusion Layer safely defers to the structural pathway on this dataset's native tabular modality -- its measured value here lies in arbitration and safety on pathway disagreement rather than a numeric accuracy lift -- while the PAC-X heuristic pathway's interpretability advantage is realized on raw API-log/text telemetry, its intended input modality.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -329,9 +371,9 @@ If confidence falls below $0.60$, Agent 2 initiates an active transfer-learning 
 \section{Results and Discussion}
 
 \subsection{Dataset and Experimental Setup}
-The framework was evaluated on a project-derived PE malware dataset of 5,138 graph instances across 11 classes: Benign and 10 named malware families from public threat-intelligence feeds (Gandcrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, GameHack). Four feature groups feed the graph: (1) PE Header structures ($v_0$), (2) section-entropy and structural summary statistics ($v_1$), (3) pre-computed continuous embeddings of each sample's import/export lists ($v_2$), and (4) embeddings of network/string artifacts ($v_3$) -- Section III-B.2 details why all four are real numeric feature blocks, not hashed string tokens. Each node is a 260-dimensional feature vector.
+The framework was evaluated on a project-derived PE malware dataset of \DatasetTotal{} graph instances across 11 classes: Benign and 10 named malware families from public threat-intelligence feeds (Gandcrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, GameHack). Four feature groups feed the graph: (1) PE Header structures ($v_0$), (2) section-entropy and structural summary statistics ($v_1$), (3) pre-computed continuous embeddings of each sample's import/export lists ($v_2$), and (4) embeddings of network/string artifacts ($v_3$) -- Section III-B.2 details why all four are real numeric feature blocks, not hashed string tokens. Each node is a 260-dimensional feature vector.
 
-The dataset was partitioned using a 70/10/20 stratified train/validation/test split (seeded per-class for reproducibility): 3,596 training, 513 validation, and 1,029 held-out test samples. The validation split -- not the test split -- drives early stopping and best-checkpoint selection, so the test split is touched exactly once, after model selection is complete, avoiding the optimistic bias of selecting a checkpoint on the same set its final number is reported against.
+The dataset was partitioned using a 70/10/20 stratified train/validation/test split (seeded per-class for reproducibility): \TrainCount{} training, \ValCount{} validation, and \TestCount{} held-out test samples. The validation split -- not the test split -- drives early stopping and best-checkpoint selection, so the test split is touched exactly once, after model selection is complete, avoiding the optimistic bias of selecting a checkpoint on the same set its final number is reported against.
 
 The system was implemented in PyTorch and PyTorch Geometric (architecture detailed in Section III-C). Optimization uses AdamW with a learning rate of $0.001$ and a weight decay of $1\times 10^{-4}$.
 
@@ -343,7 +385,7 @@ Standard metrics are used throughout: Accuracy $= \frac{TP+TN}{TP+TN+FP+FN}$, Pr
 where $N_c = 11$ and $\text{Prec}_c, \text{Rec}_c$ are class-specific metrics.
 
 \subsection{Comparison with Baseline Methods}
-Agentic-PACX is compared against five baseline methodologies from recent literature: (1) PAC-X (CAN-Net) \cite{b19}, (2) GA CNN-SENet \cite{b13}, (3) CNN-DNN Hybrid \cite{b17}, (4) API2Vec++ \cite{b15}, and (5) API-MalDetect \cite{b18}. Baseline figures are each paper's own best reported result on its own dataset (Table~\ref{tab:comparison} notes), not a controlled re-evaluation on a shared test set. The Agentic-PACX row reports binary detection on the 1,029-sample held-out test set; multiclass family attribution is in Section IV-E.
+Agentic-PACX is compared against five baseline methodologies from recent literature: (1) PAC-X (CAN-Net) \cite{b19}, (2) GA CNN-SENet \cite{b13}, (3) CNN-DNN Hybrid \cite{b17}, (4) API2Vec++ \cite{b15}, and (5) API-MalDetect \cite{b18}. Baseline figures are each paper's own best reported result on its own dataset (Table~\ref{tab:comparison} notes), not a controlled re-evaluation on a shared test set. The Agentic-PACX row reports binary detection on the \TestCount{}-sample held-out test set; multiclass family attribution is in Section IV-E.
 
 \begin{table}[htbp]
 \caption{Performance and Explainability Comparison}
@@ -364,7 +406,7 @@ API2Vec++ \cite{b15}\textsuperscript{d} & 98.4\% & 95.9\% & 97.3\% & Path-level 
 \hline
 API-MalDetect \cite{b18}\textsuperscript{e} & 90.4\% & 98.5\% & 98.8\% & Local LIME Weights \\
 \hline
-\textbf{Agentic-PACX} & \textbf{99.56\%} & \textbf{99.78\%} & \textbf{99.71\%} & \textbf{LLM Agent XAI + Retrain} \\
+\textbf{Agentic-PACX} & \textbf{\BinaryPrec} & \textbf{\BinaryRec} & \textbf{\BinaryAcc} & \textbf{LLM Agent XAI + Retrain} \\
 \hline
 \end{tabular}%
 }
@@ -373,9 +415,9 @@ API-MalDetect \cite{b18}\textsuperscript{e} & 90.4\% & 98.5\% & 98.8\% & Local L
 \textsuperscript{a}PE-malware result, Table IV of \cite{b19}. \textsuperscript{b}``Total'' row across classes. \textsuperscript{c}Android/APK domain; recall/accuracy are \cite{b17}'s Table II, $K{=}7$ row (its matched pair); Table II omits Precision (N/R). \textsuperscript{d}Classification-task result. \textsuperscript{e}Testset1, $n=100$, malware-class figures.
 \end{table}
 
-Agentic-PACX achieves 99.71\% binary detection accuracy using a lightweight 4-node PyG graph at inference, without API2Vec++'s per-sample random-walk path generation or API-MalDetect's LIME post-hoc approximation step, placing it second only to PAC-X's own 99.83\% PE-malware figure (measured on a different dataset/protocol). Table~\ref{tab:comparison} shows Agentic-PACX is competitive with, and on this dataset exceeds most of, prior work on raw detection accuracy, while its differentiating contribution remains the combination of lightweight inference, autonomous LLM forensic reasoning, and real-time self-healing retraining that non-agentic baselines lack.
+Agentic-PACX achieves \BinaryAcc{} binary detection accuracy using a lightweight 4-node PyG graph at inference, without API2Vec++'s per-sample random-walk path generation or API-MalDetect's LIME post-hoc approximation step, placing it second only to PAC-X's own 99.83\% PE-malware figure (measured on a different dataset/protocol). Table~\ref{tab:comparison} shows Agentic-PACX is competitive with, and on this dataset exceeds most of, prior work on raw detection accuracy, while its differentiating contribution remains the combination of lightweight inference, autonomous LLM forensic reasoning, and real-time self-healing retraining that non-agentic baselines lack.
 
-To honestly evaluate the Decision Fusion Layer's contribution rather than assume it, we ran an ablation isolating each pathway on the same held-out set: GNN-only reaches 99.32\% accuracy (98.47\% prec., 100.0\% recall), while PAC-X evaluated on this dataset's PE-header CSV serialization -- its weaker modality, since no raw text/API-log input exists here -- collapses to predicting the majority (Benign) class on all 1,029 samples, 56.27\% accuracy with 0\% precision/recall on the malicious class. The fused output matches GNN-only exactly, element-for-element: on disagreement the layer arbitrates by trust score (Eq.~\ref{eq:fusion}), and PAC-X's evidence score collapses to near-zero when guessing Benign on unfamiliar tabular input, so the GNN wins essentially every disagreement. This is an honest, not a null, result -- the fusion layer's contribution here is safe arbitration, not a numeric accuracy lift; PAC-X's designed value is expected to materialize on its intended raw API-log/text modality instead. (The 99.32\% GNN-only figure reflects the deployed live-inference pathway, which blends the raw softmax with a class-centroid similarity and evidence term; the plain-argmax figure in Table~\ref{tab:comparison}, 99.71\%, is marginally higher.)
+To honestly evaluate the Decision Fusion Layer's contribution rather than assume it, we ran an ablation isolating each pathway on the same held-out set: GNN-only reaches \AblGnnAcc{} accuracy (\AblGnnPrec{} prec., \AblGnnRec{} recall), while PAC-X evaluated on this dataset's PE-header CSV serialization -- its weaker modality, since no raw text/API-log input exists here -- collapses to predicting the majority (Benign) class on all \TestCount{} samples, \AblPacxAcc{} accuracy with 0\% precision/recall on the malicious class. The fused output matches GNN-only exactly, element-for-element: on disagreement the layer arbitrates by trust score (Eq.~\ref{eq:fusion}), and PAC-X's evidence score collapses to near-zero when guessing Benign on unfamiliar tabular input, so the GNN wins essentially every disagreement. This is an honest, not a null, result -- the fusion layer's contribution here is safe arbitration, not a numeric accuracy lift; PAC-X's designed value is expected to materialize on its intended raw API-log/text modality instead. (The \AblGnnAcc{} GNN-only figure reflects the deployed live-inference pathway, which blends the raw softmax with a class-centroid similarity and evidence term; the plain-argmax figure in Table~\ref{tab:comparison}, \BinaryAcc{}, is marginally higher.)
 
 \subsection{Explainability and Zero-Day Adaptation}
 A major advantage of MalwareGAT is its ability to expose learned attention weights $\alpha_{ij}$ associated with graph edges, indicating relative importance during message passing. Agent 1 ingests these topological weights to generate natural language forensic explanations, such as the following representative example:
@@ -384,10 +426,10 @@ A major advantage of MalwareGAT is its ability to expose learned attention weigh
 \textit{``Agent 1 Forensic Rationale: Critical structural anomaly detected between Node 0 (PE Header) and Node 2 (API Export) with an attention weight of 0.89. Indicates obfuscated CreateRemoteThread injection into dynamic cloud endpoints.''}
 \end{quote}
 
-By routing low-confidence observations ($C_{\text{final}} < 0.60$) through the retraining pathway, Agent 2 executes a 10-epoch transfer-learning loop to update neural weights (Algorithm~\ref{alg:agent2}), bounded by two guardrails: a minimum retrain-pool size of 20 samples across at least 2 classes, and a post-fine-tune check that discards the update if held-out accuracy regresses by more than 3 points. These guardrails were added after a controlled reproduction of exactly this failure mode: an unguarded retrain on a deliberately tiny, single-class pool (2 benign samples) regressed held-out accuracy from 99.61\% to 98.64\% even with best-epoch checkpoint selection, and as low as 80.08\% mid-run -- direct evidence of the catastrophic forgetting these guardrails prevent.
+By routing low-confidence observations ($C_{\text{final}} < 0.60$) through the retraining pathway, Agent 2 executes a 10-epoch transfer-learning loop to update neural weights (Algorithm~\ref{alg:agent2}), bounded by two guardrails: a minimum retrain-pool size of 20 samples across at least 2 classes, and a post-fine-tune check that discards the update if held-out accuracy regresses by more than 3 points. These guardrails were added after a controlled reproduction of exactly this failure mode: an unguarded retrain on a deliberately tiny, single-class pool (2 benign samples) regressed held-out accuracy from \RetrainPreAcc{} to \RetrainPostAcc{} even with best-epoch checkpoint selection, and as low as \RetrainMidAcc{} mid-run -- direct evidence of the catastrophic forgetting these guardrails prevent.
 
 \subsection{Multi-Class Threat Family Evaluation}
-To evaluate fine-grained threat discrimination beyond binary classification, the MalwareGAT neural stack was evaluated across the 11 real classes present in the dataset (Benign, Gandcrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, and GameHack), achieving 99.61\% overall accuracy and a 99.17\% macro F1-score (98.49\% macro precision, 99.89\% macro recall) on the 1,029-sample held-out test set. Precision was consistently high across every family: 100\% on seven of eleven (Delf, Domaiq, DLHelper, DriverPack, Emotet, Gamarue, Gandcrab -- the last at 99.14\% recall), and 99.83\% on Benign. The lowest precision was on GameHack (91.67\%, 11 samples) and DarkKomet (95.45\%, 21 samples) -- both among the smallest-support families, consistent with the natural difficulty of estimating precision from few held-out examples rather than a systematic weakness. Fig.~\ref{fig:perfamily} shows per-family precision, mirroring the live per-family metrics chart in the deployed system.
+To evaluate fine-grained threat discrimination beyond binary classification, the MalwareGAT neural stack was evaluated across the 11 real classes present in the dataset (Benign, Gandcrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, and GameHack), achieving \MulticlassAcc{} overall accuracy and a \MulticlassF1{} macro F1-score (\MulticlassMacroP{} macro precision, \MulticlassMacroR{} macro recall) on the \TestCount{}-sample held-out test set. Precision was consistently high across every family: 100\% on seven of eleven (Delf, Domaiq, DLHelper, DriverPack, Emotet, Gamarue, Gandcrab -- the last at \GandcrabRec{} recall), and \BenignPrec{} on Benign. The lowest precision was on GameHack (\GameHackPrec{}, \GameHackN{} samples) and DarkKomet (\DarkKometPrec{}, \DarkKometN{} samples) -- both among the smallest-support families, consistent with the natural difficulty of estimating precision from few held-out examples rather than a systematic weakness. Fig.~\ref{fig:perfamily} shows per-family precision, mirroring the live per-family metrics chart in the deployed system.
 
 \begin{figure}[htbp]
 \centering
@@ -408,12 +450,12 @@ To evaluate fine-grained threat discrimination beyond binary classification, the
     \draw[->, thick] (0,0) -- (0,3.8) node[above] {Precision};
     \draw[->, thick] (0,0) -- (11.3,0);
 \end{tikzpicture}
-\caption{Per-family precision on the 1,029-sample held-out test set.}
+\caption{Per-family precision on the \TestCount{}-sample held-out test set.}
 \label{fig:perfamily}
 \end{figure}
 
 \section{Conclusion and Future Work}
-We presented Agentic-PACX, a hybrid threat intelligence framework combining a rule-based Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT), fused under trust-based arbitration and governed by dual cognitive LLM agents. Across 5,138 graph instances spanning 11 real-world malware families (1,029 held-out samples, from a 70/10/20 train/validation/test split where validation alone drives model selection), Agentic-PACX achieved 99.71\% accuracy, 99.56\% precision, and 99.78\% recall on binary threat detection, and 99.61\% accuracy with a 99.17\% macro F1-score on family attribution. An ablation study showed the Decision Fusion Layer safely defers to the structural pathway on this dataset's native tabular modality -- contributing arbitration and safety rather than an accuracy lift -- while the heuristic pathway's designed advantage is expected to materialize on its native raw API-log/text modality.
+We presented Agentic-PACX, a hybrid threat intelligence framework combining a rule-based Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT), fused under trust-based arbitration and governed by dual cognitive LLM agents. Across \DatasetTotal{} graph instances spanning 11 real-world malware families (\TestCount{} held-out samples, from a 70/10/20 train/validation/test split where validation alone drives model selection), Agentic-PACX achieved \BinaryAcc{} accuracy, \BinaryPrec{} precision, and \BinaryRec{} recall on binary threat detection, and \MulticlassAcc{} accuracy with a \MulticlassF1{} macro F1-score on family attribution. An ablation study showed the Decision Fusion Layer safely defers to the structural pathway on this dataset's native tabular modality -- contributing arbitration and safety rather than an accuracy lift -- while the heuristic pathway's designed advantage is expected to materialize on its native raw API-log/text modality.
 
 Agent 1 bridges the black-box gap by translating edge attention weights into auditable XAI forensic reports; Agent 2 establishes an autonomous self-healing loop, guarded by pool-size, class-diversity, and accuracy-regression checks that a controlled reproduction confirmed prevent exactly the kind of poorly-formed retrain batch that would otherwise silently degrade a converged model. Future work will deploy Agentic-PACX on production cloud API gateways to measure real-time latency, validate the PAC-X pathway on its native raw-text modality, and expand federated threat-intelligence sharing across multi-cloud edge environments.
 
