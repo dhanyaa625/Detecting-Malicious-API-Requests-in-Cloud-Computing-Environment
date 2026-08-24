@@ -1,74 +1,158 @@
-import torch
-import pandas as pd
+import json
+import os
+import random
+from typing import Dict, List, Tuple
+
 import numpy as np
-from typing import List
-from torch_geometric.data import Data, DataLoader
-from sklearn.preprocessing import LabelEncoder
+import torch
+from torch_geometric.data import Data
+
 
 class DatasetManager:
-    """Professional manager for Graph Dataset preparation and auditing."""
-    
-    def __init__(self, raw_graph_path="data/pyg_dataset.pt", 
-                 output_path="data/pyg_dataset_norm.pt", 
-                 csv_path="data/cleaned_data.csv"):
+    """
+    Professional manager for graph dataset splitting and normalization.
+
+    Pipeline order matters: the stratified train/val/test split is computed
+    *before* normalization, and normalization statistics are derived from the
+    train split only. Computing stats over the whole dataset (as the previous
+    version of this file did) leaks test-set information into every feature's
+    mean/std -- mild but real train/test leakage, separate from (and in
+    addition to) not having a validation split at all.
+    """
+
+    def __init__(self, raw_graph_path="data/pyg_dataset.pt",
+                 output_path="data/pyg_dataset_norm.pt",
+                 stats_path="data/norm_stats.pt",
+                 index_dir="data"):
         self.raw_graph_path = raw_graph_path
         self.output_path = output_path
-        self.csv_path = csv_path
+        self.stats_path = stats_path
+        self.index_dir = index_dir
 
-    def process_complete_pipeline(self):
-        """Runs injection, normalization, and split in one professional flow."""
-        print("--- Initiating Professional Data Pipeline ---")
-        try:
-            graphs = self.inject_labels()
-            normalized_graphs = self.normalize(graphs)
-            self.save(normalized_graphs)
-            return {"success": True, "message": "Pipeline completed successfully."}
-        except Exception as e:
-            return {"success": False, "message": str(e)}
-
-    def inject_labels(self) -> List[Data]:
-        """Synchronizes CSV labels with the Graph structures."""
-        print("[*] Loading CSV and Graph data for synchronization...")
-        df = pd.read_csv(self.csv_path, low_memory=False)
-        graphs = torch.load(self.raw_graph_path, weights_only=False)
-        
-        if len(graphs) != len(df):
-            raise ValueError(f"Mismatch: {len(graphs)} graphs vs {len(df)} CSV rows.")
-            
-        le = LabelEncoder()
-        df['encoded_label'] = le.fit_transform(df['label'])
-        
-        for i in range(len(graphs)):
-            lbl = df.iloc[i]['encoded_label']
-            graphs[i].y = torch.tensor([lbl], dtype=torch.long)
-            
-        print(f"[✓] Injected {len(graphs)} labels.")
-        return graphs
-
-    def normalize(self, dataset: List[Data]) -> List[Data]:
-        """Standardizes features per node type to Mean=0, Std=1."""
-        print("[*] Normalizing topological features...")
-        dim_features = dataset[0].x.shape[1] - 4 # Assuming last 4 are node-type one-hots
-        
-        # Standardize per node type
-        for node_idx in range(4):
-            node_feats = torch.stack([g.x[node_idx, :dim_features] for g in dataset])
-            mean = node_feats.mean(dim=0, keepdim=True)
-            std = node_feats.std(dim=0, keepdim=True)
-            std[std == 0] = 1.0 # Avoid div-by-zero
-            
-            norm_feats = (node_feats - mean) / std
-            
-            for i in range(len(dataset)):
-                dataset[i].x[node_idx, :dim_features] = norm_feats[i]
-                
-        print("[✓] Normalization complete.")
+    def load_raw(self) -> List[Data]:
+        print(f"[*] Loading raw graphs from {self.raw_graph_path} ...")
+        dataset = torch.load(self.raw_graph_path, weights_only=False)
+        missing_labels = sum(1 for g in dataset if g.y is None)
+        if missing_labels:
+            raise ValueError(
+                f"{missing_labels} graphs have no label -- build the dataset "
+                f"with scripts/build_graph_dataset.py, which labels every graph "
+                f"at construction time."
+            )
         return dataset
 
-    def save(self, dataset: List[Data]):
+    def split(self, dataset: List[Data], ratios: Tuple[float, float, float] = (0.7, 0.1, 0.2),
+              seed: int = 42) -> Dict[str, np.ndarray]:
+        """
+        Per-class stratified split into train/val/test. A class with only one
+        sample goes entirely to train (with a warning) rather than being
+        silently duplicated into both train and test, which is what the
+        previous 2-way split in agentic_pacx/gnn_classification.py did.
+        """
+        train_ratio, val_ratio, _test_ratio = ratios
+        assert abs(sum(ratios) - 1.0) < 1e-6, "ratios must sum to 1.0"
+
+        grouped: Dict[int, List[int]] = {}
+        for idx, sample in enumerate(dataset):
+            label = int(sample.y.item())
+            grouped.setdefault(label, []).append(idx)
+
+        rng = random.Random(seed)
+        train_idx, val_idx, test_idx = [], [], []
+        for label, indices in grouped.items():
+            indices = list(indices)
+            rng.shuffle(indices)
+            n = len(indices)
+
+            if n < 3:
+                print(
+                    f"[!] Class {label} has only {n} sample(s) -- too few to "
+                    f"split across train/val/test; assigning entirely to train."
+                )
+                train_idx.extend(indices)
+                continue
+
+            n_train = max(1, round(n * train_ratio))
+            n_val = max(1, round(n * val_ratio))
+            # Keep at least 1 sample in test; clamp so we never overrun n.
+            n_train = min(n_train, n - 2)
+            n_val = min(n_val, n - n_train - 1)
+
+            train_idx.extend(indices[:n_train])
+            val_idx.extend(indices[n_train:n_train + n_val])
+            test_idx.extend(indices[n_train + n_val:])
+
+        rng.shuffle(train_idx)
+        rng.shuffle(val_idx)
+        rng.shuffle(test_idx)
+
+        train_arr = np.array(train_idx, dtype=np.int64)
+        val_arr = np.array(val_idx, dtype=np.int64)
+        test_arr = np.array(test_idx, dtype=np.int64)
+
+        assert len(set(train_arr.tolist()) & set(val_arr.tolist())) == 0
+        assert len(set(train_arr.tolist()) & set(test_arr.tolist())) == 0
+        assert len(set(val_arr.tolist()) & set(test_arr.tolist())) == 0
+
+        print(
+            f"[+] Split: {len(train_arr)} train / {len(val_arr)} val / "
+            f"{len(test_arr)} test (of {len(dataset)} total)."
+        )
+        return {"train": train_arr, "val": val_arr, "test": test_arr}
+
+    def normalize(self, dataset: List[Data], train_indices: np.ndarray) -> Tuple[List[Data], dict]:
+        """
+        Standardizes each node type's features to train-set mean=0, std=1.
+        Stats are computed from train_indices only, then applied to every
+        sample (train/val/test alike) -- this is what makes the val/test
+        numbers an honest estimate of generalization instead of leaking
+        their own distribution into the normalization.
+        """
+        print("[*] Normalizing topological features (train-set statistics only) ...")
+        dim_features = dataset[0].x.shape[1] - 4  # last 4 cols are the node-type one-hot
+
+        stats = {}
+        train_set = set(int(i) for i in train_indices)
+        train_mask = [i in train_set for i in range(len(dataset))]
+
+        for node_idx in range(4):
+            all_feats = torch.stack([g.x[node_idx, :dim_features] for g in dataset])
+            train_feats = all_feats[train_mask]
+
+            mean = train_feats.mean(dim=0, keepdim=True)
+            std = train_feats.std(dim=0, keepdim=True)
+            std[std == 0] = 1.0
+
+            stats[node_idx] = {"mean": mean, "std": std}
+            norm_feats = (all_feats - mean) / std
+            for i in range(len(dataset)):
+                dataset[i].x[node_idx, :dim_features] = norm_feats[i]
+
+        print("[+] Normalization complete.")
+        return dataset, stats
+
+    def save(self, dataset: List[Data], splits: Dict[str, np.ndarray], stats: dict):
         torch.save(dataset, self.output_path)
-        print(f"[✓] Professional dataset saved to {self.output_path}")
+        print(f"[+] Normalized dataset saved to {self.output_path}")
+
+        for name, indices in splits.items():
+            path = os.path.join(self.index_dir, f"{name}_indices.npy")
+            np.save(path, indices)
+            print(f"[+] {name} indices ({len(indices)}) saved to {path}")
+
+        torch.save(stats, self.stats_path)
+        print(f"[+] Normalization stats saved to {self.stats_path}")
+
+    def process_complete_pipeline(self, ratios=(0.7, 0.1, 0.2), seed=42):
+        print("--- Initiating Data Pipeline: split -> normalize -> save ---")
+        dataset = self.load_raw()
+        splits = self.split(dataset, ratios=ratios, seed=seed)
+        dataset, stats = self.normalize(dataset, splits["train"])
+        self.save(dataset, splits, stats)
+        return {"success": True, "message": "Pipeline completed successfully.", "splits": {k: len(v) for k, v in splits.items()}}
+
 
 if __name__ == "__main__":
     manager = DatasetManager()
-    manager.process_complete_pipeline()
+    result = manager.process_complete_pipeline()
+    print(json.dumps(result, indent=2))
