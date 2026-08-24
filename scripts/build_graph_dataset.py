@@ -46,88 +46,19 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from core.graph_constructor import (
     D_FEATURE, EDGE_INDEX, NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK,
-    get_one_hot_type, pad_numeric_features,
+    NATIVE_PE_HEADER_COLS, NATIVE_ENTROPY_COLS,
+    get_one_hot_type, native_row_to_node_vectors,
 )
 from torch_geometric.data import Data
 
-FEATURE_SLOTS = 16
-
-PE_HEADER_COLS = [
-    "f_Machine_0", "f_SizeOfOptionalHeader_0", "f_Characteristics_0",
-    "f_MajorLinkerVersion_0", "f_MinorLinkerVersion_0", "f_SizeOfCode_0",
-    "f_SizeOfInitializedData_0", "f_SizeOfUninitializedData_0",
-    "f_AddressOfEntryPoint_0", "f_BaseOfCode_0", "f_BaseOfData_0",
-    "f_ImageBase_0", "f_SectionAlignment_0", "f_FileAlignment_0",
-    "f_MajorOperatingSystemVersion_0", "f_MinorOperatingSystemVersion_0",
-    "f_MajorImageVersion_0", "f_MinorImageVersion_0",
-    "f_MajorSubsystemVersion_0", "f_MinorSubsystemVersion_0",
-    "f_SizeOfImage_0", "f_SizeOfHeaders_0", "f_CheckSum_0",
-    "f_Subsystem_0", "f_DllCharacteristics_0",
-    "f_SizeOfStackReserve_0", "f_SizeOfStackCommit_0",
-    "f_SizeOfHeapReserve_0", "f_SizeOfHeapCommit_0",
-    "f_LoaderFlags_0", "f_NumberOfRvaAndSizes_0",
-]
-
-ENTROPY_COLS = [
-    "f_SectionsNb_0", "f_SectionsMeanEntropy_0", "f_SectionsMinEntropy_0",
-    "f_SectionsMaxEntropy_0", "f_SectionsMeanRawsize_0", "f_SectionsMinRawsize_0",
-    "f_SectionsMaxRawsize_0", "f_SectionsMeanVirtualsize_0", "f_SectionsMinVirtualsize_0",
-    "f_SectionMaxVirtualsize_0",
-    # Structural summary scalars the old pipeline computed but never fed to any node.
-    "f_ImportsNbDLL_0", "f_ImportsNb_0", "f_ImportsNbOrdinal_0", "f_ExportNb_0",
-    "f_ResourcesNb_0", "f_ResourcesMeanEntropy_0", "f_ResourcesMinEntropy_0",
-    "f_ResourcesMaxEntropy_0", "f_ResourcesMeanSize_0", "f_ResourcesMinSize_0",
-    "f_ResourcesMaxSize_0", "f_LoadConfigurationSize_0", "f_VersionInformationSize_0",
-]
-
-IMPORT_CATS = ["open", "close", "create", "resume", "kill", "call", "delete", "other"]
-EXPORT_CATS = ["open", "close", "create", "resume", "kill", "call", "delete", "other"]
-
-STRING_GROUPS = {
-    "URL": "f_URLs", "DIR": "f_DIRs", "Email": "f_emails", "InvEmail": "f_inValEmails",
-    "LongWord": "f_longWord", "Keyword": "f_specialKeyword", "IP": "f_ipaddresses",
-    "Sentence": "f_sentences", "Filename": "f_fileName", "Garbage": "f_garbage",
-}
-
-
-def _safe_float(row, col):
-    val = row.get(col, 0.0)
-    try:
-        val = float(val)
-    except (TypeError, ValueError):
-        return 0.0
-    return 0.0 if pd.isna(val) else val
-
 
 def create_sample_graph(row: pd.Series, label: int = None) -> Data:
-    header_vals = [_safe_float(row, c) for c in PE_HEADER_COLS]
-    header_vec = pad_numeric_features(header_vals, D_FEATURE)
-    header_final = np.concatenate([header_vec, get_one_hot_type(NODE_HEADER)])
-
-    entropy_vals = [_safe_float(row, c) for c in ENTROPY_COLS]
-    entropy_vec = pad_numeric_features(entropy_vals, D_FEATURE)
-    entropy_final = np.concatenate([entropy_vec, get_one_hot_type(NODE_ENTROPY)])
-
-    api_vals = []
-    for cat in IMPORT_CATS:
-        for i in range(FEATURE_SLOTS):
-            api_vals.append(_safe_float(row, f"f_ImportsList_{cat}_{i}"))
-    for cat in EXPORT_CATS:
-        for i in range(FEATURE_SLOTS):
-            api_vals.append(_safe_float(row, f"f_ExportsList_{cat}_{i}"))
-    api_vec = pad_numeric_features(api_vals, D_FEATURE)
-    api_final = np.concatenate([api_vec, get_one_hot_type(NODE_API)])
-
-    net_vals = []
-    for prefix in STRING_GROUPS.values():
-        for i in range(FEATURE_SLOTS):
-            net_vals.append(_safe_float(row, f"{prefix}_{i}"))
-    net_vec = pad_numeric_features(net_vals, D_FEATURE)
-    net_final = np.concatenate([net_vec, get_one_hot_type(NODE_NETWORK)])
-
-    X = torch.tensor(
-        np.stack([header_final, entropy_final, api_final, net_final]), dtype=torch.float
-    )
+    vectors = native_row_to_node_vectors(row.get, D_FEATURE)
+    final = [
+        np.concatenate([vectors[node_idx], get_one_hot_type(node_idx)])
+        for node_idx in (NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK)
+    ]
+    X = torch.tensor(np.stack(final), dtype=torch.float)
     y = torch.tensor([label], dtype=torch.long) if label is not None else None
     return Data(x=X, edge_index=EDGE_INDEX, y=y)
 
@@ -148,7 +79,7 @@ def main():
     label_to_idx = {name: idx for idx, name in enumerate(class_names)}
     print(f"[+] {len(class_names)} classes (sorted): {class_names}")
 
-    missing = [c for c in PE_HEADER_COLS + ENTROPY_COLS if c not in df.columns]
+    missing = [c for c in NATIVE_PE_HEADER_COLS + NATIVE_ENTROPY_COLS if c not in df.columns]
     if missing:
         raise ValueError(f"Missing expected numeric columns: {missing}")
 

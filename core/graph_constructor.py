@@ -60,6 +60,106 @@ def pad_numeric_features(vals: list, dim: int = D_FEATURE) -> np.ndarray:
         vec = (vec - np.mean(vec)) / std
     return vec
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NATIVE DATASET SCHEMA (data/cleaned_data.csv column groups)
+# ─────────────────────────────────────────────────────────────────────────────
+# Shared by scripts/build_graph_dataset.py (offline training-set construction)
+# and core/input_adapter.py (live inference). Kept in one place so a CSV
+# upload of one of this dataset's own rows gets reconstructed into the exact
+# same features the model was trained on, instead of falling through to the
+# generic text-heuristic path meant for unstructured logs.
+
+NATIVE_FEATURE_SLOTS = 16
+
+NATIVE_PE_HEADER_COLS = [
+    "f_Machine_0", "f_SizeOfOptionalHeader_0", "f_Characteristics_0",
+    "f_MajorLinkerVersion_0", "f_MinorLinkerVersion_0", "f_SizeOfCode_0",
+    "f_SizeOfInitializedData_0", "f_SizeOfUninitializedData_0",
+    "f_AddressOfEntryPoint_0", "f_BaseOfCode_0", "f_BaseOfData_0",
+    "f_ImageBase_0", "f_SectionAlignment_0", "f_FileAlignment_0",
+    "f_MajorOperatingSystemVersion_0", "f_MinorOperatingSystemVersion_0",
+    "f_MajorImageVersion_0", "f_MinorImageVersion_0",
+    "f_MajorSubsystemVersion_0", "f_MinorSubsystemVersion_0",
+    "f_SizeOfImage_0", "f_SizeOfHeaders_0", "f_CheckSum_0",
+    "f_Subsystem_0", "f_DllCharacteristics_0",
+    "f_SizeOfStackReserve_0", "f_SizeOfStackCommit_0",
+    "f_SizeOfHeapReserve_0", "f_SizeOfHeapCommit_0",
+    "f_LoaderFlags_0", "f_NumberOfRvaAndSizes_0",
+]
+
+NATIVE_ENTROPY_COLS = [
+    "f_SectionsNb_0", "f_SectionsMeanEntropy_0", "f_SectionsMinEntropy_0",
+    "f_SectionsMaxEntropy_0", "f_SectionsMeanRawsize_0", "f_SectionsMinRawsize_0",
+    "f_SectionsMaxRawsize_0", "f_SectionsMeanVirtualsize_0", "f_SectionsMinVirtualsize_0",
+    "f_SectionMaxVirtualsize_0",
+    "f_ImportsNbDLL_0", "f_ImportsNb_0", "f_ImportsNbOrdinal_0", "f_ExportNb_0",
+    "f_ResourcesNb_0", "f_ResourcesMeanEntropy_0", "f_ResourcesMinEntropy_0",
+    "f_ResourcesMaxEntropy_0", "f_ResourcesMeanSize_0", "f_ResourcesMinSize_0",
+    "f_ResourcesMaxSize_0", "f_LoadConfigurationSize_0", "f_VersionInformationSize_0",
+]
+
+NATIVE_IMPORT_CATS = ["open", "close", "create", "resume", "kill", "call", "delete", "other"]
+NATIVE_EXPORT_CATS = ["open", "close", "create", "resume", "kill", "call", "delete", "other"]
+
+NATIVE_STRING_GROUPS = {
+    "URL": "f_URLs", "DIR": "f_DIRs", "Email": "f_emails", "InvEmail": "f_inValEmails",
+    "LongWord": "f_longWord", "Keyword": "f_specialKeyword", "IP": "f_ipaddresses",
+    "Sentence": "f_sentences", "Filename": "f_fileName", "Garbage": "f_garbage",
+}
+
+NATIVE_API_COLS = [
+    f"f_ImportsList_{cat}_{i}" for cat in NATIVE_IMPORT_CATS for i in range(NATIVE_FEATURE_SLOTS)
+] + [
+    f"f_ExportsList_{cat}_{i}" for cat in NATIVE_EXPORT_CATS for i in range(NATIVE_FEATURE_SLOTS)
+]
+
+NATIVE_NETWORK_COLS = [
+    f"{prefix}_{i}" for prefix in NATIVE_STRING_GROUPS.values() for i in range(NATIVE_FEATURE_SLOTS)
+]
+
+NATIVE_SCHEMA_COLUMNS = set(NATIVE_PE_HEADER_COLS) | set(NATIVE_ENTROPY_COLS) | set(NATIVE_API_COLS) | set(NATIVE_NETWORK_COLS)
+
+
+def is_native_schema(columns) -> bool:
+    """True if `columns` looks like this dataset's own native CSV schema
+    (data/cleaned_data.csv), not an arbitrary user log. Requires most of the
+    PE header columns to be present -- those are the smallest, most specific
+    group, so a coincidental partial match on API/network columns alone
+    (which are only generic "_0".."_15" suffixes) can't trigger a false
+    positive.
+    """
+    cols = set(columns)
+    return len(set(NATIVE_PE_HEADER_COLS) & cols) >= len(NATIVE_PE_HEADER_COLS) - 2
+
+
+def _safe_float(row_get, col):
+    try:
+        val = float(row_get(col, 0.0) or 0.0)
+    except (TypeError, ValueError):
+        return 0.0
+    return 0.0 if val != val else val  # NaN check without importing pandas/numpy isnan
+
+
+def native_row_to_node_vectors(row_get, dim: int = D_FEATURE) -> dict:
+    """
+    Reconstructs the exact 4 raw (pre-one-hot) node feature vectors that
+    scripts/build_graph_dataset.py builds at training time, from a single
+    native-schema row. `row_get` is a `(column_name, default) -> value`
+    callable (a pandas Series' `.get`, or a plain dict's `.get`).
+    """
+    header_vals = [_safe_float(row_get, c) for c in NATIVE_PE_HEADER_COLS]
+    entropy_vals = [_safe_float(row_get, c) for c in NATIVE_ENTROPY_COLS]
+    api_vals = [_safe_float(row_get, c) for c in NATIVE_API_COLS]
+    network_vals = [_safe_float(row_get, c) for c in NATIVE_NETWORK_COLS]
+
+    return {
+        NODE_HEADER: pad_numeric_features(header_vals, dim),
+        NODE_ENTROPY: pad_numeric_features(entropy_vals, dim),
+        NODE_API: pad_numeric_features(api_vals, dim),
+        NODE_NETWORK: pad_numeric_features(network_vals, dim),
+    }
+
 # ─────────────────────────────────────────────────────────────────────────────
 # CORE LOGIC
 # ─────────────────────────────────────────────────────────────────────────────

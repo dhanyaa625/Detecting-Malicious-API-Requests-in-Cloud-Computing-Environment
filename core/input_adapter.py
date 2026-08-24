@@ -8,14 +8,16 @@ from torch_geometric.data import Data
 # Safely import strict constraints from Core
 try:
     from core.graph_constructor import (
-        EDGE_INDEX, get_one_hot_type, hash_feature_vector, 
-        pad_numeric_features, D_FEATURE, NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK, create_sample_graph
+        EDGE_INDEX, get_one_hot_type, hash_feature_vector,
+        pad_numeric_features, D_FEATURE, NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK,
+        is_native_schema, native_row_to_node_vectors,
     )
 except ImportError:
     # Fallback to local import if needed
     from graph_constructor import (
-        EDGE_INDEX, get_one_hot_type, hash_feature_vector, 
-        pad_numeric_features, D_FEATURE, NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK, create_sample_graph
+        EDGE_INDEX, get_one_hot_type, hash_feature_vector,
+        pad_numeric_features, D_FEATURE, NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK,
+        is_native_schema, native_row_to_node_vectors,
     )
 
 # Common real WinAPI names that end in 'a'/'w' but have no A/W ABI-suffixed
@@ -268,14 +270,28 @@ class UniversalInputAdapter:
         elif input_type == "csv":
             try:
                 df = pd.read_csv(io.StringIO(input_data))
-                # Heuristic: Check common security columns
-                cols = df.columns.str.lower()
-                if "api" in cols:
-                    nodes[NODE_API] = hash_feature_vector([self.canonicalize_api(str(x)) for x in df.iloc[:,0].tolist()], D_FEATURE)
-                    nodes_filled += 1
-                if "network" in cols or "ip" in cols:
-                    nodes[NODE_NETWORK] = hash_feature_vector([str(x) for x in df.iloc[:,0].tolist()], D_FEATURE)
-                    nodes_filled += 1
+                if is_native_schema(df.columns) and len(df) > 0:
+                    # This dataset's own native schema (data/cleaned_data.csv) --
+                    # reconstruct the exact same 4 feature vectors used at
+                    # training time instead of falling through to the generic
+                    # api/network column check below (which never matches this
+                    # schema, since its columns are all f_..._N, not literally
+                    # "api"/"network"/"ip") or the raw-text heuristic fallback.
+                    row = df.iloc[0]
+                    vectors = native_row_to_node_vectors(row.get, D_FEATURE)
+                    for node_idx, vec in vectors.items():
+                        nodes[node_idx] = vec.astype(np.float32)
+                    nodes_filled = 4
+                    input_type = "csv_native_schema"
+                else:
+                    # Heuristic: Check common security columns for arbitrary/unknown CSV logs
+                    cols = df.columns.str.lower()
+                    if "api" in cols:
+                        nodes[NODE_API] = hash_feature_vector([self.canonicalize_api(str(x)) for x in df.iloc[:,0].tolist()], D_FEATURE)
+                        nodes_filled += 1
+                    if "network" in cols or "ip" in cols:
+                        nodes[NODE_NETWORK] = hash_feature_vector([str(x) for x in df.iloc[:,0].tolist()], D_FEATURE)
+                        nodes_filled += 1
             except:
                 input_type = "unknown"
 
