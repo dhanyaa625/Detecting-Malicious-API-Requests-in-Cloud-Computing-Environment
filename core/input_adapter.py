@@ -18,27 +18,50 @@ except ImportError:
         pad_numeric_features, D_FEATURE, NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK, create_sample_graph
     )
 
+# Common real WinAPI names that end in 'a'/'w' but have no A/W ABI-suffixed
+# sibling -- stripping the trailing letter would mangle these specifically.
+# Not exhaustive; see the docstring on canonicalize_api().
+_NON_ABI_SUFFIXED_NAMES = {
+    "showwindow", "destroywindow", "updatewindow", "iswindow", "movewindow",
+    "getdesktopwindow", "getforegroundwindow", "setforegroundwindow",
+    "getactivewindow", "closewindow", "flushview", "flushviewoffilebuffer",
+}
+
+
 class UniversalInputAdapter:
-    def __init__(self, raw_dataset_path='data/pyg_dataset.pt'):
+    def __init__(self, raw_dataset_path='data/pyg_dataset.pt', norm_stats_path='data/norm_stats.pt'):
         """
-        Initialized with the raw dataset path to extract original standard-scaler weights.
+        `norm_stats_path` points at the per-node mean/std saved by
+        core/dataset_manager.py, computed from the TRAIN split only. This
+        adapter used to re-derive stats by loading the whole (already
+        normalized) dataset and computing mean/std over it again here --
+        redundant, and it meant "the training stats" and "the stats this
+        adapter uses" could silently drift apart. Loading the one file both
+        sides agree on removes that risk. `raw_dataset_path` is kept only as
+        a fallback for older setups that haven't regenerated norm_stats.pt yet.
         """
         self.raw_dataset_path = raw_dataset_path
+        self.norm_stats_path = norm_stats_path
         self.norm_params = None
 
     def _load_normalization_params(self):
-        """
-        Dynamically extracts the global Mean and Std from the Phase 1 training dataset.
-        This honors the rule: DO NOT recalibrate means, and DO NOT skip normalization!
-        Zero-padded vectors will successfully be scaled linearly with the existing weights.
-        """
         if self.norm_params is not None:
             return self.norm_params
-            
+
+        if os.path.exists(self.norm_stats_path):
+            stats = torch.load(self.norm_stats_path, weights_only=False)
+            self.norm_params = {
+                node_idx: (entry["mean"], entry["std"]) for node_idx, entry in stats.items()
+            }
+            return self.norm_params
+
+        # Fallback: derive stats from the full dataset (pre-dataset_manager.py setups only).
         if not os.path.exists(self.raw_dataset_path):
-            raise FileNotFoundError(f"[!] Normalization baseline {self.raw_dataset_path} missing.")
-            
-        # Extracts without mutating files
+            raise FileNotFoundError(
+                f"[!] Neither {self.norm_stats_path} nor {self.raw_dataset_path} exist. "
+                f"Run `python -m core.dataset_manager` to generate normalization stats."
+            )
+
         dataset = torch.load(self.raw_dataset_path, weights_only=False)
         dim_features = D_FEATURE
 
@@ -46,13 +69,13 @@ class UniversalInputAdapter:
         entropy_feats = torch.stack([g.x[1, :dim_features] for g in dataset])
         api_feats = torch.stack([g.x[2, :dim_features] for g in dataset])
         network_feats = torch.stack([g.x[3, :dim_features] for g in dataset])
-        
+
         def get_params(tensor):
             mean = tensor.mean(dim=0, keepdim=True)
             std = tensor.std(dim=0, keepdim=True)
-            std[std == 0] = 1.0 # Prevent zero division
+            std[std == 0] = 1.0
             return mean, std
-            
+
         self.norm_params = {
             NODE_HEADER: get_params(header_feats),
             NODE_ENTROPY: get_params(entropy_feats),
@@ -63,19 +86,19 @@ class UniversalInputAdapter:
 
     def _apply_normalization(self, node_tensors: list) -> list:
         params = self._load_normalization_params()
-        
+
         normalized_tensors = []
         for i in range(4):
             # Scale only the features, ignore the identifying one-hot ending
             feat_block = node_tensors[i][:D_FEATURE].unsqueeze(0)
             mean, std = params[i]
             scaled = (feat_block - mean) / std
-            
+
             # Repackage the one-hot tail end
             one_hot = node_tensors[i][-4:].unsqueeze(0)
             full_node = torch.cat([scaled, one_hot], dim=1).squeeze(0)
             normalized_tensors.append(full_node)
-            
+
         return normalized_tensors
 
     def canonicalize_api(self, api_string: str) -> str:
@@ -83,24 +106,39 @@ class UniversalInputAdapter:
         MANDATORY ADAPTER OBFUSCATION PREVENTION.
         e.g., kernel32.dll!CreateFileW -> createfile
         e.g., NtCreateFile -> createfile
+
+        Both stripping rules are heuristics and can still misfire on
+        ordinary names (e.g. an all-caps "NTDLL" module string, or a real
+        unsuffixed API that just happens to end in 'a'/'w'); the guards
+        below only narrow the two concrete false-positive cases found
+        during review (`ShowWindow` -> `showwindo`, `ntdll` -> `dll`),
+        they don't eliminate the ambiguity entirely.
         """
-        api = api_string.strip().lower()
-        
+        original = api_string.strip()
+        api = original.lower()
+
         # Strip Library Declarations
         if "!" in api:
+            original = original.split("!")[-1]
             api = api.split("!")[-1]
-            
-        # Strip NT/Zw kernel wrappers
-        if api.startswith("nt") or api.startswith("zw"):
+
+        # Strip Nt/Zw kernel wrappers -- only when the source used real
+        # Hungarian-notation casing (NtXxx/ZwXxx: third character uppercase),
+        # which is how genuine syscall wrappers are written in logs/tools.
+        # A lowercase module name like "ntdll" doesn't match this and is
+        # left alone.
+        if len(original) > 2 and original[:2].lower() in ("nt", "zw") and original[2:3].isupper():
             api = api[2:]
-            
-        # Strip Windows ABI tags ('A', 'W' 'Ex') safely
-        if len(api) > 4 and (api.endswith('a') or api.endswith('w')):
+
+        # Strip Windows ABI tags ('A', 'W', 'Ex') -- skip a small set of
+        # common real API names that end in 'a'/'w' but were never
+        # ABI-suffixed to begin with.
+        if len(api) > 4 and api not in _NON_ABI_SUFFIXED_NAMES and (api.endswith('a') or api.endswith('w')):
             api = api[:-1]
-        
+
         if len(api) > 4 and api.endswith('ex'):
             api = api[:-2]
-            
+
         return api
 
     def _extract_tokens(self, raw_text: str) -> list:
@@ -283,9 +321,15 @@ class UniversalInputAdapter:
         X = torch.stack(normed_nodes)
         
         data = Data(x=X, edge_index=EDGE_INDEX, y=None)
-        
-        # 1 Node out of 4 = 25% data visibility
-        score = nodes_filled / 4.0 
+
+        # C_graph = (1/4) * sum(indicator(||x_i||_2 > 0)) -- recounted directly
+        # from nodes_filled_detail's indicator values, not the `nodes_filled`
+        # counter above. The counter increments once per fill *site* (JSON/CSV
+        # column fill, then again if the independent text-heuristic merge also
+        # touches the same node), so it could count a node twice, or count a
+        # fill that produced an all-zero vector (e.g. an empty JSON "api" list)
+        # as "filled". The indicator recount is exact: 1 node out of 4 = 25%.
+        score = sum(1 for v in nodes_filled_detail.values() if v) / 4.0
         interpretation = "low_due_to_missing_nodes" if score < 1.0 else "high_confidence_structured_input"
         
         return {

@@ -524,6 +524,7 @@ def run_gnn_inference(graph, completeness, signal_summary):
                 "model_certainty": round(model_certainty, 4),
             },
             "evidence_score": round(evidence_score, 4),
+            "model_accuracy": MODEL_OVERALL_ACCURACY,
             "signal_summary": signal_summary,
             "top_classes": top_classes,
             "centroid_top_classes": centroid_top_classes,
@@ -578,6 +579,32 @@ except Exception as e:
 # Configuration
 RESULTS_FILE = "gnn_outputs.json"
 MAX_POOL_SIZE = 500  # cap on data/retrain_pool.pt so it doesn't grow unbounded
+
+
+def load_model_overall_accuracy(default=0.90):
+    """
+    Real overall test-set accuracy of the currently-loaded model, as measured
+    once at training time (agentic_pacx/gnn_classification.py writes it to
+    training_history.json's final_test_metrics). Used as the "Acc" term in
+    Trust_GNN -- a fixed model-quality prior -- which the fusion code
+    previously approximated with that sample's own per-scan confidence
+    (already contributing elsewhere in the same formula), rather than an
+    actual accuracy figure.
+    """
+    try:
+        with open("training_history.json", "r", encoding="utf-8") as handle:
+            data = json.load(handle)
+        acc = data.get("final_test_metrics", {}).get("accuracy")
+        if acc is not None:
+            return float(acc) / 100.0
+    except Exception:
+        pass
+    return default
+
+
+MODEL_OVERALL_ACCURACY = load_model_overall_accuracy()
+print(f"[+] Model overall test accuracy (Trust_GNN 'Acc' term): {MODEL_OVERALL_ACCURACY * 100:.2f}%")
+
 try:
     # Try normalized dataset first, then fall back to standard
     dataset_path = 'data/pyg_dataset_norm.pt' if os.path.exists('data/pyg_dataset_norm.pt') else 'data/pyg_dataset.pt'
@@ -678,7 +705,21 @@ async def analyze_live(
     """
     content = ""
     if file:
-        content = (await file.read()).decode("utf-8")
+        raw_bytes = await file.read()
+        try:
+            content = raw_bytes.decode("utf-8")
+        except UnicodeDecodeError:
+            # A real PE binary (or any non-text upload) isn't decodable as UTF-8 --
+            # that's an expected input for a malware-analysis tool, not a server
+            # error. Report it as a clean 400 instead of a bare 500 traceback.
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "Uploaded file isn't valid UTF-8 text. This endpoint analyzes "
+                    "text-based API/JSON/CSV logs, not raw binaries -- export a "
+                    "text log (e.g. import/export list, API trace) and upload that."
+                ),
+            )
     elif text:
         content = text
     else:
@@ -803,7 +844,10 @@ async def analyze_live(
             gnn_report = gnn_analyst.analyze_prediction(prediction_package)
         except Exception as e:
             print(f"[!] GNN report generation error (non-fatal): {e}")
-            gnn_report = {"rationale": "Analysis report unavailable.", "recommendation": ""}
+            # Keep the same shape as the success path (an HTML string) --
+            # this used to fall back to a dict here, which broke any
+            # frontend code written against one shape or the other.
+            gnn_report = "<p>Analysis report unavailable.</p>"
         
         # STEP 8: Return comprehensive dual-path results
         return {
@@ -866,10 +910,23 @@ async def analyze_live(
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
 
 @app.post("/api/retrain")
-async def retrain_model():
-    """Triggers the Agent 2 Autonomous Retraining Protocol."""
-    result = trigger_agent_2_retraining()
-    return result
+async def retrain_model(background_tasks: BackgroundTasks):
+    """
+    Triggers the Agent 2 Autonomous Retraining Protocol.
+
+    Runs in the background and reloads the updated weights into the live
+    `model` afterward (via _run_agent2_retrain_background, the same helper
+    the live-analysis auto-trigger uses) -- this used to run synchronously
+    on the request thread, freezing the entire single-process server for
+    the whole fine-tune, and never reloaded the new weights afterward even
+    once training finished.
+    """
+    background_tasks.add_task(_run_agent2_retrain_background)
+    return {
+        "success": True,
+        "queued": True,
+        "message": "Retraining started in the background; the model reloads automatically when it finishes.",
+    }
 
 @app.get("/api/audit/env")
 async def audit_env():

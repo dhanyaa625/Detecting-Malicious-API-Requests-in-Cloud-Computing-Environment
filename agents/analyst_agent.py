@@ -1,6 +1,7 @@
 import json
 import os
 import subprocess
+import sys
 from google import genai
 from sklearn.metrics import confusion_matrix
 import numpy as np
@@ -43,7 +44,7 @@ Provide a 3-4 sentence expert analysis focusing on technical differences and whi
 """
         
         try:
-            response = genai_client.models.generate_content(model="gemini-3.5-flash-lite", contents=prompt)
+            response = genai_client.models.generate_content(model="gemini-2.0-flash-lite", contents=prompt)
             return response.text.strip()
         except Exception as e:
             print(f"[!] Gemini API error: {e}")
@@ -117,9 +118,15 @@ Provide a 3-4 sentence expert analysis focusing on technical differences and whi
         pacx_trust = (pacx_metrics['confidence'] * 0.7) + (pacx_evidence * 0.3)
         gnn_raw_conf = gnn_result.get('raw_confidence', gnn_metrics['confidence'])
         gnn_family_conf = gnn_result.get('family_confidence', 0.0)
+        # "Acc" is the model's own measured overall test accuracy (a fixed
+        # quality prior for this model version) -- not this sample's
+        # per-scan confidence, which already contributes at weight 0.35
+        # above via gnn_raw_conf. Falls back to gnn_raw_conf only if the
+        # caller didn't supply model_accuracy (e.g. older cached results).
+        gnn_model_accuracy = gnn_result.get('model_accuracy', gnn_raw_conf)
         gnn_trust = (
             (gnn_raw_conf * 0.35) +
-            (gnn_metrics['confidence'] * 0.10) +
+            (gnn_model_accuracy * 0.10) +
             (gnn_completeness * 0.15) +
             (gnn_evidence * 0.25) +
             (gnn_family_conf * 0.15)
@@ -185,7 +192,7 @@ class AnalystAgent:
         Focus on how the interaction between {top_interaction.split(' → ')[0]} and {top_interaction.split(' → ')[1]} is significant in a malware context.
         """
         try:
-            response = genai_client.models.generate_content(model="gemini-3.5-flash", contents=prompt)
+            response = genai_client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
             return response.text.strip()
         except Exception:
             return None
@@ -390,7 +397,7 @@ def trigger_agent_2_retraining():
         # Path corrected to the aligned agentic_pacx folder
         script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "agentic_pacx", "gnn_classification.py")
         # Run it and capture the output so the UI can display it
-        result = subprocess.run(["python", script_path, "--retrain"], capture_output=True, text=True, check=True)
+        result = subprocess.run([sys.executable, script_path, "--retrain"], capture_output=True, text=True, check=True)
         return {"success": True, "log": result.stdout}
     except subprocess.CalledProcessError as e:
         return {"success": False, "log": e.stdout + e.stderr}

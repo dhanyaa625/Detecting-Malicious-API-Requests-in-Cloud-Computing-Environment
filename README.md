@@ -65,9 +65,11 @@ Project Link: https://drive.google.com/file/d/1UvdVN8DfP-RtieoE0nyamg6S6Lf8Sj_q/
 ├── agents/                    <-- System Orchestration Agents (Agent 1 & Agent 2 trigger).
 ├── core/                      <-- Core utility algorithms (Adapter, PAC-X, Graphs, Visualizer).
 │   └── utils/                 <-- Environmental check, dataset audit, and forensic image generator.
-├── data/                      <-- Local databases: pyg datasets, training indices, retrain pools.
+├── data/                      <-- Local databases: pyg datasets, split indices, norm stats, retrain pools.
 ├── graph_output/              <-- Forensics image storage for dynamic behavior charts.
 ├── prospect/                  <-- Threat intelligence consistency research and MMD scores.
+├── scripts/                   <-- Dataset build/ablation/demo-sample utilities (see below).
+├── paper/                     <-- The IEEE paper source (agentic_pacx.tex).
 ├── web/                       <-- Complete Frontend code (templates and static stylesheets/scripts).
 │   ├── templates/             <-- Server-served HTML dashboard layouts.
 │   └── static/                <-- Stylesheets, icons, and dynamic Plotly JS UI logic.
@@ -84,11 +86,17 @@ Project Link: https://drive.google.com/file/d/1UvdVN8DfP-RtieoE0nyamg6S6Lf8Sj_q/
 * **`agentic_pacx/` (GNN Core Algorithms):** Houses the GNN mathematical model definition (`MalwareGAT` - a deeper 3-layer GAT architecture with batch normalization and dropout) and `gnn_classification.py` which executes GNN training and Phase 3 transfer-learning retraining loops.
 * **`agents/` (The Orchestration Agents):** Contains `analyst_agent.py`. It holds the logic for **Agent 1** (forensic LLM threat reasoning) and the starting trigger for **Agent 2** (`trigger_agent_2_retraining()`).
 * **`core/` (Core Logic Layers):**
-  - `core/input_adapter.py`: Standardizes input logs, normalizes vector features, and handles format conversions.
+  - `core/input_adapter.py`: Standardizes live raw-text/JSON/CSV input, normalizes vector features against `data/norm_stats.pt` (train-split statistics), and handles format conversions. This is an approximate bridge from unstructured logs into the model's structured feature space, not a byte-for-byte reconstruction of the training data's PE-analysis features.
   - `core/pacx_analyzer.py`: Performs Prospect-Aspect-Context heuristic evaluations.
-  - `core/graph_constructor.py`: Standardizes structural PE graph nodes and hashes feature lists.
+  - `core/graph_constructor.py`: Shared node/edge constants and the `hash_feature_vector`/`pad_numeric_features` helpers.
+  - `core/dataset_manager.py`: Stratified train/val/test split (70/10/20) and train-split-only feature normalization.
   - `core/utils/visualizer.py`: Generates the forensic behavior graphs saved to disk.
-* **`data/` (Local Datasets):** Contains GNN datasets (`pyg_dataset.pt`, `pyg_dataset_norm.pt`), NumPy evaluation splits (`test_indices.npy`), clean labels (`cleaned_data.csv`), and active retraining pool files (`retrain_pool.pt`).
+* **`scripts/` (Dataset & Reporting Utilities):**
+  - `build_graph_dataset.py`: Builds the 4-node graph dataset from `data/cleaned_data.csv` -- every node (Header, Entropy, API, Network) is a real numeric feature vector pulled directly from that node's CSV columns, not a hash of stringified values.
+  - `build_ablation_report.py`: Runs the GNN-only / PAC-X-only / Fused ablation on the real held-out test split, producing `ablation_report.json`.
+  - `build_demo_samples.py`: Pulls one real, held-out CSV row per class into `demo_samples/` for live-demo testing, with a `manifest.csv` of true labels.
+  - `build_pool_from_uncertain.py`: Rebuilds `data/retrain_pool.pt` from the genuinely low-confidence predictions in `gnn_outputs.json`, with real ground-truth labels.
+* **`data/` (Local Datasets):** Contains GNN datasets (`pyg_dataset.pt`, `pyg_dataset_norm.pt`), NumPy evaluation splits (`train_indices.npy` / `val_indices.npy` / `test_indices.npy`), normalization stats (`norm_stats.pt`), clean labels (`cleaned_data.csv`), and active retraining pool files (`retrain_pool.pt`). Regenerate the first four with `python scripts/build_graph_dataset.py && python -m core.dataset_manager`.
 * **`prospect/` (MMD Robustness & Consistency):** Validates feature robustness and structural consistency across diverse malware variants using Maximum Mean Discrepancy (MMD) scores (`consistency.py`, `robustness.py`, and score sheets).
 
 ---
@@ -105,7 +113,7 @@ Project Link: https://drive.google.com/file/d/1UvdVN8DfP-RtieoE0nyamg6S6Lf8Sj_q/
 ### Backend:
 * **FastAPI (ASGI Core):** Asynchronous Python web framework serving endpoints, health checks, environment diagnostics, and Jinja2-rendered templates.
 * **PyTorch & PyTorch Geometric (PyG):** Defines and runs the neural engine:
-  - **MalwareGAT:** A 3-layer **Graph Attention Network (GAT)** stack (`gat1`, `gat2`, `gat3`) with 4 attention heads, hidden dimensions of 64, Batch Normalization, and Dropout (25%). It convolutes structural semantic associations and runs global pooling to output predictions across 11 classes.
+  - **MalwareGAT:** A 3-layer **Graph Attention Network (GAT)** stack (`gat1`, `gat2`, `gat3`) with hidden dimension 64 throughout. Attention heads step down per layer -- 4 heads (concat, → 256-dim) in `gat1`, 2 heads (concat, → 128-dim) in `gat2`, 1 head (no concat, → 64-dim) in `gat3` -- with Batch Normalization and Dropout (25%) after each. It convolutes structural semantic associations and runs global mean pooling to output predictions across 11 classes.
 
 ---
 
@@ -116,15 +124,15 @@ The frontend features a drop-down to specify format structures, but the backend 
 ### Supported Dropdown Formats
 1. **Simple Text check (API dropdown):**
    * **Accepts:** Raw comma-separated commands, API traces, or command logs.
-   * **Example File:** [zero_day_sample.txt](zero_day_sample.txt) (contains PE signs and APIs).
+   * **Example File:** [demo_samples/api_call_log_malicious.txt](demo_samples/api_call_log_malicious.txt) (also see `api_call_log_benign.txt`).
 2. **Structured JSON (JSON dropdown):**
    * **Accepts:** JSON telemetry records.
    * **Parser Logic:** Maps `"api"`, `"api_calls"`, `"network"`, and `"ip"` keys directly to corresponding API and Network nodes.
-   * **Example File:** [sample_json.json](sample_json.json)
+   * No bundled example file ships yet -- see `core/tests/demo_adapter_inputs.py` for a JSON payload you can paste in directly.
 3. **CSV Log File (CSV dropdown):**
    * **Accepts:** Tabular log tables.
    * **Parser Logic:** Searches for column headings containing `"api"`, `"network"`, or `"ip"` to extract values.
-   * **Example File:** [sample_csv.csv](sample_csv.csv)
+   * **Example Files:** [demo_samples/](demo_samples/) -- one held-out CSV row per malware family (e.g. `gandcrab_3814.csv`, `benign_1.csv`), with true labels listed in `demo_samples/manifest.csv`. Regenerate with `python scripts/build_demo_samples.py`.
 
 ### 🛡️ Corner-Point & Fail-Safe Mechanisms
 * **Drop-Down Mismatch Recovery:** If you upload a `.csv` log but keep the drop-down selected as `"JSON"`, the adapter catches the parsing error, degrades to global regex extraction, and successfully builds a valid 4-node GNN graph anyway.
@@ -144,9 +152,10 @@ $$\text{Final Score} = (\text{PAC-X Weight} \times \text{PAC-X Score}) + (\text{
 * GNN Weight is clamped between `[0.50, 0.80]`, ensuring balanced consensus at all times.
 
 ### 2. **Agent 1 (Comparative Showdowns)**
-Compares both pathways and generates natural, expert-level forensic reports explaining the diagnosis (using Gemini 2.0 / 1.5 Flash). It evaluates Model Trust Scores based on completeness, evidence, and model confidence:
+Compares both pathways and generates natural, expert-level forensic reports explaining the diagnosis (using Gemini 2.0 Flash / Flash-Lite; falls back to static templated reasoning if no `GEMINI_API_KEY` is set or the API call fails). It evaluates Model Trust Scores based on completeness, evidence, and model confidence:
 * **PAC-X Trust:** $(0.7 \times \text{PAC-X Confidence}) + (0.3 \times \text{PAC-X Evidence})$
 * **GNN Trust:** $(0.35 \times \text{GNN Raw Confidence}) + (0.10 \times \text{Acc}) + (0.15 \times \text{Completeness}) + (0.25 \times \text{Evidence}) + (0.15 \times \text{Family Confidence})$
+* **Acc** is the model's own measured overall test accuracy (loaded from `training_history.json`'s `final_test_metrics`), a fixed quality prior for the currently-loaded model version -- not this sample's own confidence, which already contributes via the 0.35 term above.
 
 ### 3. **Agent 2 (Autonomous Retraining & Self-Healing)**
 To maintain high speed and prevent redundant code blocks, **Agent 2 has no standalone file**. It is divided between:
@@ -154,14 +163,20 @@ To maintain high speed and prevent redundant code blocks, **Agent 2 has no stand
 * **Learning Brain:** Located inside `agentic_pacx/gnn_classification.py` (`--retrain`).
 
 * **Trigger Condition:** Agent 2 triggers **ONLY** when the final fused confidence falls below **60% (< 0.60)**.
-* **Retrain Flow:** Appends the zero-day sample with a pseudo-label to `data/retrain_pool.pt`, runs a 10-epoch transfer learning loop to fine-tune `model.pt`, reloads the weights in active memory, and corrects the live diagnosis automatically.
+* **Retrain Flow:** Appends the zero-day sample with a pseudo-label to `data/retrain_pool.pt`, runs a 10-epoch transfer learning loop to fine-tune `model.pt` (via a `BackgroundTasks` job, so it doesn't block the server), reloads the weights in active memory under a lock, and corrects future diagnoses automatically.
+* **Guardrails:** Refuses to fine-tune on a pool smaller than 20 samples or spanning fewer than 2 classes, and discards the update (keeping the prior `model.pt`) if held-out test accuracy regresses by more than 3 points after fine-tuning. These exist because an unguarded retrain on a tiny, single-class pool measurably regresses accuracy -- reproduced directly: a deliberately unguarded 2-sample, single-class retrain took held-out accuracy from 99.61% to 98.64% even with best-epoch selection, and as low as 80.08% mid-run.
 
 ---
 
 ## 📈 System Performance & Health Checks
 
-* **GNN Classification Accuracy:** **95.55%** (Macro F1-Score: **0.9184**)
-* **PAC-X Heuristic Accuracy:** **82.10%**
+Measured on the 1,029-sample held-out test split (never used for model selection -- see `core/dataset_manager.py`), after fixing the API/Network node feature construction (see Stage 1 of the audit below):
+
+* **GNN Multiclass Accuracy (11 classes):** **99.61%** (Macro F1: **99.17%**, Macro Precision: **98.49%**, Macro Recall: **99.89%**)
+* **GNN Binary Accuracy (benign/malicious):** **99.71%** (Precision: **99.56%**, Recall: **99.78%**)
+* **PAC-X Heuristic Accuracy, measured on this dataset's CSV modality:** **56.27%** (0% precision/recall on the malicious class -- PAC-X's keyword/entropy heuristics have no signal on a numeric PE-header row; see `ablation_report.json`). PAC-X's designed strength is raw text/API-log input, which this dataset doesn't natively provide -- **82.1%** is a literature reference figure for that modality, not a result measured here.
+
+Regenerate all of the above with `python scripts/build_graph_dataset.py && python -m core.dataset_manager && python agentic_pacx/gnn_classification.py && python scripts/build_ablation_report.py`.
 
 ### Professional Health Checks
 * `/api/health` - Live FastAPI process status.
@@ -190,4 +205,4 @@ Open your browser at **[http://localhost:8000/live_analysis.html](http://localho
 * **Test JSON Log:** Upload `sample_json.json` using the **Structured JSON** dropdown.
 * **Test CSV Log:** Upload `sample_csv.csv` using the **CSV Log File** dropdown.
 
-*To test Agent 2 manually, click **"FORCE MODEL EVOLUTION"** in the bottom left panel of the live upload page. The backend will instantly run fine-tuning and reload the optimized model weights within seconds!*
+*To test Agent 2 manually, click **"Trigger Agent 2 Retraining"** in the bottom left panel. Retraining runs in the background (typically well under a minute on this dataset's size); the button confirms it's queued, and the model reloads automatically once it finishes -- refresh the page after a short wait to see results reflecting the updated weights.*

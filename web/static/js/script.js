@@ -529,6 +529,7 @@ async function runAnalysis() {
                 recommendation: result.agent1_recommendation
             },
             agent2: result.agent2,
+            gnn_report: result.gnn_report,
             completeness_raw: result.completeness,
             nodes_filled_detail: result.nodes_filled_detail,
             input_meta: {
@@ -586,6 +587,15 @@ function updateDashboard(data, gnnConf) {
                 ? `<div style="margin-top:8px;color:#94a3b8;">Top GNN family: <b>${data.path_gnn.predicted_family}</b> (${(data.path_gnn.family_confidence * 100).toFixed(1)}%)</div>`
                 : "";
             agent1Reasoning.innerHTML = `${data.agent1.reasoning}${familyLine}`;
+        }
+
+        // GNN structural forensic report (attention-weight based XAI narrative) --
+        // computed by the backend on every scan but previously never rendered anywhere.
+        const gnnForensicCard = document.getElementById('gnn_forensic_card');
+        const gnnForensicReport = document.getElementById('gnn_forensic_report');
+        if (gnnForensicCard && gnnForensicReport && data.gnn_report) {
+            gnnForensicReport.innerHTML = data.gnn_report;
+            gnnForensicCard.style.display = "block";
         }
 
         const fusionLabelEl = document.getElementById('fusion_label');
@@ -705,11 +715,18 @@ async function triggerRetraining() {
         const response = await fetch('/api/retrain', { method: 'POST' });
         const result = await response.json();
 
-        if (result.success) {
+        if (result.success && result.queued) {
+            // Retraining now runs in the background and reloads the model
+            // when it finishes -- this response only confirms it *started*,
+            // it hasn't evolved yet. Reloading the page immediately would
+            // just show the pre-retrain model.
+            alert("🧬 AGENT 2 QUEUED: Retraining started in the background. " +
+                  "This can take a minute or two -- refresh the page after that to see the updated model.");
+        } else if (result.success) {
             alert("✅ AGENT 2 SUCCESS: The model has evolved and studied the new patterns.");
-            location.reload(); // Refresh to load new results if any
+            location.reload();
         } else {
-            alert("❌ Retraining Error: " + result.log);
+            alert("❌ Retraining Error: " + (result.log || result.message || "Unknown error"));
         }
     } catch (error) {
         alert("❌ Agent 2 Offline: " + error.message);
