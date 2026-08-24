@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Environment / secrets
+.env
+.venv/
+venv/
+env/
+
+# Regenerated / large model & dataset artifacts (rebuilt by scripts/, not hand-edited)
+data/*.pt
+data/*.npy
+gnn_outputs.json
+model.pt
+
+# OS
+.DS_Store
+Thumbs.db

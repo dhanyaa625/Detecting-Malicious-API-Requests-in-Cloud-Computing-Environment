@@ -1,0 +1,5 @@
+MZ header detected. PE section table shows .text .rsrc .idata with an unusually small .rsrc section for a Rich header-stripped binary.
+API calls observed: kernel32.dll!VirtualAllocEx, kernel32.dll!WriteProcessMemory, kernel32.dll!CreateRemoteThread, ntdll.dll!NtCreateFile, advapi32.dll!RegDeleteKey, kernel32.dll!LdrLoadDll, ws2_32.dll!ConnectNetwork, kernel32.dll!WinExec, advapi32.dll!CryptDecrypt, user32.dll!SetWindowsHookEx
+Behavior log: process launched powershell -enc JABzAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAE4AZQB0AC4AVwBlAGIAQwBsAGkAZQBuAHQA via cmd.exe /c start
+Process dropped a payload to %appdata%\temp\update.exe and established an outbound connection to http://185.220.101.47/gate.php
+Additional beacon activity observed at malicious-update-server.xyz alongside rundll32.exe execution triggered through regsvr32 /s payload.dll

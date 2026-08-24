@@ -1,0 +1,4 @@
+MZ header signature validated. PE section table includes .text .rdata .reloc as expected for a standard Win32 application.
+API calls observed: kernel32.dll!CreateFile, kernel32.dll!ReadFile, kernel32.dll!WriteFile, kernel32.dll!CloseHandle, user32.dll!CreateWindow, gdi32.dll!BitBlt, kernel32.dll!GetModuleHandle, ole32.dll!CoCreateInstance
+No suspicious API sequences detected. Application performs normal file read and write operations on a user-created document.
+Outbound connection to https://update.example.com for a routine version check, response cached locally, no persistence mechanisms installed.

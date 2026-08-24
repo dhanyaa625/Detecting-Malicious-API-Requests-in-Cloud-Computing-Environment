@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious API Request Detector - Detailed Metrics</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/chart.min.js"></script>
+    <style>
+        /* Specific overrides for Page 2 */
+        body[data-page="metrics"] .metric-val { color: #f8fafc; font-weight: 700; }
+        .dark-text { color: #f1f5f9 !important; font-weight: 600; }
+        .table-dark-text td { color: #e2e8f0 !important; font-weight: 500; font-size: 1rem; padding: 12px; }
+    </style>
+</head>
+<body data-page="metrics">
+    <div class="dashboard-container">
+        <!-- Input Rail (Constant Sidebar) -->
+        <aside class="sidebar">
+            <h2 class="neon-purple">API Request Testing Console</h2>
+            
+            <div class="pipeline-tracker">
+                <div class="step active" id="step-input">1. Submit API Request Data</div>
+                <div class="step" id="step-adapter">2. Normalize Request Features</div>
+                <div class="step" id="step-graph">3. Build Request Graph</div>
+                <div class="step" id="step-gnn">4. GNN + PAC-X Analysis</div>
+                <div class="step" id="step-decision">5. Fused Threat Verdict</div>
+            </div>
+
+            <div class="input-panel">
+                <h3>Navigation Options</h3>
+                <a href="/live_analysis.html" class="glow-button" style="display: block; text-align: center; text-decoration: none; padding: 12px; margin-bottom: 15px; background: rgba(192, 132, 252, 0.1); border-color: #c084fc;">⬅ Back to Live Analysis</a>
+                <a href="/" class="glow-button" style="display: block; text-align: center; text-decoration: none; padding: 12px; background: rgba(34, 211, 238, 0.1); border-color: #22d3ee;">🏠 Global Overview (Home)</a>
+            </div>
+            
+            <div class="explanation-panel mt-4">
+               <h3>System Status Log</h3>
+               <pre><code id="jsonDump">Viewing static detailed metrics...</code></pre>
+            </div>
+        </aside>
+
+        <!-- Metrics Arena -->
+        <main class="arena">
+            <h2 style="color: var(--neon-cyan); margin-bottom: 20px;">📊 Current Scan Comparison + Dataset Evaluation</h2>
+            
+            <div id="reportLoader" style="text-align: center; color: #cbd5e1;">Loading metrics from session...</div>
+            
+            <div id="reportContent" style="display: none;">
+                <div class="glass-card mb-4" style="margin-bottom: 30px; padding: 25px; border-color: rgba(192, 132, 252, 0.3);">
+                    <h4 style="text-align: center; color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Current Scan Comparison</h4>
+                    <div id="liveComparisonEmpty" style="text-align:center; color:#94a3b8;">Run a live analysis to see PAC-X vs GNN for the current sample.</div>
+                    <div id="liveComparisonBlock" style="display:none;">
+                        <div class="report-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px;">
+                            <div class="glass-card" style="padding:20px; border-color: rgba(34, 211, 238, 0.2);">
+                                <h5 style="margin-top:0; color: var(--neon-cyan);" id="live_pacx_title">PAC-X</h5>
+                                <div class="stat-row"><span>Diagnosis</span><strong id="live_pacx_diag">-</strong></div>
+                                <div class="stat-row"><span>Confidence</span><strong id="live_pacx_conf">-</strong></div>
+                                <div class="stat-row"><span>Evidence Score</span><strong id="live_pacx_evidence">-</strong></div>
+                                <div style="margin-top:12px; color:#94a3b8; font-size:0.9rem;" id="live_pacx_findings">-</div>
+                            </div>
+                            <div class="glass-card" style="padding:20px; border-color: rgba(192, 132, 252, 0.2);">
+                                <h5 style="margin-top:0; color: var(--neon-purple);" id="live_gnn_title">GNN</h5>
+                                <div class="stat-row"><span>Diagnosis</span><strong id="live_gnn_diag">-</strong></div>
+                                <div class="stat-row"><span>Confidence</span><strong id="live_gnn_conf">-</strong></div>
+                                <div class="stat-row"><span>Family</span><strong id="live_gnn_family">-</strong></div>
+                                <div class="stat-row"><span>Completeness</span><strong id="live_gnn_completeness">-</strong></div>
+                                <div style="margin-top:12px; color:#94a3b8; font-size:0.9rem;" id="live_gnn_topclasses">-</div>
+                            </div>
+                        </div>
+                        <div class="glass-card" style="margin-top:20px; padding:20px;">
+                            <div class="stat-row"><span>Trusted Model</span><strong id="live_better_model">-</strong></div>
+                            <div class="stat-row"><span>Agreement</span><strong id="live_agreement">-</strong></div>
+                            <div class="stat-row"><span>Trust Scores</span><strong id="live_trust_scores">-</strong></div>
+                            <div style="margin-top:12px; color:#cbd5e1; line-height:1.6;" id="live_reasoning">-</div>
+                        </div>
+                        <div class="glass-card" style="margin-top:20px; padding:20px; border-color: rgba(34, 211, 238, 0.3);">
+                            <h5 style="margin-top:0; color: var(--neon-cyan);">Decision Fusion</h5>
+                            <div class="stat-row"><span>Final Label</span><strong id="live_fusion_label">-</strong></div>
+                            <div class="stat-row"><span>Final Confidence</span><strong id="live_fusion_conf">-</strong></div>
+                            <div class="stat-row"><span>How the decision was made</span><strong id="live_fusion_arbitration">-</strong></div>
+                            <div class="stat-row"><span>Fusion Weights</span><strong id="live_fusion_weights">-</strong></div>
+                            <div style="margin-top:12px; color:#94a3b8; font-size:0.9rem;" id="live_fusion_inputs">-</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visual Metrics Chart -->
+                <div class="glass-card mb-4" style="margin-bottom: 30px; padding: 25px; border-color: rgba(34, 211, 238, 0.3);">
+                    <h4 style="text-align: center; color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Model Comparison Chart</h4>
+                    <div style="position: relative; height: 300px; width: 100%;">
+                        <canvas id="metricsComparisonChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Ablation Study -->
+                <div class="glass-card mb-4" style="margin-bottom: 30px; padding: 25px; border-color: rgba(248, 113, 113, 0.3);">
+                    <h4 style="text-align: center; color: #f8fafc; margin-top: 0; font-size: 1.1rem;">Ablation Study: GNN-only vs PAC-X-only vs Fused</h4>
+                    <div id="ablationEmpty" style="text-align:center; color:#94a3b8; padding: 10px;">
+                        No ablation report available yet -- run <code>scripts/build_ablation_report.py</code>.
+                    </div>
+                    <div id="ablationBlock" style="display:none;">
+                        <p id="ablation_note" style="color:#64748b; font-size:0.8rem; margin-bottom:15px;"></p>
+                        <table class="metrics-table table-dark-text" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr style="color: #94a3b8; text-align: left; font-size: 0.85rem; text-transform: uppercase;">
+                                    <th style="padding: 8px 0;">Path</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ablation_body"></tbody>
+                        </table>
+                        <div style="position: relative; height: 260px; width: 100%;">
+                            <canvas id="ablationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real 11-class Family Evaluation -->
+                <div class="glass-card mb-4" style="margin-bottom: 30px; padding: 25px; border-color: rgba(74, 222, 128, 0.3);">
+                    <h4 style="text-align: center; color: #f8fafc; margin-top: 0; font-size: 1.1rem;">GNN Per-Family Evaluation (11-class, real test-set)</h4>
+                    <div id="multiclassEmpty" style="text-align:center; color:#94a3b8; padding: 10px;">
+                        No 11-class evaluation available yet -- run <code>agentic_pacx/gnn_classification.py</code> to train the model, then reload.
+                    </div>
+                    <div id="multiclassBlock" style="display:none;">
+                        <div class="metric-ribbon" style="margin-bottom: 20px;">
+                            <div class="glass-card"><h4>Accuracy</h4><span id="mc_accuracy" class="metric-val text-white">-</span></div>
+                            <div class="glass-card"><h4>Macro Precision</h4><span id="mc_macro_p" class="metric-val text-cyan">-</span></div>
+                            <div class="glass-card"><h4>Macro Recall</h4><span id="mc_macro_r" class="metric-val text-cyan">-</span></div>
+                            <div class="glass-card"><h4>Macro F1</h4><span id="mc_macro_f1" class="metric-val text-green">-</span></div>
+                        </div>
+                        <table class="metrics-table table-dark-text" style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+                            <thead>
+                                <tr style="color: #94a3b8; text-align: left; font-size: 0.85rem; text-transform: uppercase;">
+                                    <th style="padding: 8px 0;">Family</th><th>Precision</th><th>Recall</th><th>F1</th><th>Support</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mc_per_class_body"></tbody>
+                        </table>
+                        <h5 style="margin: 0 0 10px 0; color: #94a3b8; text-align: center;">Confusion Matrix (rows = true label, columns = predicted)</h5>
+                        <div id="mc_heatmap_wrapper" style="overflow-x: auto;"></div>
+                    </div>
+                </div>
+
+                <div class="report-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <!-- Baseline Metrics -->
+                    <div class="report-col">
+                        <h4 style="color: var(--neon-cyan); text-align: center; margin-bottom: 15px;" id="rep_base_title" class="dark-text">Alternative Baseline Model</h4>
+                        <table class="metrics-table table-dark-text" style="width: 100%; border-collapse: collapse;">
+                            <tbody>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="text-align: left;">Accuracy</td><td style="text-align: right;" id="rep_base_acc">-</td></tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="text-align: left;">Precision</td><td style="text-align: right;" id="rep_base_pre">-</td></tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="text-align: left;">Recall</td><td style="text-align: right;" id="rep_base_rec">-</td></tr>
+                                <tr><td style="text-align: left;">F1-Score</td><td style="text-align: right;" id="rep_base_f1">-</td></tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                            <h5 style="margin: 0 0 10px 0; color: #94a3b8; text-align: center;">Normalized Confusion Matrix</h5>
+                            
+                            <div class="matrix-container" style="display: flex; align-items: center; justify-content: center; margin-top: 10px;">
+                                <div style="transform: rotate(-90deg); margin-right: -20px; color: #94a3b8; font-size: 0.9rem;">True label</div>
+                                
+                                <div style="display: grid; grid-template-columns: auto 1fr; gap: 5px;">
+                                    <div></div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center; color: #cbd5e1; font-size: 0.85rem; gap: 2px;">
+                                        <div>Benign</div>
+                                        <div>Malicious</div>
+                                    </div>
+                                    
+                                    <div style="display: grid; grid-template-rows: 1fr 1fr; align-items: center; text-align: right; color: #cbd5e1; font-size: 0.85rem; padding-right: 10px; gap: 2px;">
+                                        <div>Benign</div>
+                                        <div>Malicious</div>
+                                    </div>
+                                    
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; border: 1px solid #1e293b; background-color: #0f172a;" class="dark-text">
+                                        <div id="rep_base_tn_cell" style="padding: 20px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: background-color 0.3s; min-width: 60px;">
+                                            <span id="rep_base_tn_norm" style="font-size: 1.1rem;">-</span>
+                                            <span id="rep_base_tn" style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">-</span>
+                                        </div>
+                                        <div id="rep_base_fp_cell" style="padding: 20px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: background-color 0.3s; min-width: 60px;">
+                                            <span id="rep_base_fp_norm" style="font-size: 1.1rem;">-</span>
+                                            <span id="rep_base_fp" style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">-</span>
+                                        </div>
+                                        <div id="rep_base_fn_cell" style="padding: 20px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: background-color 0.3s; min-width: 60px;">
+                                            <span id="rep_base_fn_norm" style="font-size: 1.1rem;">-</span>
+                                            <span id="rep_base_fn" style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">-</span>
+                                        </div>
+                                        <div id="rep_base_tp_cell" style="padding: 20px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: background-color 0.3s; min-width: 60px;">
+                                            <span id="rep_base_tp_norm" style="font-size: 1.1rem;">-</span>
+                                            <span id="rep_base_tp" style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center; color: #94a3b8; font-size: 0.9rem; margin-top: 10px;">Predicted label</div>
+                        </div>
+                    </div>
+
+                    <!-- GNN Metrics -->
+                    <div class="report-col">
+                        <h4 style="color: var(--neon-purple); text-align: center; margin-bottom: 15px;" id="rep_gnn_title" class="dark-text">GNN (Agentic-PACX)</h4>
+                        <table class="metrics-table table-dark-text" style="width: 100%; border-collapse: collapse;">
+                            <tbody>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="text-align: left;">Accuracy</td><td style="text-align: right;" id="rep_gnn_acc">-</td></tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="text-align: left;">Precision</td><td style="text-align: right;" id="rep_gnn_pre">-</td></tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><td style="text-align: left;">Recall</td><td style="text-align: right;" id="rep_gnn_rec">-</td></tr>
+                                <tr><td style="text-align: left;">F1-Score</td><td style="text-align: right;" id="rep_gnn_f1">-</td></tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                            <h5 style="margin: 0 0 10px 0; color: #94a3b8; text-align: center;">Normalized Confusion Matrix</h5>
+                            
+                            <div class="matrix-container" style="display: flex; align-items: center; justify-content: center; margin-top: 10px;">
+                                <div style="transform: rotate(-90deg); margin-right: -20px; color: #94a3b8; font-size: 0.9rem;">True label</div>
+                                
+                                <div style="display: grid; grid-template-columns: auto 1fr; gap: 5px;">
+                                    <div></div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center; color: #cbd5e1; font-size: 0.85rem; gap: 2px;">
+                                        <div>Benign</div>
+                                        <div>Malicious</div>
+                                    </div>
+                                    
+                                    <div style="display: grid; grid-template-rows: 1fr 1fr; align-items: center; text-align: right; color: #cbd5e1; font-size: 0.85rem; padding-right: 10px; gap: 2px;">
+                                        <div>Benign</div>
+                                        <div>Malicious</div>
+                                    </div>
+                                    
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; border: 1px solid #1e293b; background-color: #0f172a;" class="dark-text">
+                                        <div id="rep_gnn_tn_cell" style="padding: 20px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: background-color 0.3s; min-width: 60px;">
+                                            <span id="rep_gnn_tn_norm" style="font-size: 1.1rem;">-</span>
+                                            <span id="rep_gnn_tn" style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">-</span>
+                                        </div>
+                                        <div id="rep_gnn_fp_cell" style="padding: 20px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: background-color 0.3s; min-width: 60px;">
+                                            <span id="rep_gnn_fp_norm" style="font-size: 1.1rem;">-</span>
+                                            <span id="rep_gnn_fp" style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">-</span>
+                                        </div>
+                                        <div id="rep_gnn_fn_cell" style="padding: 20px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: background-color 0.3s; min-width: 60px;">
+                                            <span id="rep_gnn_fn_norm" style="font-size: 1.1rem;">-</span>
+                                            <span id="rep_gnn_fn" style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">-</span>
+                                        </div>
+                                        <div id="rep_gnn_tp_cell" style="padding: 20px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: background-color 0.3s; min-width: 60px;">
+                                            <span id="rep_gnn_tp_norm" style="font-size: 1.1rem;">-</span>
+                                            <span id="rep_gnn_tp" style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center; color: #94a3b8; font-size: 0.9rem; margin-top: 10px;">Predicted label</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    <script src="/static/js/script.js?v=8"></script>
+</body>
+</html>

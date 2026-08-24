@@ -1,0 +1,12 @@
+file,true_label,csv_row_index
+benign_1.csv,benign,1
+darkkomet_2899.csv,darkkomet,2899
+delf_3012.csv,delf,3012
+dlhelper_3108.csv,dlhelper,3108
+domaiq_3164.csv,domaiq,3164
+driverpack_3253.csv,driverpack,3253
+emotet_3313.csv,emotet,3313
+gamarue_3615.csv,gamarue,3615
+gamehack_3791.csv,gamehack,3791
+gandcrab_3814.csv,gandcrab,3814
+hotbar_5003.csv,hotbar,5003

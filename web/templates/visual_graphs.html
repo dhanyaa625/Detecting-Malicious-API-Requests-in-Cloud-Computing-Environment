@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious API Request Detector - Visual Graphs</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <script src="/static/js/chart.min.js"></script>
+</head>
+<body data-page="visuals">
+    <div class="dashboard-container">
+        <!-- Input Rail (Constant Sidebar) -->
+        <aside class="sidebar">
+            <h2 class="neon-purple">API Request Testing Console</h2>
+            
+            <div class="pipeline-tracker">
+                <div class="step active" id="step-input">1. Submit API Request Data</div>
+                <div class="step" id="step-adapter">2. Normalize Request Features</div>
+                <div class="step" id="step-graph">3. Build Request Graph</div>
+                <div class="step" id="step-gnn">4. GNN + PAC-X Analysis</div>
+                <div class="step" id="step-decision">5. Fused Threat Verdict</div>
+            </div>
+
+            <div class="input-panel">
+                <h3>Navigation Options</h3>
+                <a href="/live_analysis.html" class="glow-button" style="display: block; text-align: center; text-decoration: none; padding: 12px; margin-bottom: 15px; background: rgba(192, 132, 252, 0.1); border-color: #c084fc;">⬅ Back to Live Analysis</a>
+                <a href="/" class="glow-button" style="display: block; text-align: center; text-decoration: none; padding: 12px; background: rgba(34, 211, 238, 0.1); border-color: #22d3ee;">🏠 Global Overview (Home)</a>
+            </div>
+            
+            <div class="explanation-panel mt-4">
+               <h3>System Status Log</h3>
+               <pre><code id="jsonDump">Viewing static visual graphs...</code></pre>
+            </div>
+        </aside>
+
+        <!-- Detection Arena -->
+        <main class="arena">
+            <h2 style="color: var(--neon-purple); margin-bottom: 20px;">🖼️ Deep Dive: Behavioral Graph Visualizations</h2>
+            <div id="visualLoader" style="text-align: center; color: #cbd5e1;">Loading charts from session...</div>
+            
+            <div id="visualContent" class="chart-arena" style="display: none; justify-content: center; align-items: center;">
+                <div class="glass-card" style="width: 100%; height: 600px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h3 style="text-align: center; color: var(--neon-cyan); margin-bottom: 20px;">Deep Analysis Sunburst</h3>
+                    <div id="sunburstChart" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    <script src="/static/js/script.js?v=8"></script>
+</body>
+</html>

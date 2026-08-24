@@ -1,0 +1,4631 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "node_type": "SAMPLE",
+      "label": "S0",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 55745.0,
+      "section_nb": 6.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.309360141291611,
+      "max_entropy": 0,
+      "id": "sample::0"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "OpenFile",
+      "color": "#2ED573",
+      "category": "open",
+      "direction": "import",
+      "id": "api::OpenFile"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "WriteProcessMemory",
+      "color": "#2ED573",
+      "category": "call",
+      "direction": "import",
+      "id": "api::WriteProcessMemory"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "GetProcAddress",
+      "color": "#2ED573",
+      "category": "call",
+      "direction": "import",
+      "id": "api::GetProcAddress"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "LoadLibrary",
+      "color": "#2ED573",
+      "category": "call",
+      "direction": "import",
+      "id": "api::LoadLibrary"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "RegDeleteKey",
+      "color": "#2ED573",
+      "category": "delete",
+      "direction": "import",
+      "id": "api::RegDeleteKey"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "Sleep",
+      "color": "#2ED573",
+      "category": "other",
+      "direction": "import",
+      "id": "api::Sleep"
+    },
+    {
+      "node_type": "SECTION",
+      "label": "NORMAL",
+      "color": "#1E90FF",
+      "profile": "normal",
+      "id": "sec::normal"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S1",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 61279.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 4.5082155005104445,
+      "max_entropy": 0,
+      "id": "sample::1"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "OpenMutex",
+      "color": "#2ED573",
+      "category": "open",
+      "direction": "import",
+      "id": "api::OpenMutex"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "OpenProcess",
+      "color": "#2ED573",
+      "category": "open",
+      "direction": "import",
+      "id": "api::OpenProcess"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "CloseSocket",
+      "color": "#2ED573",
+      "category": "close",
+      "direction": "import",
+      "id": "api::CloseSocket"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "VirtualAlloc",
+      "color": "#2ED573",
+      "category": "call",
+      "direction": "import",
+      "id": "api::VirtualAlloc"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "GetSystemInfo",
+      "color": "#2ED573",
+      "category": "other",
+      "direction": "import",
+      "id": "api::GetSystemInfo"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S2",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 350.0,
+      "section_nb": 3.0,
+      "section_profile": "normal",
+      "mean_entropy": 6.511873244080891,
+      "max_entropy": 0,
+      "id": "sample::2"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "OpenRegistry",
+      "color": "#2ED573",
+      "category": "open",
+      "direction": "import",
+      "id": "api::OpenRegistry"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "CloseHandle",
+      "color": "#2ED573",
+      "category": "close",
+      "direction": "import",
+      "id": "api::CloseHandle"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "CreateMutex",
+      "color": "#2ED573",
+      "category": "create",
+      "direction": "import",
+      "id": "api::CreateMutex"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "KillTimer",
+      "color": "#2ED573",
+      "category": "kill",
+      "direction": "import",
+      "id": "api::KillTimer"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "GetTickCount",
+      "color": "#2ED573",
+      "category": "other",
+      "direction": "import",
+      "id": "api::GetTickCount"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S3",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 57353.0,
+      "section_nb": 3.0,
+      "section_profile": "normal",
+      "mean_entropy": 6.664465020582245,
+      "max_entropy": 0,
+      "id": "sample::3"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "DeleteFile",
+      "color": "#2ED573",
+      "category": "delete",
+      "direction": "import",
+      "id": "api::DeleteFile"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S4",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 47153.0,
+      "section_nb": 5.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.5137336765214,
+      "max_entropy": 0,
+      "id": "sample::4"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S5",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 57440.0,
+      "section_nb": 3.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.508351181636981,
+      "max_entropy": 0,
+      "id": "sample::5"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "CreateThread",
+      "color": "#2ED573",
+      "category": "create",
+      "direction": "import",
+      "id": "api::CreateThread"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "CreateFile",
+      "color": "#2ED573",
+      "category": "create",
+      "direction": "import",
+      "id": "api::CreateFile"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "TerminateProcess",
+      "color": "#2ED573",
+      "category": "kill",
+      "direction": "import",
+      "id": "api::TerminateProcess"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S6",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 58912.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 6.515984633869078,
+      "max_entropy": 0,
+      "id": "sample::6"
+    },
+    {
+      "node_type": "API_CALL",
+      "label": "CreateProcess",
+      "color": "#2ED573",
+      "category": "create",
+      "direction": "import",
+      "id": "api::CreateProcess"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S7",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 27867.0,
+      "section_nb": 7.0,
+      "section_profile": "normal",
+      "mean_entropy": 7.485289515705972,
+      "max_entropy": 0,
+      "id": "sample::7"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S8",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 47776.0,
+      "section_nb": 7.0,
+      "section_profile": "normal",
+      "mean_entropy": 7.403778569773939,
+      "max_entropy": 0,
+      "id": "sample::8"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S9",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 35319.0,
+      "section_nb": 6.0,
+      "section_profile": "normal",
+      "mean_entropy": 7.293051947943465,
+      "max_entropy": 0,
+      "id": "sample::9"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S10",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 60888.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 7.023951838837149,
+      "max_entropy": 0,
+      "id": "sample::10"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S11",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 17868.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 7.16435496197754,
+      "max_entropy": 0,
+      "id": "sample::11"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S12",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 36730.0,
+      "section_nb": 5.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.738689028042678,
+      "max_entropy": 0,
+      "id": "sample::12"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S13",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 55592.0,
+      "section_nb": 7.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.7195310102443795,
+      "max_entropy": 0,
+      "id": "sample::13"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S14",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 16957.0,
+      "section_nb": 6.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.321547295798672,
+      "max_entropy": 0,
+      "id": "sample::14"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S15",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 20240.0,
+      "section_nb": 7.0,
+      "section_profile": "normal",
+      "mean_entropy": 7.089360612567953,
+      "max_entropy": 0,
+      "id": "sample::15"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S16",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 57677.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 6.503668216714054,
+      "max_entropy": 0,
+      "id": "sample::16"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S17",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 46567.0,
+      "section_nb": 5.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.082389318672381,
+      "max_entropy": 0,
+      "id": "sample::17"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S18",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 63294.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.062523147183355,
+      "max_entropy": 0,
+      "id": "sample::18"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S19",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 36372.0,
+      "section_nb": 6.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.031680221423977,
+      "max_entropy": 0,
+      "id": "sample::19"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S20",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 59808.0,
+      "section_nb": 3.0,
+      "section_profile": "normal",
+      "mean_entropy": 7.245971880335297,
+      "max_entropy": 0,
+      "id": "sample::20"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S21",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 44153.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 6.632639589797835,
+      "max_entropy": 0,
+      "id": "sample::21"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S22",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 12925.0,
+      "section_nb": 6.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.9665381083877795,
+      "max_entropy": 0,
+      "id": "sample::22"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S23",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 5533.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.476636848302113,
+      "max_entropy": 0,
+      "id": "sample::23"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S24",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 53609.0,
+      "section_nb": 6.0,
+      "section_profile": "normal",
+      "mean_entropy": 6.867463871115438,
+      "max_entropy": 0,
+      "id": "sample::24"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S25",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 28494.0,
+      "section_nb": 6.0,
+      "section_profile": "normal",
+      "mean_entropy": 7.055627736702771,
+      "max_entropy": 0,
+      "id": "sample::25"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S26",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 64203.0,
+      "section_nb": 6.0,
+      "section_profile": "normal",
+      "mean_entropy": 6.011030937601737,
+      "max_entropy": 0,
+      "id": "sample::26"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S27",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 6150.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 4.721223040193418,
+      "max_entropy": 0,
+      "id": "sample::27"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S28",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 61194.0,
+      "section_nb": 4.0,
+      "section_profile": "normal",
+      "mean_entropy": 6.971344075178315,
+      "max_entropy": 0,
+      "id": "sample::28"
+    },
+    {
+      "node_type": "SAMPLE",
+      "label": "S29",
+      "color": "#FF4757",
+      "f_Machine_0": 332.0,
+      "f_SizeOfOptionalHeader_0": 224.0,
+      "f_Characteristics_0": 53295.0,
+      "section_nb": 5.0,
+      "section_profile": "normal",
+      "mean_entropy": 5.551664434103664,
+      "max_entropy": 0,
+      "id": "sample::29"
+    }
+  ],
+  "edges": [
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::0",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::0",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::0",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::0",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::0",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::0",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::0",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenFile",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenFile",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenFile",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenFile",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenFile",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenFile",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::OpenFile",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenFile",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::WriteProcessMemory",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 9,
+      "source": "api::WriteProcessMemory",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::WriteProcessMemory",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::WriteProcessMemory",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::WriteProcessMemory",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::WriteProcessMemory",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::WriteProcessMemory",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::WriteProcessMemory",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::WriteProcessMemory",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::WriteProcessMemory",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::WriteProcessMemory",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::WriteProcessMemory",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::WriteProcessMemory",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::WriteProcessMemory",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::WriteProcessMemory",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::WriteProcessMemory",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::WriteProcessMemory",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::WriteProcessMemory",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::WriteProcessMemory",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::WriteProcessMemory",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetProcAddress",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::GetProcAddress",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetProcAddress",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::GetProcAddress",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetProcAddress",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetProcAddress",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::GetProcAddress",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetProcAddress",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::GetProcAddress",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::GetProcAddress",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetProcAddress",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetProcAddress",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetProcAddress",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetProcAddress",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetProcAddress",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetProcAddress",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetProcAddress",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetProcAddress",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetProcAddress",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::LoadLibrary",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::LoadLibrary",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::LoadLibrary",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::LoadLibrary",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::LoadLibrary",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::LoadLibrary",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::LoadLibrary",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::LoadLibrary",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::LoadLibrary",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::LoadLibrary",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::LoadLibrary",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::LoadLibrary",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::LoadLibrary",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::LoadLibrary",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::LoadLibrary",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::LoadLibrary",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::LoadLibrary",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::LoadLibrary",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::RegDeleteKey",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::RegDeleteKey",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::RegDeleteKey",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::RegDeleteKey",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::RegDeleteKey",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::RegDeleteKey",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::RegDeleteKey",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::RegDeleteKey",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::RegDeleteKey",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::RegDeleteKey",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::RegDeleteKey",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::RegDeleteKey",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::RegDeleteKey",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::RegDeleteKey",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::RegDeleteKey",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::RegDeleteKey",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::Sleep",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::Sleep",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::Sleep",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::Sleep",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::Sleep",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::Sleep",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::Sleep",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::Sleep",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::Sleep",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::Sleep",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::Sleep",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::Sleep",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::Sleep",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::Sleep",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::Sleep",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::Sleep",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::Sleep",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::Sleep",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::Sleep",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::Sleep",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::1",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::1",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::1",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::1",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::1",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::1",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::1",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::1",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::1",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::OpenMutex",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenMutex",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenMutex",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 11,
+      "source": "api::OpenMutex",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 13,
+      "source": "api::OpenMutex",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::OpenMutex",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 10,
+      "source": "api::OpenMutex",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::OpenMutex",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenMutex",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenMutex",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenMutex",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenMutex",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenMutex",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenMutex",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 9,
+      "source": "api::OpenMutex",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenMutex",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenMutex",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenMutex",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenMutex",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenMutex",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 11,
+      "source": "api::OpenProcess",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenProcess",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenProcess",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::OpenProcess",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::OpenProcess",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenProcess",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenProcess",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenProcess",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::OpenProcess",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenProcess",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenProcess",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenProcess",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::OpenProcess",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenProcess",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::OpenProcess",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenProcess",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenProcess",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenProcess",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenProcess",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::OpenProcess",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::CloseSocket",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CloseSocket",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CloseSocket",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CloseSocket",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::CloseSocket",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CloseSocket",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CloseSocket",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CloseSocket",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseSocket",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CloseSocket",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CloseSocket",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CloseSocket",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseSocket",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CloseSocket",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CloseSocket",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CloseSocket",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseSocket",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::VirtualAlloc",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::VirtualAlloc",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::VirtualAlloc",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::VirtualAlloc",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::VirtualAlloc",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::VirtualAlloc",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::VirtualAlloc",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::VirtualAlloc",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::VirtualAlloc",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::VirtualAlloc",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::VirtualAlloc",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::VirtualAlloc",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::VirtualAlloc",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::VirtualAlloc",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::VirtualAlloc",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::VirtualAlloc",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::VirtualAlloc",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::VirtualAlloc",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetSystemInfo",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::GetSystemInfo",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetSystemInfo",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetSystemInfo",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetSystemInfo",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::GetSystemInfo",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetSystemInfo",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::GetSystemInfo",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::GetSystemInfo",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::GetSystemInfo",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetSystemInfo",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetSystemInfo",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::GetSystemInfo",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetSystemInfo",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetSystemInfo",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::GetSystemInfo",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::GetSystemInfo",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetSystemInfo",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetSystemInfo",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetSystemInfo",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::2",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::2",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::2",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::2",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::2",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::2",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::2",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::2",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::2",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::2",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 13,
+      "source": "api::OpenRegistry",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::OpenRegistry",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenRegistry",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenRegistry",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::OpenRegistry",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenRegistry",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 9,
+      "source": "api::OpenRegistry",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenRegistry",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::OpenRegistry",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenRegistry",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenRegistry",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::OpenRegistry",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenRegistry",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenRegistry",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::OpenRegistry",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::OpenRegistry",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenRegistry",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::OpenRegistry",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::OpenRegistry",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::OpenRegistry",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CloseHandle",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseHandle",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseHandle",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CloseHandle",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CloseHandle",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseHandle",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseHandle",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CloseHandle",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CloseHandle",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseHandle",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CloseHandle",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CloseHandle",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CloseHandle",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CloseHandle",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CloseHandle",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CloseHandle",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CloseHandle",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateMutex",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateMutex",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateMutex",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateMutex",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateMutex",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateMutex",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateMutex",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateMutex",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateMutex",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateMutex",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateMutex",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateMutex",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateMutex",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateMutex",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateMutex",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateMutex",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateMutex",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateMutex",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateMutex",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::KillTimer",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::KillTimer",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::KillTimer",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::KillTimer",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::KillTimer",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::KillTimer",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::KillTimer",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::KillTimer",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::KillTimer",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::KillTimer",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::KillTimer",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::KillTimer",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::KillTimer",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::KillTimer",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::KillTimer",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::KillTimer",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::KillTimer",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 10,
+      "source": "api::GetTickCount",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetTickCount",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetTickCount",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetTickCount",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetTickCount",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::GetTickCount",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetTickCount",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::GetTickCount",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 9,
+      "source": "api::GetTickCount",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetTickCount",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::GetTickCount",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetTickCount",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetTickCount",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetTickCount",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetTickCount",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetTickCount",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::GetTickCount",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::GetTickCount",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::GetTickCount",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::3",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::3",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::3",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::3",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::3",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::3",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::3",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::3",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::DeleteFile",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::DeleteFile",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::DeleteFile",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::DeleteFile",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::DeleteFile",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::DeleteFile",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::DeleteFile",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::DeleteFile",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::DeleteFile",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::DeleteFile",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::DeleteFile",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::DeleteFile",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::DeleteFile",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::DeleteFile",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::DeleteFile",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::DeleteFile",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::4",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::4",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::4",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::4",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::4",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::4",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::4",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::4",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::5",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::5",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::5",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::5",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::5",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::5",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::5",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::5",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::5",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::5",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateThread",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateThread",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateThread",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateThread",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateThread",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateThread",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::CreateThread",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::CreateThread",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateThread",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateThread",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateThread",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateThread",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateThread",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateThread",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateThread",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateThread",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateThread",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateThread",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateThread",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateFile",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateFile",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateFile",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateFile",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateFile",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateFile",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateFile",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateFile",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateFile",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateFile",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateFile",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateFile",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateFile",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateFile",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateFile",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateFile",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateFile",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateFile",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::TerminateProcess",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::TerminateProcess",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::TerminateProcess",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::TerminateProcess",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::TerminateProcess",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::TerminateProcess",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::TerminateProcess",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::TerminateProcess",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::TerminateProcess",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::TerminateProcess",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::TerminateProcess",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::TerminateProcess",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::TerminateProcess",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::TerminateProcess",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::TerminateProcess",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::TerminateProcess",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::TerminateProcess",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::TerminateProcess",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::6",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::6",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::6",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::6",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::6",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::6",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::6",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::6",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::6",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::6",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateProcess",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateProcess",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateProcess",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateProcess",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateProcess",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateProcess",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 7,
+      "source": "api::CreateProcess",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 3,
+      "source": "api::CreateProcess",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateProcess",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateProcess",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 8,
+      "source": "api::CreateProcess",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 6,
+      "source": "api::CreateProcess",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateProcess",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateProcess",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateProcess",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateProcess",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 5,
+      "source": "api::CreateProcess",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 4,
+      "source": "api::CreateProcess",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "SHARES_API",
+      "co_count": 2,
+      "source": "api::CreateProcess",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::7",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::7",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::7",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::7",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::7",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::7",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::7",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::7",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::7",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::7",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::7",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::7",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::8",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::8",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::8",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::8",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::8",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::8",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::8",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::8",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::8",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::8",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::8",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::8",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::8",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::8",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::8",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::9",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::9",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::9",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::9",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::9",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::9",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::9",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::9",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::9",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::10",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::10",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::10",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::10",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::10",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::10",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::11",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::11",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::11",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::11",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::11",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::12",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::12",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::12",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::12",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::12",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::12",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::12",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::13",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::13",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::13",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::13",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::13",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::13",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::13",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::14",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::14",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::14",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::14",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::14",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::14",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::14",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::14",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::14",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::14",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::15",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::15",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::15",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::15",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::15",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::15",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::15",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::16",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::16",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::16",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::16",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::16",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::16",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::16",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::16",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::16",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::16",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::16",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::16",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::16",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::17",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::17",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::17",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::17",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::17",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::17",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::17",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::17",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::17",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::18",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::18",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::18",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::18",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::18",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::18",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::18",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::19",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::19",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::19",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::19",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::19",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::19",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::19",
+      "target": "api::Sleep"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::19",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::20",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::20",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::20",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::20",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::20",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::20",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::20",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::21",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::21",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::21",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::21",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::21",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::22",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::22",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::22",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::22",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::22",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::22",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::22",
+      "target": "api::CreateMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::22",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::22",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::22",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::22",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::22",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::23",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::23",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::23",
+      "target": "api::CreateFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::23",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::23",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::24",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::24",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::24",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::24",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::24",
+      "target": "api::CreateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::24",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::24",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::24",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::24",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::24",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::24",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::25",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::25",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::25",
+      "target": "api::VirtualAlloc"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::25",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::25",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::26",
+      "target": "api::OpenProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::26",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::26",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::26",
+      "target": "api::TerminateProcess"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::26",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::26",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::26",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::26",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::26",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::27",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::27",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::27",
+      "target": "api::GetProcAddress"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::27",
+      "target": "api::DeleteFile"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::27",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::28",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::28",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::28",
+      "target": "api::CloseHandle"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::28",
+      "target": "api::LoadLibrary"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "call",
+      "source": "sample::28",
+      "target": "api::WriteProcessMemory"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "delete",
+      "source": "sample::28",
+      "target": "api::RegDeleteKey"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::28",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::28",
+      "target": "sec::normal"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::29",
+      "target": "api::OpenRegistry"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::29",
+      "target": "api::OpenMutex"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "open",
+      "source": "sample::29",
+      "target": "api::OpenFile"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "close",
+      "source": "sample::29",
+      "target": "api::CloseSocket"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "create",
+      "source": "sample::29",
+      "target": "api::CreateThread"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "kill",
+      "source": "sample::29",
+      "target": "api::KillTimer"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::29",
+      "target": "api::GetSystemInfo"
+    },
+    {
+      "edge_type": "HAS_IMPORT",
+      "weight": 1,
+      "category": "other",
+      "source": "sample::29",
+      "target": "api::GetTickCount"
+    },
+    {
+      "edge_type": "HAS_SECTION",
+      "max_entropy": 0,
+      "source": "sample::29",
+      "target": "sec::normal"
+    }
+  ]
+}
