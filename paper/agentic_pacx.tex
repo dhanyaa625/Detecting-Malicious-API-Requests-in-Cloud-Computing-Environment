@@ -63,13 +63,11 @@ Existing security systems predominantly rely on either static rule-based heurist
 To address these gaps, this paper proposes Agentic-PACX, an explainable hybrid threat intelligence framework fusing a Prospect-Aspect-Context (PAC-X) heuristic engine with a Graph Attention Network (MalwareGAT), evaluating both deterministic rule violations and topological anomalies. A dual-pathway decision fusion layer, orchestrated by cognitive Large Language Model (LLM) agents, provides human-readable forensic reasoning for every detection and autonomously triggers self-healing transfer-learning loops when model confidence drops, adapting to zero-day threats in real time.
 
 \section{Related Work}
-Several studies have proposed machine learning methodologies for malware detection via API-call analysis. Researchers have explored system API vectorization \cite{b6} and frameworks like API2Vec++ \cite{b15} to boost sequence representation \cite{b16}. Automated frameworks such as API-MalDetect \cite{b18} and hybrid CNN-DNN mechanisms \cite{b17} demonstrate deep neural networks processing these sequences. In mobile/IoT domains, models leveraging API calls, permissions, and opcode features are widely applied \cite{b8}, \cite{b10}, \cite{b11}, alongside genetic algorithm-optimized networks \cite{b13}.
+Several studies address malware detection via API-call analysis: system API vectorization \cite{b6}, sequence-representation boosting via API2Vec++ \cite{b15}, \cite{b16}, and deep networks over API sequences in API-MalDetect \cite{b18} and hybrid CNN-DNN mechanisms \cite{b17}. In mobile/IoT domains, API calls, permissions, and opcode features are widely used \cite{b8}, \cite{b10}, \cite{b11}, alongside genetic algorithm-optimized networks \cite{b13}. Beyond isolated malware analysis, AI-enhanced API gateways secure microservices \cite{b5}, complemented by malicious-IP identification \cite{b4}, hybrid deep learning for network-level threats \cite{b1}, EDoS-attack defenses in cloud storage \cite{b3}, and federated IoT security \cite{b9}.
 
-Beyond isolated malware analysis, AI-enhanced API gateways secure next-generation microservices \cite{b5}, complemented by malicious-IP identification \cite{b4}, hybrid deep learning for network-level threats \cite{b1}, EDoS-attack defenses in cloud storage \cite{b3}, and federated learning for distributed IoT security \cite{b9}.
+Adversaries continuously evolve obfuscated malware to evade static and AI-driven detection \cite{b7}, motivating structural approaches such as CNNs with fuzzy hashing for ransomware \cite{b12}. Graph Neural Networks (GNNs) have shown strong capability here, via contextual steerable GNNs for node localization \cite{b2} or graph attention for explainable code localization \cite{b14}.
 
-Modern adversaries continuously evolve obfuscated malware to evade static and AI-driven detection \cite{b7}, motivating structural approaches such as CNNs with fuzzy hashing for ransomware \cite{b12}. Graph Neural Networks (GNNs) have shown strong capability here, via contextual steerable GNNs for node localization \cite{b2} or graph attention for explainable code localization \cite{b14}.
-
-The evolution of Explainable AI (XAI) in cybersecurity motivates our research. A pivotal advancement is the PAC-X framework by M. Saqib \textit{et al.} \cite{b19}: a Conditional Attention Neural Network (CAN-Net) paired with Contextual Fuzzy Clustering (CFC), delivering multiclass explainability via a Prospect-Aspect-Context paradigm reported to outperform LIME, LEMNA, and SHAP on explainability power. Agentic-PACX builds on this interpretability philosophy but targets the dynamic nature of cloud environments via a dual-agent architecture: a Graph Attention Network (GAT) for structural dependencies, and an LLM-driven fusion framework for natural language explanations. Table \ref{tab:limitations} summarizes existing limitations and Agentic-PACX's enhancements across five representative methodologies.
+The evolution of Explainable AI (XAI) in cybersecurity motivates our research. A pivotal advancement is the PAC-X framework by M. Saqib \textit{et al.} \cite{b19}: a Conditional Attention Neural Network (CAN-Net) with Contextual Fuzzy Clustering (CFC), delivering multiclass explainability reported to outperform LIME, LEMNA, and SHAP on explainability power. Agentic-PACX builds on this interpretability philosophy but targets cloud environments via a dual-agent architecture: a GAT for structural dependencies and an LLM-driven fusion framework for natural language explanations. Table \ref{tab:limitations} summarizes existing limitations and our enhancements across five representative methodologies.
 
 \begin{table}[htbp]
 \caption{Existing Approaches, Their Limitations, and Agentic-PACX Enhancements}
@@ -98,7 +96,7 @@ The evolution of Explainable AI (XAI) in cybersecurity motivates our research. A
 \section{Proposed Methodology}
 
 \subsection{Overview and System Architecture}
-The proposed Agentic-PACX framework is a hybrid threat intelligence architecture engineered to detect malicious API telemetry, obfuscated system calls, and zero-day threat patterns within cloud computing environments. The methodology orchestrates a dual-pathway detection pipeline that concurrently processes input streams through: (1) a rule-based PAC-X Heuristic Engine, and (2) a structural Graph Attention Network (MalwareGAT). The outputs of both pathways are dynamically synthesized within a Decision Fusion Layer, while autonomous cognitive LLM agents oversee forensic reasoning (Agent 1) and trigger an active self-healing transfer-learning loop (Agent 2) upon encountering low-confidence zero-day samples.
+Agentic-PACX is a hybrid threat intelligence architecture for detecting malicious API telemetry, obfuscated system calls, and zero-day threat patterns in cloud environments. It orchestrates a dual-pathway pipeline -- (1) a rule-based PAC-X Heuristic Engine and (2) a structural Graph Attention Network (MalwareGAT) -- whose outputs are synthesized within a Decision Fusion Layer, while cognitive LLM agents oversee forensic reasoning (Agent 1) and trigger a self-healing transfer-learning loop (Agent 2) on low-confidence zero-day samples.
 
 \begin{figure*}[htbp]
 \centering
@@ -208,14 +206,14 @@ Each node's feature block is normalized using the static mean $\mu_{i, j}$ and s
 \begin{equation}
 \mathbf{z}_{i, j} = \frac{\mathbf{x}_{i, j} - \mu_{i, j}}{\sigma_{i, j} + \epsilon}, \quad \forall i \in \{0, \dots, 3\}
 \end{equation}
-where $\mathbf{x}_{i, j}$ represents the raw scalar feature at node $i$ and feature index $j$. These training-split statistics are persisted once and reused identically by the live Universal Input Adapter, so a live inference is normalized against the same reference distribution the model was trained on.
+where $\mathbf{x}_{i, j}$ is the raw scalar feature at node $i$, index $j$. These statistics are persisted once and reused identically by the live adapter, so inference is normalized against the same reference distribution used in training.
 
 \subsubsection{PAC-X Heuristic Engine}
 Operating in parallel with the GNN, the heuristic engine computes independent signals across three dimensions (Prospect, Aspect, Context). Shannon entropy $H(X)$ is computed for the Prospect score, while Aspect and Context evaluate dangerous APIs and suspicious execution paths:
 \begin{equation}
 S_{\text{PAC-X}} = \min\left(1.0, \, \frac{S_{\text{prosp}} + S_{\text{aspect}} + S_{\text{context}}}{100.0}\right)
 \end{equation}
-where $S_{\text{prosp}}$, $S_{\text{aspect}}$, and $S_{\text{context}}$ represent the evaluated sub-scores for payload entropy, suspicious API hooks, and command-line execution contexts respectively. Because these keyword/entropy heuristics have signal only on raw text/API-log content, a low-signal input (e.g. a numeric PE-header feature row with no alphabetic content) is capped below full confidence rather than allowed to report a spuriously confident ``Benign'' verdict -- Section IV-C's ablation isolates exactly this behavior.
+where $S_{\text{prosp}}$, $S_{\text{aspect}}$, and $S_{\text{context}}$ are sub-scores for payload entropy, suspicious API hooks, and command-line execution contexts. Since these heuristics have signal only on raw text/API-log content, a low-signal input (e.g. a numeric PE-header row with no alphabetic content) is capped below full confidence rather than reporting a spuriously confident ``Benign'' verdict -- Section IV-C's ablation isolates exactly this behavior.
 
 \subsection{MalwareGAT Attention Mechanism}
 The graph used by MalwareGAT is represented as $G=(V,E)$. For a node $i$ and neighboring node $j$, the GAT attention score is calculated as:
@@ -231,7 +229,7 @@ where $\mathbf{h}_i$ and $\mathbf{h}_j$ are the feature representations of nodes
 \end{equation}
 where $N(i)$ represents the 1-hop topological neighborhood of node $i$, $\alpha_{ij}$ is the attention coefficient, and $\sigma(\cdot)$ is the non-linear ELU activation function.
 
-MalwareGAT stacks three GATConv layers with 64 hidden channels per attention head. The first layer uses four attention heads with output concatenation (producing a 256-dimensional representation), the second uses two heads with concatenation (128-dimensional), and the third and final layer uses a single head without concatenation, producing the final 64-dimensional node representation. Each layer is followed by batch normalization and a 0.25 dropout rate. After graph convolution, global mean pooling $\mathbf{h}_{G} = \frac{1}{|V|} \sum_{i \in V}\mathbf{h}'_i$ is applied and passed to a linear classification layer. The full forward pass and attention weighting steps are formally detailed in Algorithm \ref{alg:gat}.
+MalwareGAT stacks three GATConv layers, 64 hidden channels per head: 4 heads with concatenation (256-dim) in layer 1, 2 heads concatenated (128-dim) in layer 2, and 1 head, no concatenation (64-dim), in layer 3, each followed by batch normalization and 0.25 dropout. Global mean pooling $\mathbf{h}_{G} = \frac{1}{|V|} \sum_{i \in V}\mathbf{h}'_i$ then feeds a linear classifier. Algorithm \ref{alg:gat} details the forward pass and attention weighting.
 
 \begin{algorithm}[htbp]
 \caption{MalwareGAT Forward Pass \& Attention Computation}
@@ -271,9 +269,9 @@ C_{\text{graph}} &= \frac{1}{4}\sum_{i=0}^3 \mathbb{I}(\|\mathbf{x}_i\|_2 > 0) \
 \Psi_{\text{certainty}} &= \text{clamp}\left(0.60 p_1 + 0.40 (p_1 - p_2), 0, 1\right)
 \end{aligned}
 \end{equation}
-where $\mathbb{I}(\cdot)$ is the binary indicator function, and $p_1, p_2$ represent the top-2 class probabilities from the GNN output.
+where $\mathbb{I}(\cdot)$ is the binary indicator function, and $p_1, p_2$ are the top-2 class probabilities from the GNN output.
 
-The pathway weights are set relative to a 0.6/0.4 GNN/PAC-X baseline, nudged by graph completeness and model certainty ($w_{\text{PAC-X}} = 1 - w_{\text{GNN}}$). When the two pathways agree, the fused threat probability is their weighted blend; when they disagree, the layer arbitrates per-sample by trust rather than averaging the disagreement away:
+Pathway weights start from a 0.6/0.4 GNN/PAC-X baseline, nudged by completeness and certainty ($w_{\text{PAC-X}} = 1 - w_{\text{GNN}}$). On agreement, the fused probability is their weighted blend; on disagreement, the layer arbitrates per-sample by trust instead of averaging the disagreement away:
 \begin{equation}
 \label{eq:fusion}
 \begin{aligned}
@@ -333,21 +331,21 @@ If confidence falls below $0.60$, Agent 2 initiates an active transfer-learning 
 \section{Results and Discussion}
 
 \subsection{Dataset and Experimental Setup}
-The framework was evaluated using a project-derived PE malware dataset comprising 5,138 graph instances partitioned across 11 real-world classes: a Benign class and 10 named malware families drawn from public threat-intelligence feeds -- Gandcrab (ransomware), Emotet (banking trojan/loader), Gamarue, Hotbar, DarkKomet (remote-access backdoor), Delf, Domaiq, DLHelper, DriverPack, and GameHack. The dataset captures four distinct feature groups: (1) PE Header structures ($v_0$), (2) Section Entropy and structural summary statistics ($v_1$), (3) pre-computed continuous embeddings of each sample's Import/Export lists ($v_2$), and (4) pre-computed continuous embeddings of network/string artifacts ($v_3$); Section III-B.2 details why all four are treated as real numeric feature blocks rather than hashed string tokens. Each graph node is represented using a 260-dimensional feature vector, combining static and dynamic signals.
+The framework was evaluated on a project-derived PE malware dataset of 5,138 graph instances across 11 classes: Benign and 10 named malware families from public threat-intelligence feeds (Gandcrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, GameHack). Four feature groups feed the graph: (1) PE Header structures ($v_0$), (2) section-entropy and structural summary statistics ($v_1$), (3) pre-computed continuous embeddings of each sample's import/export lists ($v_2$), and (4) embeddings of network/string artifacts ($v_3$) -- Section III-B.2 details why all four are real numeric feature blocks, not hashed string tokens. Each node is a 260-dimensional feature vector.
 
 The dataset was partitioned using a 70/10/20 stratified train/validation/test split (seeded per-class for reproducibility): 3,596 training, 513 validation, and 1,029 held-out test samples. The validation split -- not the test split -- drives early stopping and best-checkpoint selection, so the test split is touched exactly once, after model selection is complete, avoiding the optimistic bias of selecting a checkpoint on the same set its final number is reported against.
 
-The system was implemented in PyTorch and PyTorch Geometric. The MalwareGAT model utilizes 64 hidden channels per attention head across a 3-layer GAT architecture with 4, 2, and 1 attention heads in successive layers, batch normalization, and a 0.25 dropout rate (architecture detailed in Section III-C). Optimization uses AdamW with a learning rate of $0.001$ and a weight decay of $1\times 10^{-4}$.
+The system was implemented in PyTorch and PyTorch Geometric (architecture detailed in Section III-C). Optimization uses AdamW with a learning rate of $0.001$ and a weight decay of $1\times 10^{-4}$.
 
 \subsection{Performance Metrics}
-Standard classification metrics are used throughout: Accuracy $= \frac{TP+TN}{TP+TN+FP+FN}$, Precision $= \frac{TP}{TP+FP}$, and Recall $= \frac{TP}{TP+FN}$, where $TP, TN, FP, FN$ denote True/False Positives/Negatives. To account for class imbalance across the 11 malware families, the unweighted macro-average F1 is used:
+Standard metrics are used throughout: Accuracy $= \frac{TP+TN}{TP+TN+FP+FN}$, Precision $= \frac{TP}{TP+FP}$, Recall $= \frac{TP}{TP+FN}$ ($TP, TN, FP, FN$: True/False Positives/Negatives). For class imbalance across the 11 families, unweighted macro-average F1 is used:
 \begin{equation}
 \text{F1}_{\text{macro}} = \frac{1}{N_c} \sum_{c=1}^{N_c} 2 \times \frac{\text{Prec}_c \times \text{Rec}_c}{\text{Prec}_c + \text{Rec}_c}
 \end{equation}
 where $N_c = 11$ and $\text{Prec}_c, \text{Rec}_c$ are class-specific metrics.
 
 \subsection{Comparison with Baseline Methods}
-The experimental evaluation compares Agentic-PACX against five state-of-the-art baseline methodologies from recent literature: (1) PAC-X (CAN-Net) \cite{b19}, (2) GA CNN-SENet \cite{b13}, (3) CNN-DNN Hybrid \cite{b17}, (4) API2Vec++ \cite{b15}, and (5) API-MalDetect \cite{b18}. Baseline figures are each paper's own best reported result on its own dataset (see Table~\ref{tab:comparison} notes); this is not a controlled head-to-head re-evaluation on a shared test set, since the cited papers were not re-run on our data. Results are presented in Table~\ref{tab:comparison}. The Agentic-PACX row reports binary malicious/benign detection performance on the 1,029-sample held-out test set; fine-grained multiclass family-attribution performance is reported separately in Section IV-E.
+Agentic-PACX is compared against five baseline methodologies from recent literature: (1) PAC-X (CAN-Net) \cite{b19}, (2) GA CNN-SENet \cite{b13}, (3) CNN-DNN Hybrid \cite{b17}, (4) API2Vec++ \cite{b15}, and (5) API-MalDetect \cite{b18}. Baseline figures are each paper's own best reported result on its own dataset (Table~\ref{tab:comparison} notes), not a controlled re-evaluation on a shared test set. The Agentic-PACX row reports binary detection on the 1,029-sample held-out test set; multiclass family attribution is in Section IV-E.
 
 \begin{table}[htbp]
 \caption{Performance and Explainability Comparison}
