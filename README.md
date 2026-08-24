@@ -193,16 +193,36 @@ Regenerate all of the above with `python scripts/build_graph_dataset.py && pytho
 pip install -r requirements.txt
 ```
 
-### 2. Launch the Application
+### 2. (Optional) Enable real LLM reasoning
+Agent 1 works out of the box with static templated reasoning if no key is configured. To get real Gemini-generated forensic reports:
+```bash
+cp .env.example .env
+# then edit .env and paste in a real key from https://aistudio.google.com/apikey
+```
+`agents/analyst_agent.py` loads `.env` automatically (via `python-dotenv`) on every run -- no need to export an environment variable by hand. `.env` is gitignored, so the key never gets committed.
+
+### 3. Launch the Application
 Run the FastAPI backend server (from the root folder):
 ```bash
 python app.py
 ```
 Open your browser at **[http://localhost:8000/live_analysis.html](http://localhost:8000/live_analysis.html)**.
 
-### 3. Simulate Zero-Day Attacks
-* **Test Text Log:** Upload `zero_day_sample.txt` using the **Simple Text check** dropdown.
-* **Test JSON Log:** Upload `sample_json.json` using the **Structured JSON** dropdown.
-* **Test CSV Log:** Upload `sample_csv.csv` using the **CSV Log File** dropdown.
+### 4. Regenerate the dataset/model (optional -- already committed as trained artifacts)
+```bash
+python scripts/build_graph_dataset.py       # data/pyg_dataset.pt
+python -m core.dataset_manager              # split + normalize -> pyg_dataset_norm.pt, norm_stats.pt
+python agentic_pacx/gnn_classification.py   # trains model.pt, writes training_history.json + gnn_outputs.json
+python scripts/build_ablation_report.py     # ablation_report.json
+python scripts/build_demo_samples.py        # refreshes demo_samples/ against the current split
+```
 
-*To test Agent 2 manually, click **"Trigger Agent 2 Retraining"** in the bottom left panel. Retraining runs in the background (typically well under a minute on this dataset's size); the button confirms it's queued, and the model reloads automatically once it finishes -- refresh the page after a short wait to see results reflecting the updated weights.*
+### 5. Test every feature end-to-end
+* **Live analysis, text mode:** on `/live_analysis.html`, leave the dropdown on "API Call Log (Text)", paste the contents of `demo_samples/api_call_log_malicious.txt` (or `_benign.txt`), click **Analyze Request**. Check: PAC-X panel, GNN panel, the Agent 1 reasoning box, the new **GNN Structural Forensic Report** card, and the Decision Fusion panel all populate.
+* **Live analysis, CSV mode:** switch the dropdown to "Full Feature Record (CSV)" and upload any file from `demo_samples/` (e.g. `gandcrab_3814.csv`) -- these are genuine held-out rows; `demo_samples/manifest.csv` lists the true label for each, so you can confirm the prediction matches.
+* **Live analysis, JSON mode:** switch the dropdown to "Partial Request Data (JSON)" and paste a payload like `{"api_calls": ["ResumeThread", "kernel32!LoadLibraryA"], "ip": "192.168.1.1"}` (see `core/tests/demo_adapter_inputs.py` for more).
+* **Agent 2 (self-healing):** click **"Trigger Agent 2 Retraining"**. It queues in the background and confirms immediately; refresh after ~30-60s to pick up new weights if the pool passed its guardrails (it needs >=20 samples across >=2 classes -- check the server console log for whether it ran or was skipped).
+* **Metrics dashboard:** open `/metrics_report.html` for the full confusion matrix, per-class precision/recall table, and training curve.
+* **Graph visualizations:** open `/visual_graphs.html` for the topological node-graph view.
+* **Health/audit endpoints:** `GET /api/health`, `/api/audit/env`, `/api/audit/dataset`, `/api/report`, `/api/ablation`, `/api/training_history`.
+* **Automated smoke test:** `python core/tests/test_adapter.py` exercises the adapter + model end-to-end without the UI.

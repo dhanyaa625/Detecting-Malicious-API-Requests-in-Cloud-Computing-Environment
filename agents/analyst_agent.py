@@ -2,9 +2,15 @@ import json
 import os
 import subprocess
 import sys
+from dotenv import load_dotenv
 from google import genai
 from sklearn.metrics import confusion_matrix
 import numpy as np
+
+# Loads GEMINI_API_KEY from a .env file in the project root if present, so a
+# key can be configured without exporting an environment variable by hand.
+# Never overrides a key already set in the real environment.
+load_dotenv()
 
 # Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY", "")
