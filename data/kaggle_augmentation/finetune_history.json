@@ -1,0 +1,104 @@
+{
+  "pre_finetune_original_test_accuracy": 99.61,
+  "post_finetune_original_test_accuracy": 99.51,
+  "epoch_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.0034,
+      "val_loss": 0.0968,
+      "val_accuracy": 97.48,
+      "val_f1_macro": 81.15
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0019,
+      "val_loss": 0.0322,
+      "val_accuracy": 98.69,
+      "val_f1_macro": 86.58
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.0002,
+      "val_loss": 0.0061,
+      "val_accuracy": 99.69,
+      "val_f1_macro": 91.84
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.0006,
+      "val_loss": 0.0013,
+      "val_accuracy": 99.87,
+      "val_f1_macro": 96.06
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.0001,
+      "val_loss": 0.0939,
+      "val_accuracy": 96.5,
+      "val_f1_macro": 89.36
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.0001,
+      "val_loss": 0.0003,
+      "val_accuracy": 99.8,
+      "val_f1_macro": 95.3
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.0,
+      "val_loss": 0.0002,
+      "val_accuracy": 99.84,
+      "val_f1_macro": 95.25
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.0,
+      "val_loss": 0.0001,
+      "val_accuracy": 99.91,
+      "val_f1_macro": 97.14
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0,
+      "val_loss": 0.0001,
+      "val_accuracy": 99.93,
+      "val_f1_macro": 97.72
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.0009,
+      "val_loss": 3.8487,
+      "val_accuracy": 12.21,
+      "val_f1_macro": 73.41
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.0058,
+      "val_loss": 0.0172,
+      "val_accuracy": 98.04,
+      "val_f1_macro": 78.71
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.0007,
+      "val_loss": 0.007,
+      "val_accuracy": 99.24,
+      "val_f1_macro": 87.21
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.0001,
+      "val_loss": 0.0034,
+      "val_accuracy": 99.64,
+      "val_f1_macro": 92.92
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.0001,
+      "val_loss": 0.0042,
+      "val_accuracy": 99.35,
+      "val_f1_macro": 90.54
+    }
+  ]
+}

@@ -27,6 +27,9 @@ from core.utils.dataset_audit import audit_dataset
 from core.utils.visualizer import generate_pictorial_graph
 from core.input_adapter import UniversalInputAdapter
 from core.pacx_analyzer import PACXHeuristicAnalyzer
+from core import scan_history
+
+scan_history.init_db()
 
 
 def load_class_labels():
@@ -646,11 +649,6 @@ async def get_metrics_report(request: Request):
     """Serves the detailed model metrics report page."""
     return templates.TemplateResponse(request, "metrics_report.html")
 
-@app.get("/visual_graphs.html")
-async def get_visual_graphs(request: Request):
-    """Serves the visual behavior analysis graphs page."""
-    return templates.TemplateResponse(request, "visual_graphs.html")
-
 @app.get("/api/results")
 def get_results():
     """Returns the head-to-head performance reports for GNN and PAC-X."""
@@ -706,20 +704,27 @@ async def analyze_live(
     content = ""
     if file:
         raw_bytes = await file.read()
-        try:
-            content = raw_bytes.decode("utf-8")
-        except UnicodeDecodeError:
-            # A real PE binary (or any non-text upload) isn't decodable as UTF-8 --
-            # that's an expected input for a malware-analysis tool, not a server
-            # error. Report it as a clean 400 instead of a bare 500 traceback.
-            raise HTTPException(
-                status_code=400,
-                detail=(
-                    "Uploaded file isn't valid UTF-8 text. This endpoint analyzes "
-                    "text-based API/JSON/CSV logs, not raw binaries -- export a "
-                    "text log (e.g. import/export list, API trace) and upload that."
-                ),
-            )
+        if raw_bytes[:2] == b"MZ":
+            # Real PE binary (.exe/.dll) -- route to core/pe_feature_extractor.py
+            # instead of trying to decode it as text. `content` stays as raw
+            # bytes; the PAC-X step below swaps in a real extracted-string
+            # summary for this path since PAC-X needs text, not bytes.
+            content = raw_bytes
+            input_type = "pe_binary"
+        else:
+            try:
+                content = raw_bytes.decode("utf-8")
+            except UnicodeDecodeError:
+                # Not a PE binary and not valid UTF-8 text either -- an
+                # unsupported upload, not a server error.
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        "Uploaded file is neither a PE binary (.exe/.dll, 'MZ' "
+                        "header) nor valid UTF-8 text. Upload a real PE binary, "
+                        "or a text-based API/JSON/CSV log."
+                    ),
+                )
     elif text:
         content = text
     else:
@@ -750,7 +755,11 @@ async def analyze_live(
         
         # STEP 3: PAC-X PATH - Feature-based analysis (Prospect, Aspect, Context)
         if pacx_engine is not None:
-            raw_pacx = pacx_engine.analyze(content, input_type=input_type)
+            # For a raw PE binary, PAC-X needs its real extracted API-name/
+            # string content (produced during STEP 1's parse), not the raw
+            # bytes -- it's a text/keyword/entropy heuristic, not a binary parser.
+            pacx_content = parse_result.get("text_summary", "") if input_type in ("pe_binary", "native_features") else content
+            raw_pacx = pacx_engine.analyze(pacx_content, input_type=input_type)
             pacx_result = {
                 "prediction": raw_pacx["prediction"],
                 "confidence": raw_pacx["confidence"],
@@ -849,7 +858,28 @@ async def analyze_live(
             # frontend code written against one shape or the other.
             gnn_report = "<p>Analysis report unavailable.</p>"
         
-        # STEP 8: Return comprehensive dual-path results
+        # STEP 8: Log this scan to the persistent history, then return
+        try:
+            source_label = getattr(file, "filename", None) if file else (text[:60] if text else None)
+            scan_history.log_scan(
+                input_type=input_type,
+                source_label=source_label,
+                pacx_diagnosis=pacx_result["prediction"],
+                pacx_confidence=pacx_result["confidence"],
+                gnn_diagnosis=gnn_result["prediction"],
+                gnn_confidence=gnn_result["confidence"],
+                gnn_family=gnn_result["predicted_family"],
+                fused_diagnosis=fusion_result.get("final_label"),
+                fused_confidence=fusion_result.get("confidence"),
+                arbitration=fusion_result.get("arbitration"),
+                completeness=completeness,
+                agent2_triggered=agent2_triggered,
+                reasoning_source=agent1_analysis["agent1_decision"].get("reasoning_source"),
+            )
+        except Exception as e:
+            print(f"[!] scan_history logging error (non-fatal): {e}")
+
+        # STEP 9: Return comprehensive dual-path results
         return {
             "success": True,
             "completeness": completeness,
@@ -927,6 +957,16 @@ async def retrain_model(background_tasks: BackgroundTasks):
         "queued": True,
         "message": "Retraining started in the background; the model reloads automatically when it finishes.",
     }
+
+@app.get("/api/scans/recent")
+async def recent_scans(limit: int = 50):
+    """Persistent scan history -- every real analysis this server has run,
+    not just the last one held in the browser's memory."""
+    return {"scans": scan_history.get_recent_scans(limit=limit)}
+
+@app.get("/api/scans/summary")
+async def scans_summary():
+    return scan_history.get_summary_stats()
 
 @app.get("/api/audit/env")
 async def audit_env():

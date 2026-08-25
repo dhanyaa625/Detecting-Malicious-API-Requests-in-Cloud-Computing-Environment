@@ -121,6 +121,55 @@ NATIVE_NETWORK_COLS = [
 NATIVE_SCHEMA_COLUMNS = set(NATIVE_PE_HEADER_COLS) | set(NATIVE_ENTROPY_COLS) | set(NATIVE_API_COLS) | set(NATIVE_NETWORK_COLS)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# AMAURICIO/KAGGLE PE-HEADER SCHEMA (e.g. kaggle_dataset/data.csv, the
+# "Benign & Malicious PE Files" Kaggle dataset) -- a plain-name variant of
+# this project's own header+entropy columns (no "f_" prefix, no "_0"
+# suffix), with one confirmed naming difference: their "SectionMaxRawsize"
+# is our "f_SectionsMaxRawsize_0" (plural "Sections"). Verified by directly
+# diffing kaggle_dataset/data.csv's real header against data/features.txt --
+# 53 of 54 columns match exactly.
+#
+# This dataset has no import/export/string data at all, so uploading a raw
+# row only ever fills the Header+Entropy nodes -- API+Network stay honestly
+# unfilled (completeness < 1.0), same treatment as a live raw-PE-binary
+# upload whose API/Network nodes get OOD-flagged out.
+# ─────────────────────────────────────────────────────────────────────────────
+_AMAURICIO_RENAME_OVERRIDES = {"SectionMaxRawsize": "SectionsMaxRawsize"}
+
+AMAURICIO_COLUMN_MAP = {}  # their column name -> our NATIVE_* column name
+for _our_col in NATIVE_PE_HEADER_COLS + NATIVE_ENTROPY_COLS:
+    _their_col = _our_col.replace("f_", "").rsplit("_0", 1)[0]
+    _their_col = _AMAURICIO_RENAME_OVERRIDES.get(_their_col, _their_col)
+    AMAURICIO_COLUMN_MAP[_their_col] = _our_col
+
+
+def is_amauricio_schema(columns) -> bool:
+    """True if `columns` looks like the amauricio/Kaggle plain-name PE-header
+    schema (e.g. kaggle_dataset/data.csv) rather than this project's own
+    native "f_..._0" schema. Same threshold logic as is_native_schema: most
+    of the header columns present, small tolerance for minor version drift.
+    """
+    cols = set(columns)
+    their_header_cols = set(AMAURICIO_COLUMN_MAP.keys()) - {"legitimate", "Name", "md5"}
+    return len(their_header_cols & cols) >= len(their_header_cols) - 4
+
+
+def amauricio_row_to_native_dict(row_get) -> dict:
+    """Maps a single amauricio-schema row into this project's own column
+    names, ready for native_row_to_node_vectors(). `row_get` is a
+    (column_name, default) -> value callable, same contract as
+    native_row_to_node_vectors's row_get. Only Header+Entropy columns are
+    populated -- API+Network are simply absent (this schema has no such
+    data), which native_row_to_node_vectors already handles via row_get's
+    default value.
+    """
+    return {
+        our_col: row_get(their_col, 0.0)
+        for their_col, our_col in AMAURICIO_COLUMN_MAP.items()
+    }
+
+
 def is_native_schema(columns) -> bool:
     """True if `columns` looks like this dataset's own native CSV schema
     (data/cleaned_data.csv), not an arbitrary user log. Requires most of the

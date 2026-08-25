@@ -1,0 +1,30 @@
+{
+  "note": "Per-node mean-absolute-z-score thresholds, computed from the REAL training split (data/train_indices.npy) after normalization (data/norm_stats.pt). Used by core/pe_feature_extractor.py's check_node_ood() to flag a live PE-binary upload's node as statistically implausible relative to what the model actually saw during training, instead of trusting it blindly. p99 = 99th percentile of genuine training samples' own mean|z| per node; anything past this is more extreme than 99% of real training data.",
+  "n_train_samples": 3596,
+  "thresholds": {
+    "header": {
+      "p99": 3.5603,
+      "max": 4.648,
+      "mean": 0.79,
+      "std": 0.5755
+    },
+    "entropy": {
+      "p99": 3.7568,
+      "max": 4.9562,
+      "mean": 0.6651,
+      "std": 0.7258
+    },
+    "api": {
+      "p99": 1.3687,
+      "max": 2.262,
+      "mean": 0.5959,
+      "std": 0.1989
+    },
+    "network": {
+      "p99": 1.8225,
+      "max": 3.3791,
+      "mean": 0.7851,
+      "std": 0.2991
+    }
+  }
+}

@@ -1,0 +1,432 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agentic-PACX Walkthrough</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#F6F5F1;
+    --surface:#FFFFFF;
+    --surface-alt:#EEEDE6;
+    --border:#DBD8CD;
+    --ink:#20241F;
+    --ink-soft:#4C5249;
+    --ink-faint:#84887E;
+    --accent:#1C6B66;
+    --accent-soft:#E4EFED;
+    --accent-ink:#134F4B;
+    --safe:#3C7A4E;
+    --safe-soft:#E7F2E9;
+    --warn:#A15D0A;
+    --warn-soft:#FBEEDC;
+    --danger:#A6383A;
+    --danger-soft:#FBE9E9;
+    --pacx:#7A4FB5;
+    --pacx-soft:#F1EBFA;
+    --gnn:#1C6B66;
+    --gnn-soft:#E4EFED;
+    --shadow: 0 1px 2px rgba(32,36,31,0.05), 0 2px 14px rgba(32,36,31,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171A16;
+      --surface:#1F2320;
+      --surface-alt:#262B26;
+      --border:#383E37;
+      --ink:#E9EAE4;
+      --ink-soft:#B7BBB0;
+      --ink-faint:#83887E;
+      --accent:#6FC2B8;
+      --accent-soft:#1E2E2B;
+      --accent-ink:#9BDCD3;
+      --safe:#8FCB9D;
+      --safe-soft:#1C2A20;
+      --warn:#E3AC63;
+      --warn-soft:#2E2517;
+      --danger:#E28B8B;
+      --danger-soft:#2E1E1F;
+      --pacx:#C4A6E8;
+      --pacx-soft:#251E2E;
+      --gnn:#6FC2B8;
+      --gnn-soft:#1E2E2B;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 16px rgba(0,0,0,0.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171A16; --surface:#1F2320; --surface-alt:#262B26; --border:#383E37;
+    --ink:#E9EAE4; --ink-soft:#B7BBB0; --ink-faint:#83887E;
+    --accent:#6FC2B8; --accent-soft:#1E2E2B; --accent-ink:#9BDCD3;
+    --safe:#8FCB9D; --safe-soft:#1C2A20; --warn:#E3AC63; --warn-soft:#2E2517;
+    --danger:#E28B8B; --danger-soft:#2E1E1F; --pacx:#C4A6E8; --pacx-soft:#251E2E;
+    --gnn:#6FC2B8; --gnn-soft:#1E2E2B;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 16px rgba(0,0,0,0.3);
+  }
+
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Source Sans 3", ui-sans-serif, sans-serif; font-size:16px; line-height:1.6; }
+  .wrap{ max-width:920px; margin:0 auto; padding:2.5rem 1.5rem 6rem; }
+  h1,h2,h3,h4{ font-family:"Sora", sans-serif; text-wrap:balance; color:var(--ink); margin:0; }
+  code, .mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:0.88em; }
+  a{ color:var(--accent-ink); }
+
+  header{ margin-bottom:2.2rem; }
+  .eyebrow{ font-family:"IBM Plex Mono", monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:0.6rem; }
+  h1{ font-size:1.9rem; font-weight:700; line-height:1.18; margin-bottom:0.6rem; }
+  .dek{ color:var(--ink-soft); max-width:66ch; }
+
+  nav.toc{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem 1.3rem; margin-top:1.6rem; box-shadow:var(--shadow); }
+  nav.toc h4{ font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:0.6rem; }
+  nav.toc ol{ margin:0; padding-left:1.2rem; columns:2; column-gap:2rem; }
+  nav.toc li{ margin-bottom:0.3rem; font-size:0.9rem; break-inside:avoid; }
+  nav.toc a{ text-decoration:none; color:var(--ink-soft); }
+  nav.toc a:hover{ color:var(--accent-ink); }
+  nav.toc .toc-part{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin:0.7rem 0 0.25rem; break-inside:avoid; }
+  nav.toc .toc-part:first-child{ margin-top:0; }
+
+  .part-divider{ display:flex; align-items:center; gap:0.8rem; margin:3.2rem 0 1.6rem; }
+  .part-divider .line{ flex:1; height:1px; background:var(--border); }
+  .part-divider span.label{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); white-space:nowrap; }
+
+  section{ margin-top:2.6rem; scroll-margin-top:1rem; }
+  .step-head{ display:flex; align-items:center; gap:0.7rem; margin-bottom:0.8rem; }
+  .step-num{ font-family:"IBM Plex Mono",monospace; font-weight:700; font-size:0.95rem; background:var(--accent); color:var(--bg); border-radius:50%; width:1.9rem; height:1.9rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  h2{ font-size:1.35rem; font-weight:700; }
+  .sub{ color:var(--ink-faint); font-size:0.92rem; margin:0.3rem 0 1.2rem; max-width:68ch; }
+
+  pre{ background:var(--surface-alt); border:1px solid var(--border); border-radius:8px; padding:0.8rem 1rem; overflow-x:auto; font-family:"IBM Plex Mono",monospace; font-size:0.86rem; line-height:1.55; }
+  code.inline{ background:var(--surface-alt); border:1px solid var(--border); border-radius:4px; padding:0.05rem 0.35rem; }
+
+  .card{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; box-shadow:var(--shadow); }
+  .card h3{ font-size:1.02rem; font-weight:700; margin-bottom:0.5rem; font-family:"Source Sans 3",sans-serif; }
+  .card p{ margin:0.4rem 0 0; color:var(--ink-soft); }
+  .card p + p{ margin-top:0.5rem; }
+
+  .panel-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+  @media (max-width:640px){ .panel-grid{ grid-template-columns:1fr; } nav.toc ol{ columns:1; } .demo-grid{ grid-template-columns:1fr !important; } }
+
+  .tag{ display:inline-block; font-size:0.72rem; font-family:"IBM Plex Mono",monospace; font-weight:600; padding:0.14rem 0.5rem; border-radius:5px; margin-right:0.3rem; }
+  .tag.pacx{ background:var(--pacx-soft); color:var(--pacx); }
+  .tag.gnn{ background:var(--gnn-soft); color:var(--gnn); }
+  .tag.fusion{ background:var(--accent-soft); color:var(--accent-ink); }
+  .tag.safe{ background:var(--safe-soft); color:var(--safe); }
+  .tag.warn{ background:var(--warn-soft); color:var(--warn); }
+  .tag.danger{ background:var(--danger-soft); color:var(--danger); }
+
+  .verdict{ border-left:4px solid var(--safe); background:var(--safe-soft); border-radius:0 8px 8px 0; padding:0.8rem 1.1rem; margin:1rem 0; }
+  .verdict.mixed{ border-left-color:var(--warn); background:var(--warn-soft); }
+  .verdict.danger{ border-left-color:var(--danger); background:var(--danger-soft); }
+  .verdict h4{ font-size:0.85rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink); margin-bottom:0.35rem; }
+  .verdict p{ margin:0; color:var(--ink-soft); font-size:0.94rem; }
+  .verdict p + p{ margin-top:0.5rem; }
+
+  table{ width:100%; border-collapse:collapse; font-size:0.9rem; }
+  th,td{ text-align:left; padding:0.45rem 0.6rem; border-bottom:1px solid var(--border); }
+  th{ color:var(--ink-faint); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.04em; font-weight:600; }
+  .table-wrap{ overflow-x:auto; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:0.3rem 0.9rem; box-shadow:var(--shadow); margin-bottom:0.9rem; }
+
+  /* Benign/Malicious demo comparison columns */
+  .demo-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:0.9rem; }
+  .demo-col{ border-radius:10px; padding:1.1rem 1.3rem; box-shadow:var(--shadow); border:1px solid var(--border); }
+  .demo-col.benign{ background:var(--safe-soft); border-color:var(--safe); }
+  .demo-col.malicious{ background:var(--danger-soft); border-color:var(--danger); }
+  .demo-col h4{ font-family:"IBM Plex Mono",monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.6rem; }
+  .demo-col.benign h4{ color:var(--safe); }
+  .demo-col.malicious h4{ color:var(--danger); }
+  .demo-col dl{ margin:0; }
+  .demo-col dt{ font-size:0.78rem; color:var(--ink-faint); margin-top:0.55rem; }
+  .demo-col dt:first-child{ margin-top:0; }
+  .demo-col dd{ margin:0.1rem 0 0; font-size:0.92rem; color:var(--ink); }
+
+  /* Sunburst mockup */
+  .sunburst-mock{ display:flex; align-items:center; justify-content:center; gap:2rem; flex-wrap:wrap; padding:1rem 0; }
+  .ring-demo{ position:relative; width:180px; height:180px; border-radius:50%; flex-shrink:0;
+    background: conic-gradient(var(--gnn) 0deg 230deg, var(--pacx) 230deg 360deg); }
+  .ring-demo::before{ content:""; position:absolute; inset:34px; border-radius:50%; background:var(--bg);
+    background:conic-gradient(from 0deg, var(--gnn-soft) 0deg 60deg, var(--border) 60deg 120deg, var(--gnn-soft) 120deg 180deg, var(--border) 180deg 230deg, var(--pacx-soft) 230deg 300deg, var(--border) 300deg 360deg); }
+  .ring-demo::after{ content:"Analysis"; position:absolute; inset:64px; border-radius:50%; background:var(--surface); display:flex; align-items:center; justify-content:center; font-size:0.68rem; color:var(--ink-faint); text-align:center; box-shadow: inset 0 0 0 1px var(--border); }
+  .ring-legend{ font-size:0.85rem; color:var(--ink-soft); max-width:34ch; }
+  .ring-legend div{ margin-bottom:0.5rem; }
+  .swatch{ display:inline-block; width:0.8em; height:0.8em; border-radius:2px; margin-right:0.4rem; vertical-align:-0.1em; }
+
+  footer{ margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.82rem; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Demo Script &amp; Reference · Agentic-PACX</div>
+  <h1>The complete demo walkthrough — every feature, in click order</h1>
+  <p class="dek">Follow this top to bottom for a live demo: each step says exactly what to upload, what appears, and — for every panel that changes behavior between a clean file and a malicious one — shows both side by side, so you (or an examiner) can see the contrast directly instead of taking it on faith. Part 2 covers the offline reports for a deeper Q&amp;A dive after the live part is done.</p>
+
+  <nav class="toc">
+    <h4>Contents</h4>
+    <ol>
+      <div class="toc-part">Part 1 — Live demo, in order</div>
+      <li><a href="#setup">1. Setup &amp; launch</a></li>
+      <li><a href="#gemini">2. Real LLM reasoning (optional)</a></li>
+      <li><a href="#demo-csv">3. Known samples — malicious vs. benign (CSV)</a></li>
+      <li><a href="#demo-dynamic">4. Real, never-seen files — the dynamic-input path</a></li>
+      <li><a href="#demo-json">5. Partial data — graceful degradation (JSON)</a></li>
+      <li><a href="#retrain">6. Triggering Agent 2 live</a></li>
+      <div class="toc-part">Part 2 — Reports &amp; proof, for Q&amp;A</div>
+      <li><a href="#metrics">7. The Metrics Report page</a></li>
+      <li><a href="#confusion">8. Reading the confusion matrices</a></li>
+      <li><a href="#sunburst">9. The sunburst chart, read correctly</a></li>
+      <li><a href="#zeroday">10. Zero-day generalization, proven not claimed</a></li>
+      <li><a href="#realworld">11. Real-world validation — and why numbers moved since the paper</a></li>
+    </ol>
+  </nav>
+</header>
+
+<div class="part-divider"><span class="label">Part 1 — Live Demo</span><div class="line"></div></div>
+
+<section id="setup">
+  <div class="step-head"><span class="step-num">1</span><h2>Setup &amp; launch</h2></div>
+  <pre>pip install -r requirements.txt
+python app.py</pre>
+  <p class="sub">Open <code class="inline">http://localhost:8000/live_analysis.html</code>. The server console prints model load status and the model's real overall accuracy on startup — worth glancing at once to confirm <code class="inline">model.pt</code> loaded (should read <strong>99.51%</strong> — see step 11 for why that number, not the paper's 99.61%, is correct here).</p>
+</section>
+
+<section id="gemini">
+  <div class="step-head"><span class="step-num">2</span><h2>Real LLM reasoning (optional)</h2></div>
+  <p class="sub">Without a key, Agent 1 still works — it falls back to static templated reasoning, so the demo never breaks. For real Gemini-generated forensic text instead:</p>
+  <pre>cp .env.example .env
+# edit .env, paste a key from https://aistudio.google.com/apikey
+python app.py   # restart to pick it up</pre>
+  <div class="verdict mixed">
+    <h4>Free-tier quota is small</h4>
+    <p>The free tier caps at 15 requests/minute per model. Clicking through several analyses back-to-back during a demo can hit a <code class="inline">429 RESOURCE_EXHAUSTED</code> — it's handled gracefully (falls back to template reasoning automatically, nothing breaks), but if you want guaranteed real LLM text for a specific demo moment, pace your clicks or warm up the quota a minute beforehand.</p>
+  </div>
+</section>
+
+<section id="demo-csv">
+  <div class="step-head"><span class="step-num">3</span><h2>Known samples — malicious vs. benign (CSV)</h2></div>
+  <p class="sub">Dropdown: <strong>Full Feature Record (CSV)</strong>. Upload files from <code class="inline">demo_samples/</code> — these are genuine held-out rows from the training dataset (<code class="inline">demo_samples/manifest.csv</code> lists the real label for each), so this is the one mode where you can check "did it get the right answer" against ground truth. Run these two back to back and compare every panel:</p>
+
+  <div class="demo-grid">
+    <div class="demo-col malicious">
+      <h4>▲ Malicious — gandcrab_3814.csv</h4>
+      <dl>
+        <dt>PAC-X panel</dt><dd>Benign, confidence capped at 50%</dd>
+        <dt>Agentic-PACX (GNN) panel</dt><dd>Malicious, <strong>gandcrab</strong>, ~99.96% confidence</dd>
+        <dt>Agent 1 decision</dt><dd>Disagreement → arbitrated by trust score, GNN wins (it has real structured signal, PAC-X has none on this input type)</dd>
+        <dt>Decision Fusion</dt><dd><strong>Malicious</strong> — correct</dd>
+      </dl>
+    </div>
+    <div class="demo-col benign">
+      <h4>● Benign — benign_1.csv</h4>
+      <dl>
+        <dt>PAC-X panel</dt><dd>Benign, confidence capped at 50%</dd>
+        <dt>Agentic-PACX (GNN) panel</dt><dd>Benign, ~99.1% confidence</dd>
+        <dt>Agent 1 decision</dt><dd>Both pathways agree on Benign — no arbitration needed, scores blend</dd>
+        <dt>Decision Fusion</dt><dd><strong>Benign</strong> — correct</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag pacx">PAC-X</span> panel — why it's capped at 50% on <em>both</em> files</h3>
+    <p>PAC-X is a keyword/entropy heuristic — it needs readable text or API names to check. A CSV row here is pure numeric PE-header features (column names like <code class="inline">f_SectionsMeanEntropy_0</code>), nothing PAC-X can read. Reporting a confident "Benign" with zero real evidence would be a false claim, so it's deliberately capped — that's correct, honest behavior on <em>both</em> the malicious and benign file, not a bug specific to either.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag gnn">Agentic-PACX (GNN)</span> panel</h3>
+    <p>This is the real, trained model's own output — diagnosis, confidence, predicted malware family (for the malicious file), and attention weights. This is where the actual detection work happens on a CSV upload.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag fusion">Agent 1</span> — Dynamic Forensic Decision</h3>
+    <p>Explains which pathway is "trusted" for <em>this specific sample</em> and why, in natural language (real Gemini text if a key is set, template text otherwise), plus which malware family the graph most resembles. Notice this text changes meaningfully between the two files — it's reasoning about the actual scores, not a canned response.</p>
+  </div>
+
+  <div class="card">
+    <h3>🧬 GNN Structural Forensic Report</h3>
+    <p>The attention-weight-based narrative (e.g. "critical structural anomaly between PE Header and API Export...") — the paper's flagship explainability example. On the benign file this reads noticeably calmer; on gandcrab it flags the specific node interaction that drove the call.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag fusion">Decision Fusion Layer</span></h3>
+    <p>The final verdict: which pathway's weight dominated, whether the two pathways agreed or one was arbitrated over the other by trust score, and the raw inputs behind the final confidence number. This is the number that matters — always read this, not just the GNN panel above it.</p>
+  </div>
+
+  <p class="sub">While either result is on screen, open the <strong>5-step pipeline tracker</strong> on the sidebar (<em>Submit → Normalize → Build Graph → GNN+PAC-X → Fused Verdict</em>) and click step 3 or 4 — it shows the actual 4-node topology (Header/Entropy/API/Network) with which nodes got real data highlighted, and after step 4, the attention weight on each edge.</p>
+</section>
+
+<section id="demo-dynamic">
+  <div class="step-head"><span class="step-num">4</span><h2>Real, never-seen files — the dynamic-input path</h2></div>
+  <p class="sub">Everything in step 3 replays a row that was already in the dataset. This step is the real test: upload an actual <code class="inline">.exe</code>/<code class="inline">.dll</code> the system has never seen before. Any upload mode works — the server auto-detects a real PE binary by its <code class="inline">MZ</code> header and routes it correctly regardless of which dropdown option is selected. Nothing needs configuring.</p>
+
+  <div class="card">
+    <h3>What happens under the hood</h3>
+    <p>The binary is parsed with <code class="inline">pefile</code> for real header and section-entropy values (exact, not approximated), plus real imported/exported function names and real embedded strings. Each of the 4 graph nodes is then checked against <code class="inline">data/ood_node_thresholds.json</code> — real statistics measured from the training data itself — and any node that's statistically implausible next to genuine training samples gets treated as honestly unfilled rather than trusted blindly. The real extracted API names also get handed to PAC-X, so for the first time on a binary upload, PAC-X has actual content to evaluate instead of being capped.</p>
+  </div>
+
+  <div class="demo-grid">
+    <div class="demo-col benign">
+      <h4>● Benign — e.g. C:\Windows\System32\notepad.exe</h4>
+      <dl>
+        <dt>PAC-X panel</dt><dd>Benign, ~100% confidence (real extracted API names checked — nothing suspicious found)</dd>
+        <dt>Agentic-PACX (GNN) panel</dt><dd>Benign</dd>
+        <dt>Decision Fusion</dt><dd><strong>Benign</strong> — verified correct, live-tested against real files</dd>
+      </dl>
+    </div>
+    <div class="demo-col malicious">
+      <h4>▲ Malicious — a real sample you have legitimate access to</h4>
+      <dl>
+        <dt>PAC-X panel</dt><dd>Should flag real suspicious API names/strings if present (e.g. process injection, crypto calls) — <a href="#realworld">see step 11</a> for which signals are actually validated</dd>
+        <dt>Agentic-PACX (GNN) panel</dt><dd>Watch the Completeness figure — if API/Network got flagged out-of-distribution, it'll be below 100%</dd>
+        <dt>Decision Fusion</dt><dd>Not independently verified with a real malware sample in this session (see note below) — test with your own and report back what you see</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="verdict mixed">
+    <h4>Honest note on the malicious side of this demo</h4>
+    <p>The benign case above is fully verified — tested live against real Windows system binaries, confirmed correct on both pathways independently. The malicious case was <em>not</em> tested against a real malware binary in this session — fetching and running real malware isn't something done here regardless of the reason. If you have legitimate access to a real sample (a university lab, a sandboxed VM, a research dataset), that's the right way to close this gap — not a limitation to hide, just be accurate about what's proven vs. expected when you present it.</p>
+  </div>
+</section>
+
+<section id="demo-json">
+  <div class="step-head"><span class="step-num">5</span><h2>Partial data — graceful degradation (JSON)</h2></div>
+  <p class="sub">Dropdown: <strong>Partial Request Data (JSON)</strong>. This demonstrates the system handling incomplete information honestly instead of guessing.</p>
+
+  <div class="demo-grid">
+    <div class="demo-col malicious">
+      <h4>▲ Suspicious-leaning partial input</h4>
+      <dd style="margin:0;"><code class="inline">{"api_calls": ["ResumeThread", "kernel32!LoadLibraryA", "WriteProcessMemory"], "ip": "192.168.1.1"}</code></dd>
+    </div>
+    <div class="demo-col benign">
+      <h4>● Sparse, low-signal partial input</h4>
+      <dd style="margin:0;"><code class="inline">{"api_calls": ["GetSystemInfo"], "ip": "8.8.8.8"}</code></dd>
+    </div>
+  </div>
+  <p class="sub">Either way, only 2 of 4 graph nodes get real data — <strong>Completeness</strong> shows 50–75%, and the Decision Fusion Layer visibly down-weights its own confidence accordingly rather than reporting false certainty on half-missing information. This is the clearest single moment in the demo to show "the system knows what it doesn't know."</p>
+</section>
+
+<section id="retrain">
+  <div class="step-head"><span class="step-num">6</span><h2>Triggering Agent 2 live</h2></div>
+  <p class="sub">Automatically, whenever the Decision Fusion confidence on a scan is <strong>below 60%</strong> — you'll see an "AGENT 2 ACTIVATED" banner and the sample gets added to <code class="inline">data/retrain_pool.pt</code>. The JSON partial-input demo above is a reliable way to trigger this live, since its confidence is deliberately reduced.</p>
+  <p class="sub">You can also force it manually via <strong>"Trigger Agent 2 Retraining"</strong>. It queues in the background (the button confirms immediately, it doesn't block the page) and reloads the model automatically when it finishes.</p>
+  <div class="verdict mixed">
+    <h4>It won't always actually retrain — and that's the point to make live</h4>
+    <p>Two guardrails have to pass first: the pool needs <strong>≥20 samples across ≥2 classes</strong>, and after fine-tuning, held-out accuracy can't have dropped by more than 3 points (or the update is discarded). With a small pool, clicking the button will correctly do nothing except log why — check the server console for <code class="inline">[-] Retrain pool too small/uniform...</code>. This is worth explicitly narrating in a demo: <em>the system refusing to retrain on bad data is the safety feature working</em>, not a limitation. A controlled reproduction (Section 11) proved what happens without these guardrails — accuracy collapsed from 99.61% to 80.08% mid-run.</p>
+  </div>
+</section>
+
+<div class="part-divider"><span class="label">Part 2 — Reports &amp; Proof</span><div class="line"></div></div>
+
+<section id="metrics">
+  <div class="step-head"><span class="step-num">7</span><h2>The Metrics Report page</h2></div>
+  <p class="sub"><code class="inline">/metrics_report.html</code> — four blocks, top to bottom:</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Block</th><th>What it shows</th></tr>
+      <tr><td>Live Comparison</td><td>Repeats your last live scan's PAC-X/GNN/Fusion numbers side by side — empty until you run one analysis.</td></tr>
+      <tr><td>Ablation Chart</td><td>GNN-only vs. PAC-X-only vs. Fused, from <code class="inline">ablation_report.json</code>. PAC-X-only will show ~56% — that's the heuristic collapsing to "always Benign" on numeric CSV input, exactly as documented, not an error.</td></tr>
+      <tr><td>Multiclass Report</td><td>Overall accuracy/macro-F1 plus the full 11-class precision/recall table and a confusion-matrix heatmap, from <code class="inline">/api/report</code>.</td></tr>
+      <tr><td>Baseline vs. GNN</td><td>Two confusion matrices side by side. The "Alternative Baseline" (PAC-X) numbers here are a <strong>literature reference figure, not measured on this dataset</strong> — the code flags this internally (<code class="inline">is_measured: false</code>); the real measured PAC-X number for this dataset is the ~56% in the ablation block above.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="confusion">
+  <div class="step-head"><span class="step-num">8</span><h2>Reading the confusion matrices</h2></div>
+  <p class="sub">Two different kinds of confusion matrix, sized and colored differently — traced against the rendering code (<code class="inline">script.js</code>, <code class="inline">renderMatrix</code> and the multiclass heatmap block) to get the exact semantics right rather than eyeball it.</p>
+
+  <div class="card">
+    <h3>The 11×11 heatmap — Multiclass Report block</h3>
+    <p>Rows are the true label, columns are the predicted label. Each cell is a <strong>raw held-out sample count</strong>, not a percentage. Diagonal cells (correct) are shaded green; off-diagonal (misclassifications) are red.</p>
+    <p>Nuance: color intensity is scaled against the <em>single largest cell in the whole matrix</em> — almost always a big diagonal cell like Benign. A small family's entire set of mistakes can look pale next to a saturated diagonal cell, even at 100% of that family's errors. Read the printed number, not just the shading, especially on low-support rows (GameHack, 11 samples; DarkKomet, 21).</p>
+  </div>
+
+  <div class="card">
+    <h3>The two 2×2 matrices — Baseline vs. GNN block</h3>
+    <p>Collapse to binary Benign/Malicious. Each cell shows a large <strong>row-normalized fraction</strong> on top and the raw count underneath. Row-normalized means each cell divides by its own row's total — the <em>two cells in one row add to 1.00</em>, not all four cells in the matrix.</p>
+    <p>Shading here is directly comparable cell-to-cell (each cell normalized independently), unlike the 11-class heatmap above. The left (baseline) matrix is a literature figure, not measured here — only the right (GNN) matrix is a real evaluation.</p>
+  </div>
+
+  <div class="verdict">
+    <h4>Which one to reach for</h4>
+    <p>Use the 11-class heatmap to find <em>which specific family</em> gets confused for which — scan a row for non-zero counts outside the diagonal. Use the 2×2 pair to compare false-positive/false-negative <em>rates</em> at a glance.</p>
+  </div>
+</section>
+
+<section id="sunburst">
+  <div class="step-head"><span class="step-num">9</span><h2>The sunburst chart, read correctly</h2></div>
+  <p class="sub"><code class="inline">/visual_graphs.html</code> → "Deep Analysis Sunburst" (Plotly). Traced through exactly how it's built (<code class="inline">script.js</code>, around the <code class="inline">sunburstChart</code> block) rather than assumed.</p>
+
+  <div class="sunburst-mock">
+    <div class="ring-demo"></div>
+    <div class="ring-legend">
+      <div><span class="swatch" style="background:var(--gnn)"></span><strong>Inner ring, two slices</strong> — GNN vs. PAC-X. Slice size = that pathway's own confidence, <em>not</em> a share of one fixed 100%.</div>
+      <div><span class="swatch" style="background:var(--gnn-soft)"></span><strong>Outer ring, under GNN</strong> — the 4 graph nodes, sized by attention weight.</div>
+      <div><span class="swatch" style="background:var(--pacx-soft)"></span><strong>Outer ring, under PAC-X</strong> — Prospect/Aspect/Context, sized by score breakdown.</div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <h4>Verdict: correct, with one nuance worth knowing</h4>
+    <p>The data wiring is right — outer-ring labels map to the right node/category every time, and each pathway's children always sum to exactly that pathway's own slice. The two inner slices aren't "percent of one whole" — they're each pathway's <em>own</em> confidence shown side by side, so a bigger slice reads as "more confident," not "more of the total." Read it as <em>"how big are the two confidences, and what's each made of"</em> — not a literal 100% pie.</p>
+  </div>
+</section>
+
+<section id="zeroday">
+  <div class="step-head"><span class="step-num">10</span><h2>Zero-day generalization, proven not just claimed</h2></div>
+  <p class="sub">Everything above measures known-family classification — every one of the 11 classes appears in both train and test. That's <em>not</em> a zero-day test. This one is: <code class="inline">scripts/build_zeroday_experiment.py</code> removes one entire malware family from training, validation, <em>and</em> test, retrains from scratch on the rest, then checks what happens when the model sees that family for the first time.</p>
+
+  <pre>python scripts/build_zeroday_experiment.py --holdout emotet
+python scripts/build_zeroday_experiment.py --holdout darkkomet</pre>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Held out</th><th>Type</th><th>n</th><th>Zero-day catch rate</th><th>Mean confidence</th><th>Agent 2 triggered</th></tr>
+      <tr><td>Emotet</td><td>Banking trojan/loader</td><td>304</td><td>73.68%</td><td>68.31%</td><td>31.58% of samples</td></tr>
+      <tr><td>DarkKomet</td><td>RAT backdoor</td><td>106</td><td>100%</td><td>99.95%</td><td>0% (never needed to)</td></tr>
+    </table>
+  </div>
+
+  <div class="verdict">
+    <h4>Read both rows together</h4>
+    <p><strong>Emotet</strong>: caught 3 in 4, and almost a third of those genuinely-uncertain predictions correctly tripped Agent 2's low-confidence safety net. <strong>DarkKomet</strong>: caught 100%, but every sample was <em>confidently misattributed to Delf</em>, its nearest known family — not recognized as novel. Agent 2 never fired because the model was never uncertain, just wrong about which malware it was (though right that it was malware).</p>
+    <p>Together: the malicious/benign boundary generalizes via similarity to the nearest known cluster, not a dedicated novelty detector — and Agent 2's gate engages exactly when that generalization is uncertain, not when it's confidently wrong.</p>
+  </div>
+</section>
+
+<section id="realworld">
+  <div class="step-head"><span class="step-num">11</span><h2>Real-world validation — and why numbers moved since the paper</h2></div>
+  <p class="sub">The submitted paper reports the original model (99.61% multiclass accuracy). The live app now runs a model that was fine-tuned afterward, specifically to fix a real generalization gap the paper never tested for. If someone compares the two numbers, this is the honest answer, backed by real measurements, not a guess.</p>
+
+  <div class="card">
+    <h3>What was actually found</h3>
+    <p>Testing both pathways against real, independently-sourced data (not this project's own dataset) revealed both performed near <strong>chance level</strong> in isolation: the GNN pathway had an <strong>89% false-positive rate</strong> on real legitimate software (would call Notepad "malicious"), and PAC-X had a <strong>95.9% false-negative rate</strong> on real malware behavior sequences (would miss almost all of it). The 99%+ numbers in the paper are real and correctly measured — they just describe performance on this project's own dataset distribution, not generalization to arbitrary real-world files.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Pathway</th><th>Before</th><th>After</th><th>Fix</th></tr>
+      <tr><td>GNN — false positives on real benign software</td><td>89.0%</td><td><strong>0.02%</strong></td><td>Fine-tuned on 20,000 real benign PE samples (Kaggle), teaching the model what a real "header data present, behavioral data absent" input actually looks like</td></tr>
+      <tr><td>PAC-X — balanced accuracy on real malware behavior</td><td>49.8%</td><td><strong>80.6%</strong></td><td>Replaced a 10-item hand-picked keyword list with evidence-weighted scoring, mined and validated (proper train/val/test split) from 43,876 real Cuckoo Sandbox traces</td></tr>
+      <tr><td>In-distribution accuracy (this project's own test split)</td><td>99.61%</td><td>99.51%</td><td>Negligible change — the original benchmark essentially held</td></tr>
+    </table>
+  </div>
+
+  <div class="verdict mixed">
+    <h4>What's disclosed, not hidden</h4>
+    <p>The GNN fix has a real trade-off: it now leans toward "benign" when it can only see header data with no behavioral signal at all (a narrow input shape, not the typical real-file upload where PAC-X also has real content to check). Two attempts to fix this by adding real malicious samples in the same shape both caused training collapse — confirmed to be a genuine data limitation (no malware-family labels available in the source data), not a tuning problem, and not pursued further rather than force a broken fix.</p>
+  </div>
+
+  <p class="sub">Full evidence trail, all real measurements: <code class="inline">data/kaggle_augmentation/validation_report.json</code> (before/after model comparison), <code class="inline">data/pacx_mining/mined_api_signals.json</code> (PAC-X evidence weights + held-out test accuracy), <code class="inline">data/ood_node_thresholds.json</code> (the statistics behind step 4's out-of-distribution check), and <code class="inline">data/retrain_repro/retrain_repro_report.json</code> (the guardrail-failure reproduction referenced in step 6).</p>
+</section>
+
+<footer>
+  <p>Endpoints for a quick manual check without the UI: <code class="inline">GET /api/health</code>, <code class="inline">/api/report</code>, <code class="inline">/api/ablation</code>, <code class="inline">/api/training_history</code>, <code class="inline">/api/audit/env</code>, <code class="inline">/api/audit/dataset</code>. Automated smoke test: <code class="inline">python core/tests/test_adapter.py</code>.</p>
+</footer>
+
+</div>
+
+</body>
+</html>

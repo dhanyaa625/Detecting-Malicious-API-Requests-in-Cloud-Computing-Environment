@@ -1,0 +1,16 @@
+{
+  "original": {
+    "in_distribution_test_accuracy": 99.61,
+    "real_benign_false_positive_rate": 89.0,
+    "real_malicious_false_negative_rate": 8.2,
+    "n_benign_tested": 16323,
+    "n_malicious_tested": 5000
+  },
+  "augmented_candidate": {
+    "in_distribution_test_accuracy": 99.51,
+    "real_benign_false_positive_rate": 0.02,
+    "real_malicious_false_negative_rate": 100.0,
+    "n_benign_tested": 16323,
+    "n_malicious_tested": 5000
+  }
+}

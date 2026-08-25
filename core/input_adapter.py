@@ -11,6 +11,8 @@ try:
         EDGE_INDEX, get_one_hot_type, hash_feature_vector,
         pad_numeric_features, D_FEATURE, NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK,
         is_native_schema, native_row_to_node_vectors,
+        NATIVE_PE_HEADER_COLS, NATIVE_ENTROPY_COLS, NATIVE_API_COLS, NATIVE_NETWORK_COLS,
+        is_amauricio_schema, amauricio_row_to_native_dict,
     )
 except ImportError:
     # Fallback to local import if needed
@@ -18,6 +20,8 @@ except ImportError:
         EDGE_INDEX, get_one_hot_type, hash_feature_vector,
         pad_numeric_features, D_FEATURE, NODE_HEADER, NODE_ENTROPY, NODE_API, NODE_NETWORK,
         is_native_schema, native_row_to_node_vectors,
+        NATIVE_PE_HEADER_COLS, NATIVE_ENTROPY_COLS, NATIVE_API_COLS, NATIVE_NETWORK_COLS,
+        is_amauricio_schema, amauricio_row_to_native_dict,
     )
 
 # Common real WinAPI names that end in 'a'/'w' but have no A/W ABI-suffixed
@@ -230,14 +234,136 @@ class UniversalInputAdapter:
             }
         )
 
+    def _parse_pe_binary(self, raw_bytes: bytes) -> dict:
+        """
+        Real feature extraction from a raw PE binary -- unlike the CSV path
+        below, this never requires the upload to already be a row from this
+        project's own dataset. See core/pe_feature_extractor.py for exactly
+        which fields are exact vs. approximated.
+        """
+        from core.pe_feature_extractor import extract_native_row, extract_text_summary, check_node_ood
+
+        native_row = extract_native_row(raw_bytes)
+        vectors = native_row_to_node_vectors(native_row.get, D_FEATURE)
+
+        def build_tensors(vecs):
+            tensors = []
+            for i in range(4):
+                one_hot = np.array(get_one_hot_type(i), dtype=np.float32)
+                comb = np.concatenate([vecs[i], one_hot])
+                tensors.append(torch.tensor(comb, dtype=torch.float32))
+            return tensors
+
+        # First pass: normalize as-extracted, then check each node's real
+        # feature block against the real training distribution (not a
+        # guessed threshold -- see check_node_ood / data/ood_node_thresholds.json).
+        probe_normed = torch.stack(self._apply_normalization(build_tensors(vectors)))
+        ood_flags = check_node_ood(probe_normed)
+
+        # A node flagged out-of-distribution gets treated as unfilled (zero
+        # raw vector), the same honest handling already used for a missing
+        # JSON field -- rather than letting a statistically implausible
+        # value masquerade as reliable structured signal to the GAT.
+        for node_idx, is_ood in ood_flags.items():
+            if is_ood:
+                vectors[node_idx] = np.zeros(D_FEATURE, dtype=np.float32)
+
+        normed_nodes = self._apply_normalization(build_tensors(vectors))
+        X = torch.stack(normed_nodes)
+        data = Data(x=X, edge_index=EDGE_INDEX, y=None)
+
+        text_summary = extract_text_summary(raw_bytes)
+        node_names = ["header", "entropy", "api", "network"]
+        nodes_filled_detail = {name: not ood_flags.get(idx, False) for idx, name in enumerate(node_names)}
+        completeness = sum(1 for v in nodes_filled_detail.values() if v) / 4.0
+
+        return {
+            "graph": data,
+            "completeness": round(completeness, 2),
+            "type": "pe_binary_native",
+            "confidence_interpretation": "high_confidence_structured_input" if completeness == 1.0 else "low_due_to_missing_nodes",
+            "signal_summary": {"text_summary": text_summary, "ood_flags": ood_flags},
+            "nodes_filled_detail": nodes_filled_detail,
+            "text_summary": text_summary,
+            "ood_flags": ood_flags,
+        }
+
+    def _parse_native_row_dict(self, row_dict: dict) -> dict:
+        """
+        Same real-value path as CSV native-schema rows, but for a caller that
+        already has a plain {column_name: value} dict rather than a CSV
+        string -- used to batch-test external header/entropy-only sources
+        (e.g. a Kaggle CSV using this project's own column schema) through
+        the exact same production pipeline, without needing a raw PE binary.
+        Columns this dict doesn't have (row_dict.get returns the default)
+        are honestly marked unfilled, not OOD-guessed.
+        """
+        from core.pe_feature_extractor import check_node_ood
+
+        vectors = native_row_to_node_vectors(row_dict.get, D_FEATURE)
+
+        def build_tensors(vecs):
+            tensors = []
+            for i in range(4):
+                one_hot = np.array(get_one_hot_type(i), dtype=np.float32)
+                comb = np.concatenate([vecs[i], one_hot])
+                tensors.append(torch.tensor(comb, dtype=torch.float32))
+            return tensors
+
+        probe_normed = torch.stack(self._apply_normalization(build_tensors(vectors)))
+        ood_flags = check_node_ood(probe_normed)
+
+        # A source column group that's simply absent from this row_dict
+        # (all its columns defaulted to 0) is "not available", distinct from
+        # an OOD-flagged approximation -- both end up zeroed, but only the
+        # latter is a statistical judgment call.
+        source_available = {
+            NODE_HEADER: any(row_dict.get(c, 0.0) not in (0, 0.0, None) for c in NATIVE_PE_HEADER_COLS),
+            NODE_ENTROPY: any(row_dict.get(c, 0.0) not in (0, 0.0, None) for c in NATIVE_ENTROPY_COLS),
+            NODE_API: any(row_dict.get(c, 0.0) not in (0, 0.0, None) for c in NATIVE_API_COLS),
+            NODE_NETWORK: any(row_dict.get(c, 0.0) not in (0, 0.0, None) for c in NATIVE_NETWORK_COLS),
+        }
+        for node_idx in range(4):
+            if ood_flags.get(node_idx, False) or not source_available[node_idx]:
+                vectors[node_idx] = np.zeros(D_FEATURE, dtype=np.float32)
+
+        normed_nodes = self._apply_normalization(build_tensors(vectors))
+        X = torch.stack(normed_nodes)
+        data = Data(x=X, edge_index=EDGE_INDEX, y=None)
+
+        node_names = ["header", "entropy", "api", "network"]
+        nodes_filled_detail = {
+            name: source_available[idx] and not ood_flags.get(idx, False)
+            for idx, name in enumerate(node_names)
+        }
+        completeness = sum(1 for v in nodes_filled_detail.values() if v) / 4.0
+
+        return {
+            "graph": data,
+            "completeness": round(completeness, 2),
+            "type": "native_features",
+            "confidence_interpretation": "high_confidence_structured_input" if completeness == 1.0 else "low_due_to_missing_nodes",
+            "signal_summary": {"text_summary": "", "ood_flags": ood_flags, "source_available": source_available},
+            "nodes_filled_detail": nodes_filled_detail,
+            "text_summary": "",
+            "ood_flags": ood_flags,
+        }
+
     def parse(self, input_data, input_type=None) -> dict:
         """
         Intercepts input, categorizes it, and formally outputs a strict PyG block.
-        Allows for an explicit input_type hint (json, csv, api).
+        Allows for an explicit input_type hint (json, csv, api, pe_binary, native_features).
         """
         import json
         import pandas as pd
         import io
+
+        if input_type == "pe_binary":
+            return self._parse_pe_binary(input_data)
+
+        if input_type == "native_features":
+            row_dict = json.loads(input_data) if isinstance(input_data, str) else input_data
+            return self._parse_native_row_dict(row_dict)
 
         raw_text = input_data if isinstance(input_data, str) else json.dumps(input_data, default=str)
 
@@ -283,7 +409,20 @@ class UniversalInputAdapter:
                         nodes[node_idx] = vec.astype(np.float32)
                     nodes_filled = 4
                     input_type = "csv_native_schema"
+                elif is_amauricio_schema(df.columns) and len(df) > 0:
+                    row = df.iloc[0]
+                    return self._parse_native_row_dict(amauricio_row_to_native_dict(row.get))
                 else:
+                    # kaggle_dataset/data.csv (and similar exports) are
+                    # pipe-delimited, not comma -- a comma parse reads the
+                    # whole header as one column, so neither schema check
+                    # above matches. Retry as pipe-delimited before falling
+                    # through to the generic heuristic path.
+                    df_pipe = pd.read_csv(io.StringIO(input_data), sep="|")
+                    if is_amauricio_schema(df_pipe.columns) and len(df_pipe) > 0:
+                        row = df_pipe.iloc[0]
+                        return self._parse_native_row_dict(amauricio_row_to_native_dict(row.get))
+
                     # Heuristic: Check common security columns for arbitrary/unknown CSV logs
                     cols = df.columns.str.lower()
                     if "api" in cols:

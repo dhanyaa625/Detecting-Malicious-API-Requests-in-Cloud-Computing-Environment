@@ -74,8 +74,16 @@
                     <div class="chart-wrapper"><canvas id="trainingCurveChart"></canvas></div>
                 </div>
             </div>
+
+            <!-- Persistent Scan History (SQLite-backed -- real audit log of every scan this server has run) -->
+            <div class="glass-card">
+                <h3 style="margin-top:0; font-size: 1rem; color: #cbd5e1; text-transform: uppercase;">Recent Scans</h3>
+                <div id="recentScansTable">
+                    <p style="color:#64748b; font-size:0.9rem;">Loading scan history...</p>
+                </div>
+            </div>
         </main>
     </div>
-    <script src="/static/js/script.js?v=8"></script>
+    <script src="/static/js/script.js?v=9"></script>
 </body>
 </html>

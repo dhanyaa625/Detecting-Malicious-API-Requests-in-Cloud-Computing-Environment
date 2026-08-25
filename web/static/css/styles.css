@@ -245,7 +245,7 @@ body {
 }
 
 /* Neon Pulse Animation for Anomalies */
-#agent2_board.alert {
+#gnn_board.alert {
     box-shadow: 0 0 25px rgba(248, 113, 113, 0.4);
     border-color: var(--neon-red);
     animation: dangerPulse 2s infinite;

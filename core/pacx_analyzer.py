@@ -1,18 +1,52 @@
+import json
+import os
 import re
 import math
+
+# Original hand-picked list -- kept as a floor even when the mined weights
+# file below is unavailable. Still real Windows APIs with obvious malicious
+# intent (process injection/execution). "ConnectNetwork" was removed from
+# the original list -- not a real Windows API name, had zero chance of ever
+# matching real content.
+_FALLBACK_SUSPICIOUS_APIS = [
+    "NtCreateFile", "SetWindowsHookEx", "RegDeleteKey",
+    "LdrLoadDll", "WinExec", "VirtualAllocEx",
+    "WriteProcessMemory", "CreateRemoteThread", "CryptDecrypt",
+]
+_MINED_SIGNALS_PATH = "data/pacx_mining/mined_api_signals.json"
+
 
 class PACXHeuristicAnalyzer:
     """
     Path 1: PAC-X (Prospect, Aspect, Context) Heuristic Analysis.
     Performs feature-based analysis independent of the GNN.
     """
-    
+
     def __init__(self):
-        self.suspicious_apis = [
-            "NTCreateFile", "SetWindowsHookEx", "RegDeleteKey", 
-            "LdrLoadDll", "ConnectNetwork", "WinExec", "VirtualAllocEx",
-            "WriteProcessMemory", "CreateRemoteThread", "CryptDecrypt"
-        ]
+        # Evidence-weighted API scoring: each API's contribution to the
+        # "aspect" score is its measured log-likelihood-ratio weight
+        # (log2((p_malware+eps)/(p_benign+eps))), not a flat point-per-match.
+        # A flat scheme forces an impossible choice between a short list
+        # (misses most malware -- validated at 95.9% false-negative rate on
+        # held-out real API-sequence data) or a longer one scored the same
+        # way (drowns in false positives -- 65.4% on the same held-out data,
+        # since common-but-somewhat-more-malware-associated calls like
+        # NtAllocateVirtualMemory appear in 62.6% of REAL BENIGN samples
+        # too). Weighting by real evidence strength fixed both: 80.47%
+        # balanced accuracy on a held-out test split never used for mining
+        # or threshold selection. See scripts/mine_pacx_api_signals.py and
+        # data/pacx_mining/mined_api_signals.json (real Cuckoo Sandbox
+        # traces, kaggle_dataset/dynamic_api_call_sequence_per_malware_100_0_306.csv).
+        self.api_weights, self.aspect_threshold = self._load_mined_signals()
+
+    def _load_mined_signals(self):
+        if os.path.exists(_MINED_SIGNALS_PATH):
+            with open(_MINED_SIGNALS_PATH) as f:
+                report = json.load(f)
+            return report["weights"], report["decision_threshold"]
+        # Fallback: flat weight 1.0 for the original hand-picked list, with
+        # a threshold matching the old "3 matches -> aspect score 45" scale.
+        return {api: 1.0 for api in _FALLBACK_SUSPICIOUS_APIS}, 3.0
         
     def _text_signal_ratio(self, content):
         """
@@ -68,13 +102,53 @@ class PACXHeuristicAnalyzer:
             category_scores["prospect"] += 10
             findings.append("Executable header signatures identified")
 
-        # 2. Aspect: API Signature Detection
-        detected_apis = [api for api in self.suspicious_apis if api.lower() in content.lower()]
-        if detected_apis:
-            api_score = len(detected_apis) * 15
+        # 2. Aspect: Evidence-Weighted API Signature Detection. Every API
+        # with a measured weight (see __init__) is checked, including
+        # negative-weight ones (real evidence *against* malware, e.g. an API
+        # that's actually more common in benign software) -- summing signed
+        # log-likelihood-ratio evidence is the statistically correct way to
+        # combine many weak indicators, unlike flat +N-per-match scoring.
+        # The mined weights were validated against real DYNAMIC execution
+        # traces (an API observed actually being called, in sequence, at
+        # runtime -- Cuckoo Sandbox data). A raw PE upload only gives PAC-X
+        # a STATIC import table (APIs the binary merely links against,
+        # which any number of legitimate programs do for unrelated
+        # reasons) -- confirmed as a real, different, weaker signal by
+        # testing: applying the full dynamic-trace weights to notepad.exe's
+        # static import list produced a false "Malicious" call that the
+        # original conservative list did not. For static-extraction input,
+        # only count the strong, high-confidence signals (weight > 2.5,
+        # roughly >=5.7x more likely in malware) -- the medium-strength
+        # ones are real evidence for a dynamic trace but too weak a signal
+        # from mere static linkage.
+        min_weight = 2.5 if input_type == "pe_binary" else float("-inf")
+        content_lower = content.lower()
+        matched_apis = [
+            api for api in self.api_weights
+            if self.api_weights[api] >= min_weight and api.lower() in content_lower
+        ]
+        if matched_apis:
+            llr_sum = sum(self.api_weights[api] for api in matched_apis)
+            # Scaled so reaching the real, validated decision threshold
+            # (measured on held-out data -- see data/pacx_mining/
+            # mined_api_signals.json) contributes just over this function's
+            # overall malicious cutoff (score > 40) on its own.
+            api_score = max(0.0, (llr_sum / self.aspect_threshold) * 41.0)
             score += api_score
             category_scores["aspect"] += api_score
-            findings.append(f"Suspicious APIs detected: {', '.join(detected_apis)}")
+            # Only surface the strong, positive-evidence matches in the
+            # human-readable findings -- a full 307-API match list would be
+            # noise; most matched APIs have small or negative weight and are
+            # only meaningful summed together, not individually.
+            strong_matches = sorted(
+                (api for api in matched_apis if self.api_weights[api] > 1.0),
+                key=lambda api: self.api_weights[api], reverse=True,
+            )
+            detected_apis = strong_matches
+            if strong_matches:
+                findings.append(f"Suspicious APIs detected: {', '.join(strong_matches)}")
+        else:
+            detected_apis = []
 
         # 3. Context: Behavioral String Patterns
         malicious_strings = ["http://", "powershell", "cmd.exe", "/c", "temp\\", "appdata"]

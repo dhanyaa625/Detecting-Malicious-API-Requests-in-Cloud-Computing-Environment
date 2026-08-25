@@ -1,0 +1,2815 @@
+{
+  "summary": {
+    "n_tested": 400,
+    "n_errors": 0,
+    "gnn_only_accuracy": 49.5,
+    "pacx_default_accuracy": 50.0,
+    "fused_accuracy": 49.5,
+    "gnn_false_positive_rate": 95.5,
+    "gnn_false_negative_rate": 5.5,
+    "fused_false_positive_rate": 95.5,
+    "fused_false_negative_rate": 5.5
+  },
+  "results": [
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.25
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Benign",
+      "pacx_label": "Benign",
+      "fused_label": "Benign",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Malicious",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    },
+    {
+      "true_label": "Benign",
+      "gnn_label": "Malicious",
+      "pacx_label": "Benign",
+      "fused_label": "Malicious",
+      "completeness": 0.5
+    }
+  ]
+}

@@ -15,6 +15,16 @@ data/*.pt
 data/*.npy
 gnn_outputs.json
 model.pt
+model.pt.pre_augmentation_backup
+model_augmented_candidate.pt
+
+# Runtime state, not source -- fresh/empty on a new clone
+data/scan_history.db
+
+# Large external Kaggle download (~72MB) -- re-download per the walkthrough's
+# instructions rather than commit; derived CSV subsets are regenerable from it
+kaggle_dataset/
+data/kaggle_augmentation/*.csv
 
 # OS
 .DS_Store

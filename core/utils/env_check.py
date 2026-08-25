@@ -32,7 +32,7 @@ def verify_environment():
         ("numpy", "NumPy"),
         ("pandas", "Pandas"),
         ("sklearn", "Scikit-Learn"),
-        ("google.genai", "Gemini AI"),
+        ("requests", "LLM Provider HTTP client (Groq/Ollama)"),
         ("fastapi", "FastAPI Framework")
     ]
     

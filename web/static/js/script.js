@@ -1,5 +1,21 @@
 let gaugeChart, perFamilyChart, trainingCurveChart;
 
+// Honest per-scan indicator of which LLM provider (if any) actually
+// generated Agent 1's reasoning text -- so an "AI-powered" claim is only
+// ever made when it's true for that specific scan, not implied
+// unconditionally by the presence of reasoning text.
+function reasoningSourceBadge(source) {
+    const labels = {
+        groq: ["🤖 Groq Live", "#A6E3A1"],
+        ollama: ["🖥️ Ollama Live (local)", "#A6E3A1"],
+        template: ["📋 Template Fallback", "#F9AE6B"],
+    };
+    const entry = labels[source];
+    if (!entry) return "";
+    const [label, color] = entry;
+    return `<span style="display:inline-block;font-size:11px;padding:2px 8px;border-radius:4px;margin-bottom:6px;background:${color}22;color:${color};border:1px solid ${color}66;">${label}</span><br>`;
+}
+
 function initCharts() {
     Chart.defaults.color = '#94a3b8';
     Chart.defaults.font.family = 'Inter, Segoe UI';
@@ -98,6 +114,7 @@ window.onload = async function () {
         initCharts();
         await loadOverview();
         await loadTrainingCurve();
+        await loadRecentScans();
 
     } else if (pageType === "live") {
         document.querySelectorAll('.pipeline-tracker .step').forEach(el => {
@@ -118,57 +135,39 @@ window.onload = async function () {
             });
         }
         
-        // Restore session state if available
+        // Restore session state if available -- shown as a small dismissible
+        // banner above the (still visible) upload form, not a separate
+        // screen state that hides the form until explicitly cleared.
         const sessionStore = sessionStorage.getItem('scanData');
         if (sessionStore) {
             try {
                 const data = JSON.parse(sessionStore);
                 document.getElementById('jsonDump').innerText = "Restored previous analysis from session. Ready for new upload if needed.";
-                
+
                 // Make arena visible
                 const arena = document.getElementById('live-arena');
                 if (arena) {
                     arena.style.opacity = "1";
                     arena.style.pointerEvents = "auto";
                 }
-                
+
                 // Re-populate dashboard
                 updateDashboard(data.formattedData, data.gnnConf);
                 restoreNavigationButtons(data.formattedData);
-                
-                // Hide upload panel and show restored message
-                const uploadPanel = document.getElementById('upload-panel');
-                const restoredPanel = document.getElementById('restored-panel');
-                if (uploadPanel && restoredPanel) {
-                    uploadPanel.style.display = 'none';
-                    restoredPanel.style.display = 'block';
-                }
-                
+
+                const banner = document.getElementById('restored-banner');
+                if (banner) banner.style.display = 'block';
+
                 restoreSidebar();
 
             } catch (e) {
                 console.error("Failed to restore session state", e);
             }
         }
-        
+
     } else if (pageType === "metrics") {
         loadMetricsReport(); // Load the detailed comparison from API
         restoreSidebar();
-        
-    } else if (pageType === "visuals") {
-        const sessionStore = sessionStorage.getItem('scanData');
-        if (sessionStore) {
-            try {
-                const data = JSON.parse(sessionStore);
-                updateDashboard(data.formattedData, data.gnnConf); // Fill the graphs with the stored data
-                restoreSidebar();
-            } catch (e) {
-                document.getElementById('jsonDump').innerText = "Error reading session data.";
-            }
-        } else {
-            document.getElementById('jsonDump').innerText = "No recent analysis found. Please run a scan on the Live Dashboard.";
-            document.getElementById('visualLoader').innerText = "Waiting for data...";
-        }
     }
 };
 
@@ -229,6 +228,41 @@ async function loadOverview() {
         console.error('Failed to load overview report', e);
         if (summaryEl) summaryEl.innerText = 'Failed to load dataset evaluation -- is the server running?';
         if (emptyEl) emptyEl.style.display = 'block';
+    }
+}
+
+async function loadRecentScans() {
+    const container = document.getElementById('recentScansTable');
+    if (!container) return;
+    try {
+        const res = await fetch('/api/scans/recent?limit=10');
+        const data = await res.json();
+        const scans = data.scans || [];
+        if (!scans.length) {
+            container.innerHTML = '<p style="color:#64748b; font-size:0.9rem;">No scans yet -- run one from the Live Analysis page.</p>';
+            return;
+        }
+        const rows = scans.map(s => {
+            const label = s.fused_diagnosis || '-';
+            const color = label === 'Malicious' ? 'var(--neon-red)' : (label === 'Benign' ? 'var(--neon-green)' : '#94a3b8');
+            const when = s.timestamp ? new Date(s.timestamp).toLocaleString() : '-';
+            const conf = s.fused_confidence != null ? (s.fused_confidence * 100).toFixed(1) + '%' : '-';
+            return `<tr>
+                <td>${when}</td>
+                <td>${s.source_label || s.input_type || '-'}</td>
+                <td style="color:${color}; font-weight:bold;">${label}</td>
+                <td>${conf}</td>
+                <td>${s.agent2_triggered ? '⚠️ Yes' : '-'}</td>
+            </tr>`;
+        }).join('');
+        container.innerHTML = `<table class="metrics-table">
+            <thead><tr style="color:#94a3b8; text-align:left; font-size:0.8rem; text-transform:uppercase;">
+                <th style="padding:8px 0;">When</th><th>Source</th><th>Verdict</th><th>Confidence</th><th>Agent 2</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+        </table>`;
+    } catch (e) {
+        container.innerHTML = '<p style="color:#64748b; font-size:0.9rem;">Scan history unavailable.</p>';
     }
 }
 
@@ -371,11 +405,9 @@ function clearSession() {
 
 function restoreNavigationButtons(formattedData) {
     const btn1 = document.getElementById('nav_btn_1');
-    const btn2 = document.getElementById('nav_btn_2');
     const btn1Text = document.getElementById('btn1_text');
 
     if (btn1) btn1.style.display = 'block';
-    if (btn2) btn2.style.display = 'block';
 
     if (btn1Text && formattedData?.agent1?.better_model) {
         const bestModel = formattedData.agent1.better_model === 'GNN' ? 'GNN (Agentic-PACX)' : 'PAC-X';
@@ -524,6 +556,7 @@ async function runAnalysis() {
             agent1: {
                 better_model: agent1Decision.better_model,
                 reasoning: agent1Decision.reasoning,
+                reasoning_source: agent1Decision.reasoning_source,
                 agreement: agent1Decision.prediction_agreement,
                 trust_scores: agent1Decision.trust_scores,
                 recommendation: result.agent1_recommendation
@@ -570,12 +603,12 @@ function updateDashboard(data, gnnConf) {
         document.getElementById('m_comp').innerText = (data.completeness_raw * 100).toFixed(0) + "%";
 
         // 2. Update Side-by-Side Diagnosis
-        document.getElementById('agent1_pred').innerText = data.path_pacx.prediction;
-        document.getElementById('agent1_conf').innerText = (data.path_pacx.confidence * 100).toFixed(1) + "% Confidence";
+        document.getElementById('pacx_pred').innerText = data.path_pacx.prediction;
+        document.getElementById('pacx_conf').innerText = (data.path_pacx.confidence * 100).toFixed(1) + "% Confidence";
 
-        document.getElementById('agent2_pred').innerText = data.path_gnn.prediction;
-        document.getElementById('agent2_conf').innerText = (displayGnnConf * 100).toFixed(1) + "% Confidence";
-        const agent1Status = document.getElementById('agent1_status');
+        document.getElementById('gnn_pred').innerText = data.path_gnn.prediction;
+        document.getElementById('gnn_conf').innerText = (displayGnnConf * 100).toFixed(1) + "% Confidence";
+        const agent1Status = document.getElementById('pacx_status');
         if (agent1Status) {
             agent1Status.innerText = data.path_pacx.prediction === "Malicious" ? "Heuristic Alert" : "Heuristic Clear";
             agent1Status.className = data.path_pacx.prediction === "Malicious" ? "status-badge badge-escalated" : "status-badge badge-trusted";
@@ -586,7 +619,7 @@ function updateDashboard(data, gnnConf) {
             const familyLine = data.path_gnn.predicted_family
                 ? `<div style="margin-top:8px;color:#94a3b8;">Top GNN family: <b>${data.path_gnn.predicted_family}</b> (${(data.path_gnn.family_confidence * 100).toFixed(1)}%)</div>`
                 : "";
-            agent1Reasoning.innerHTML = `${data.agent1.reasoning}${familyLine}`;
+            agent1Reasoning.innerHTML = `${reasoningSourceBadge(data.agent1.reasoning_source)}${data.agent1.reasoning}${familyLine}`;
         }
 
         // GNN structural forensic report (attention-weight based XAI narrative) --
@@ -621,8 +654,8 @@ function updateDashboard(data, gnnConf) {
                 `Final score ${(fusionScore * 100).toFixed(1)}%`;
         }
 
-        const ag2Status = document.getElementById('agent2_status');
-        const board = document.getElementById('agent2_board');
+        const ag2Status = document.getElementById('gnn_status');
+        const board = document.getElementById('gnn_board');
         if (agent2Active) {
             ag2Status.innerText = "⚠️ ZERO-DAY SUSPECTED";
             ag2Status.className = "status-badge badge-escalated";
@@ -767,7 +800,7 @@ async function loadMetricsReport() {
                     document.getElementById('live_agreement').innerText = data.agent1.agreement ? 'PAC-X and GNN agree' : 'PAC-X and GNN disagree';
                     const trustScores = data.agent1.trust_scores || {};
                     document.getElementById('live_trust_scores').innerText = `PAC-X ${(trustScores.pacx || 0).toFixed(2)} / GNN ${(trustScores.gnn || 0).toFixed(2)}`;
-                    document.getElementById('live_reasoning').innerHTML = data.agent1.reasoning;
+                    document.getElementById('live_reasoning').innerHTML = `${reasoningSourceBadge(data.agent1.reasoning_source)}${data.agent1.reasoning}`;
                     const fusionData = data.decision_fusion || {
                         final_label: data.path_gnn?.prediction || data.path_pacx?.prediction || "-",
                         confidence: data.path_gnn?.confidence ?? data.path_pacx?.confidence ?? 0,

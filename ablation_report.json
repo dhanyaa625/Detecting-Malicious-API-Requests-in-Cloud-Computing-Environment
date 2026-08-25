@@ -2,10 +2,10 @@
   "dataset_size": 1029,
   "note": "PAC-X evaluated on CSV serialization of each row (its weaker modality -- no raw text/API logs exist in this dataset). GNN evaluated on its native trained feature space. Fused uses the real decision-fusion + trust arbitration.",
   "gnn_only": {
-    "accuracy": 99.32,
-    "precision": 98.47,
+    "accuracy": 99.51,
+    "precision": 98.9,
     "recall": 100.0,
-    "f1_score": 99.23
+    "f1_score": 99.45
   },
   "pacx_only": {
     "accuracy": 56.27,
@@ -14,9 +14,9 @@
     "f1_score": 0.0
   },
   "fused": {
-    "accuracy": 99.32,
-    "precision": 98.47,
+    "accuracy": 99.51,
+    "precision": 98.9,
     "recall": 100.0,
-    "f1_score": 99.23
+    "f1_score": 99.45
   }
 }

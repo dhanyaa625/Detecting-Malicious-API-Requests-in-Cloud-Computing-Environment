@@ -2,31 +2,34 @@ import json
 import os
 import subprocess
 import sys
-from dotenv import load_dotenv
-from google import genai
 from sklearn.metrics import confusion_matrix
 import numpy as np
 
-# Loads GEMINI_API_KEY from a .env file in the project root if present, so a
-# key can be configured without exporting an environment variable by hand.
-# Never overrides a key already set in the real environment.
-load_dotenv()
+from core.llm_provider import generate as llm_generate, is_configured as llm_is_configured
 
-# Configure Gemini
-api_key = os.getenv("GEMINI_API_KEY", "")
-genai_client = genai.Client(api_key=api_key) if api_key else None
+# Kept as a module-level flag so the rest of this file (and app.py's startup
+# log) can check "is any LLM provider configured" the same way the old
+# Gemini-only genai_client truthiness check worked.
+genai_client = True if llm_is_configured() else None
 
 class ComparisonAgent:
     """Agent 1: Compares PAC-X vs GNN results with Gemini-based dynamic reasoning."""
     
     def __init__(self):
-        self.use_gemini = genai_client is not None
-    
+        self.llm_enabled = genai_client is not None
+
+
     def _generate_comparison_reasoning(self, pacx_metrics, gnn_metrics, pacx_pred, gnn_pred, pacx_result=None, gnn_result=None, better_model=None):
-        """Uses Gemini to generate dynamic reasoning about which model is better."""
-        if not self.use_gemini:
-            return self._static_reasoning(pacx_metrics, gnn_metrics, pacx_pred, gnn_pred, pacx_result, gnn_result, better_model)
-        
+        """
+        Uses an LLM (Groq, then Ollama) to generate dynamic reasoning about
+        which model is better. Returns (text, source) where source is
+        "groq"/"ollama"/"template" -- surfaced to the UI so it's honest
+        about which one actually produced this specific piece of text,
+        instead of always implying real LLM reasoning happened.
+        """
+        if not self.llm_enabled:
+            return self._static_reasoning(pacx_metrics, gnn_metrics, pacx_pred, gnn_pred, pacx_result, gnn_result, better_model), "template"
+
         prompt = f"""
 You are a Malware Detection Expert. Compare two detection paths for THIS single sample:
 
@@ -49,12 +52,10 @@ Based on these signals:
 Provide a 3-4 sentence expert analysis focusing on technical differences and which model's methodology is superior for THIS specific case.
 """
         
-        try:
-            response = genai_client.models.generate_content(model="gemini-2.0-flash-lite", contents=prompt)
-            return response.text.strip()
-        except Exception as e:
-            print(f"[!] Gemini API error: {e}")
-            return self._static_reasoning(pacx_metrics, gnn_metrics, pacx_pred, gnn_pred, pacx_result, gnn_result, better_model)
+        text, source = llm_generate(prompt)
+        if text is None:
+            return self._static_reasoning(pacx_metrics, gnn_metrics, pacx_pred, gnn_pred, pacx_result, gnn_result, better_model), "template"
+        return text, source
     
     def _static_reasoning(self, pacx_metrics, gnn_metrics, pacx_pred, gnn_pred, pacx_result=None, gnn_result=None, better_model=None):
         """Fallback static reasoning if Gemini is unavailable."""
@@ -140,7 +141,7 @@ Provide a 3-4 sentence expert analysis focusing on technical differences and whi
         better_model = "GNN" if gnn_trust >= pacx_trust else "PAC-X"
         
         # Generate dynamic reasoning
-        reasoning = self._generate_comparison_reasoning(
+        reasoning, reasoning_source = self._generate_comparison_reasoning(
             pacx_metrics,
             gnn_metrics,
             pacx_pred,
@@ -157,6 +158,7 @@ Provide a 3-4 sentence expert analysis focusing on technical differences and whi
             "agent1_decision": {
                 "better_model": better_model,
                 "reasoning": reasoning,
+                "reasoning_source": reasoning_source,
                 "prediction_agreement": prediction_agreement,
                 "agreed_on": pacx_pred if prediction_agreement else "CONFLICTING - Requires Review",
                 "trust_scores": {
@@ -183,10 +185,12 @@ class AnalystAgent:
         self.use_llm = use_llm and genai_client is not None
         
     def _generate_dynamic_rationale(self, label_str, confidence, top_interaction, max_weight):
-        """Generates rationale using Gemini 1.5 Flash."""
+        """Generates rationale via an LLM (Groq, then Ollama). Returns
+        (text, source); text is None on failure -- caller falls back to
+        static rationale text."""
         if not self.use_llm:
-            return None
-            
+            return None, "template"
+
         prompt = f"""
         Act as a Malware Security Researcher. Analyze the following GNN (Graph Neural Network) detection output:
         - Diagnosis: {label_str}
@@ -194,14 +198,10 @@ class AnalystAgent:
         - Top Topological Interaction: {top_interaction}
         - Attention Score: {max_weight:.2f} (This indicates importance in the software graph)
 
-        Write a 2-3 sentence technical rationale explaining why these structural indicators support the diagnosis. 
+        Write a 2-3 sentence technical rationale explaining why these structural indicators support the diagnosis.
         Focus on how the interaction between {top_interaction.split(' → ')[0]} and {top_interaction.split(' → ')[1]} is significant in a malware context.
         """
-        try:
-            response = genai_client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
-            return response.text.strip()
-        except Exception:
-            return None
+        return llm_generate(prompt)
 
     def analyze_prediction(self, prediction_data):
         """Transforms raw mathematical GNN output into a clean Markdown Report."""
@@ -232,8 +232,8 @@ class AnalystAgent:
             pass
 
         # Use LLM for Dynamic Logic if available, else fallback to Static
-        dynamic_rationale = self._generate_dynamic_rationale(label_str, confidence, top_interaction, max_weight)
-        
+        dynamic_rationale, reasoning_source = self._generate_dynamic_rationale(label_str, confidence, top_interaction, max_weight)
+
         if dynamic_rationale:
             rationale = dynamic_rationale
             recommendation = "🚨 <b>Expert Recommendation:</b> " + ("Immediate quarantine and behavioral analysis." if predicted_label == 1 else "Safe to proceed, regular system scans recommended.")
@@ -257,14 +257,25 @@ class AnalystAgent:
                 rationale = random.choice(rationale_opts)
                 recommendation = "✅ <b>Recommendation:</b> Safe to execute. Monitor if system privileges escalate unexpectedly."
 
+        # Visible badge so it's honest about which provider (or the static
+        # fallback template) actually generated this specific report --
+        # requested explicitly so "AI-powered" claims stay accurate per-scan.
+        _PROVIDER_LABELS = {"groq": "🤖 Groq Live", "ollama": "🖥️ Ollama Live (local)"}
+        badge_label = _PROVIDER_LABELS.get(reasoning_source, "📋 Template Fallback")
+        badge_color = "#A6E3A1" if reasoning_source in _PROVIDER_LABELS else "#F9AE6B"
+        source_badge = (
+            f'<span style="font-size:11px; padding:2px 8px; border-radius:4px; '
+            f'background:{badge_color}22; color:{badge_color}; border:1px solid {badge_color}66;">{badge_label}</span>'
+        )
+
         # HTML Report Generation
         report = f"""
 <h4 style="margin-bottom: 5px; color: #FFFFFF;">Threat Intelligence Report</h4>
 <p style="margin-top: 0; font-size: 14px; color: #CDD6F4;">
-  <b>Final Diagnosis:</b> <span style="color: {'#F38BA8' if predicted_label == 1 else '#A6E3A1'};">{label_str}</span> | 
+  <b>Final Diagnosis:</b> <span style="color: {'#F38BA8' if predicted_label == 1 else '#A6E3A1'};">{label_str}</span> |
   <b>Mathematical Confidence:</b> {confidence:.2f}%
 </p>
-<p style="color: #CDD6F4;"><b>Explainable AI (XAI) Rationale:</b><br>{rationale}</p>
+<p style="color: #CDD6F4;"><b>Explainable AI (XAI) Rationale:</b> {source_badge}<br>{rationale}</p>
 <p style="color: #CDD6F4;">{recommendation}</p>
 """
         return report

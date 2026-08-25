@@ -1,0 +1,54 @@
+{
+  "run_type": "unguarded_retrain_repro",
+  "note": "Guardrails (MIN_RETRAIN_SAMPLES=20, MIN_RETRAIN_CLASSES=2, ACCURACY_DROP_TOLERANCE=0.03) deliberately bypassed to reproduce the catastrophic-forgetting failure mode they exist to prevent. Fine-tunes a deep copy of the live model -- model.pt is never overwritten by this script.",
+  "pool_size": 2,
+  "pool_classes": 1,
+  "pre_retrain_accuracy": 99.61,
+  "post_retrain_best_epoch_accuracy": 98.15,
+  "worst_mid_run_epoch": 5,
+  "worst_mid_run_accuracy": 87.07,
+  "per_epoch_val_accuracy": [
+    98.15,
+    92.61,
+    91.93,
+    90.48,
+    87.07
+  ],
+  "full_epoch_history": [
+    {
+      "epoch": 1,
+      "train_loss": 4.903,
+      "val_loss": 0.052,
+      "val_accuracy": 98.15,
+      "val_f1_macro": 94.71
+    },
+    {
+      "epoch": 2,
+      "train_loss": 3.6857,
+      "val_loss": 0.1862,
+      "val_accuracy": 92.61,
+      "val_f1_macro": 86.14
+    },
+    {
+      "epoch": 3,
+      "train_loss": 4.5166,
+      "val_loss": 0.217,
+      "val_accuracy": 91.93,
+      "val_f1_macro": 86.32
+    },
+    {
+      "epoch": 4,
+      "train_loss": 3.972,
+      "val_loss": 0.2655,
+      "val_accuracy": 90.48,
+      "val_f1_macro": 82.76
+    },
+    {
+      "epoch": 5,
+      "train_loss": 3.8164,
+      "val_loss": 0.3725,
+      "val_accuracy": 87.07,
+      "val_f1_macro": 78.96
+    }
+  ]
+}

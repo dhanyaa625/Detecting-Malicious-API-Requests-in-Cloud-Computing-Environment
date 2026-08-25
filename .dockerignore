@@ -1,0 +1,10 @@
+.git
+__pycache__
+*.pyc
+.env
+kaggle_dataset/
+model.pt.pre_augmentation_backup
+model_augmented_candidate.pt
+_legacy_archive/
+*.md
+agentic_pacx_walkthrough.html
