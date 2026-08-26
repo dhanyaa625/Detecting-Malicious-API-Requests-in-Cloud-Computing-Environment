@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malicious API Request Detector - Live Upload</title>
-    <link rel="stylesheet" href="/static/css/styles.css?v=2">
+    <link rel="stylesheet" href="/static/css/styles.css?v={{ css_v }}">
     <script src="/static/js/chart.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
 </head>
@@ -57,9 +57,13 @@
             <details class="sidebar-advanced">
                 <summary>Advanced: Agent 2 controls</summary>
                 <p>
-                    Manually kicks off Agent 2's retraining loop on whatever
-                    low-confidence samples have queued up so far. Most
-                    visitors don't need this -- it happens automatically.
+                    Retrains Agent 2 on whatever low-confidence samples have
+                    queued up so far, and replaces the live model. This is the
+                    only thing that retrains -- it never happens automatically.
+                    Those samples are labelled by the model's own guess at the
+                    moment it was uncertain, so training on them can reduce
+                    real accuracy. The pool is checked first and the run is
+                    refused if its labels have collapsed onto one class.
                 </p>
                 <button id="retrainBtnLive" class="glow-button" style="background: rgba(192, 132, 252, 0.1); border-color: #c084fc;" onclick="triggerRetraining()">🔄 Trigger Agent 2 Retraining</button>
             </details>
@@ -85,6 +89,9 @@
             <div class="glass-card" id="batchResultsPanel" style="display:none; border-color: #22d3ee; box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);">
                 <h3 style="color: var(--neon-cyan); margin-top: 0; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">📋 Batch Results -- Every Row Analyzed</h3>
                 <div id="batchSummaryLine" style="color: #cbd5e1; margin-bottom: 14px;"></div>
+                <div style="color:#94a3b8; font-size:0.82rem; margin-bottom:10px;">
+                    Click any row to see its full PAC-X / GNN / Fusion breakdown.
+                </div>
                 <div style="max-height: 480px; overflow-y: auto;">
                     <table class="metrics-table" style="width:100%;">
                         <thead><tr style="color:#94a3b8; text-align:left; font-size:0.8rem; text-transform:uppercase; position:sticky; top:0; background:#0f172a;">
@@ -106,6 +113,14 @@
                  group for a normal single paste/upload. -->
             <div id="singleResultPanels" style="display:contents;">
 
+            <!-- Shown only when drilling into one row of a batch upload -->
+            <div class="glass-card" id="drillDownBanner" style="display:none; border-color:#c084fc; color:#e2e8f0;"></div>
+            <button id="backToBatchBtn" onclick="backToBatchResults()" class="glow-button"
+                    style="display:none; margin-bottom:12px; background:rgba(34,211,238,0.1); border-color:#22d3ee;">
+                ← Back to all batch results
+            </button>
+
+
             <!-- THE VERDICT -- shown first, everything below is supporting detail -->
             <div class="glass-card" style="border-color: #22d3ee; box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);">
                 <h3 style="color: var(--neon-cyan); margin-top: 0; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">⚖️ Decision Fusion Layer -- The Verdict
@@ -114,6 +129,9 @@
                 <div class="stat-row"><span>Final Label</span><strong id="fusion_label">-</strong></div>
                 <div class="stat-row"><span>Final Confidence</span><strong id="fusion_confidence">-</strong></div>
                 <div class="stat-row"><span>How the decision was made</span><strong id="fusion_arbitration">-</strong></div>
+                <div id="fusion_escalation" style="display:none; margin-top:10px; padding:10px 12px;
+                     border-left:3px solid var(--verdict-amber); background:rgba(251,191,36,0.08);
+                     color:#fde68a; font-size:0.86rem; line-height:1.5;"></div>
                 <div class="stat-row"><span>PAC-X Weight</span><strong id="fusion_w_pacx">-</strong></div>
                 <div class="stat-row"><span>GNN Weight</span><strong id="fusion_w_gnn">-</strong></div>
                 <div style="margin-top: 10px; color: #94a3b8; font-size: 0.85rem;" id="fusion_inputs">
@@ -178,6 +196,6 @@
         </main>
     </div>
     </div>
-    <script src="/static/js/script.js?v=9"></script>
+    <script src="/static/js/script.js?v={{ js_v }}"></script>
 </body>
 </html>

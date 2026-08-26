@@ -6,6 +6,8 @@
     --neon-purple: #c084fc;
     --neon-green: #4ade80;
     --neon-red: #f87171;
+    /* Third verdict state: not cleared, but nothing positively identified. */
+    --verdict-amber: #fbbf24;
 }
 
 body {
@@ -685,4 +687,18 @@ textarea:focus-visible,
 .false-pos, .false-neg {
     background: rgba(248, 113, 113, 0.1);
     color: var(--neon-red);
-}
+}
+/* Batch table rows are drill-down targets -- clicking one re-analyzes that
+   single row and swaps in the full single-sample panels. */
+tr.batch-row {
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+tr.batch-row:hover {
+    background: rgba(34, 211, 238, 0.08);
+}
+tr.batch-row:focus-visible {
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: -2px;
+    background: rgba(34, 211, 238, 0.08);
+}

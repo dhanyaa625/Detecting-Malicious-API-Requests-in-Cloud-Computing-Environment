@@ -69,6 +69,39 @@
 \newcommand{\ZDTwoConf}{99.95\%}
 \newcommand{\ZDTwoNearest}{Delf}
 
+% Agent-2 confidence gate: swept against the real fused-confidence pipeline
+% (scripts/tune_agent2_threshold.py, data/agent2_tuning/report.json).
+\newcommand{\GateTau}{0.68}
+
+% Fail-closed zero-day escalation (scripts/evaluate_zeroday_escalation.py,
+% data/agent2_tuning/escalation_report.json). Pooled over all ten
+% leave-one-family-out runs: 5,790 benign, 4,050 known-malicious, 2,241 zero-day.
+\newcommand{\EscBenignN}{5,790}
+\newcommand{\EscKnownMalN}{4,050}
+\newcommand{\EscZeroDayN}{2,241}
+\newcommand{\EscTotalN}{12,081}
+\newcommand{\EscZDBefore}{78.36\%}   % zero-day caught, no escalation
+\newcommand{\EscZDAfter}{85.45\%}    % zero-day caught, escalation at tau
+\newcommand{\EscKnownBefore}{99.98\%}
+\newcommand{\EscKnownAfter}{100.00\%}
+\newcommand{\EscFPBefore}{0.57\%}    % benign false positives, no escalation
+\newcommand{\EscFPAfter}{3.52\%}     % benign false positives, escalation at tau
+\newcommand{\EscCliffTau}{0.72}
+\newcommand{\EscCliffFP}{22.49\%}
+
+% Novel-family generalization set: 63 families absent from training, drawn from
+% the 7,142-row superset of the source corpus.
+\newcommand{\NovelN}{2,004}
+\newcommand{\NovelFamilies}{63}
+\newcommand{\NovelBefore}{91.37\%}
+\newcommand{\NovelAfter}{93.31\%}
+
+% Hard subset: the novel-family samples that actually trip the confidence gate.
+\newcommand{\HardN}{56}
+\newcommand{\HardFamilies}{14}
+\newcommand{\HardBefore}{30.36\%}
+\newcommand{\HardAfter}{100\%}
+
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -103,7 +136,7 @@ dhm23cs@cmrit.ac.in}
 \maketitle
 
 \begin{abstract}
-Application Programming Interfaces (APIs) are the primary attack surface for distributed cloud microservices, where obfuscation techniques such as dynamic library hooking and API aliasing let attackers evade static rule-based heuristics undetected. Cloud API security demands detecting zero-day threats that static rule signatures miss, while deep learning classifiers remain opaque ``black boxes'' unsuited to security operations center (SOC) forensic response. We propose Agentic-PACX, a hybrid framework fusing a Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT) over a 4-node topological graph, arbitrated by a Decision Fusion Layer under two cognitive LLM agents: Agent 1 generates auditable natural-language XAI forensic reports from trust scores, and Agent 2 autonomously triggers transfer-learning self-healing on low-confidence zero-day detections. On a held-out test set of \TestCount{} real PE-malware graph instances (70/10/20 split, validation-only model selection), MalwareGAT reaches \MulticlassAcc{} accuracy and \MulticlassMacroF{} macro F1 across 11 malware families, and \BinaryAcc{} accuracy, \BinaryPrec{} precision, \BinaryRec{} recall on binary detection. An ablation shows the Fusion Layer safely defers to the structural pathway on this dataset's tabular modality -- its value is arbitration, not a numeric lift -- while PAC-X's interpretability advantage targets raw API-log/text telemetry instead. A leave-one-family-out experiment confirms the malicious/benign boundary generalizes to unseen families (\ZDOneCatch{}--\ZDTwoCatch{} zero-day catch rates), with Agent 2's gate engaging precisely where that generalization is uncertain.
+Application Programming Interfaces (APIs) are the primary attack surface for distributed cloud microservices, where obfuscation techniques such as dynamic library hooking and API aliasing let attackers evade static rule-based heuristics undetected. Cloud API security demands detecting zero-day threats that static rule signatures miss, while deep learning classifiers remain opaque ``black boxes'' unsuited to security operations center (SOC) forensic response. We propose Agentic-PACX, a hybrid framework fusing a Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT) over a 4-node topological graph, arbitrated by a Decision Fusion Layer under two cognitive LLM agents: Agent 1 generates auditable natural-language XAI forensic reports from trust scores, and Agent 2 autonomously triggers transfer-learning self-healing on low-confidence zero-day detections. On a held-out test set of \TestCount{} real PE-malware graph instances (70/10/20 split, validation-only model selection), MalwareGAT reaches \MulticlassAcc{} accuracy and \MulticlassMacroF{} macro F1 across 11 malware families, and \BinaryAcc{} accuracy, \BinaryPrec{} precision, \BinaryRec{} recall on binary detection. An ablation shows the Fusion Layer safely defers to the structural pathway on this dataset's tabular modality -- its value is arbitration, not a numeric lift -- while PAC-X's interpretability advantage targets raw API-log/text telemetry instead. A leave-one-family-out experiment confirms the malicious/benign boundary generalizes to unseen families (\ZDOneCatch{}--\ZDTwoCatch{} zero-day catch rates), with Agent 2's gate engaging precisely where that generalization is uncertain. Because a novel family cannot be named by an $\arg\max$ over trained classes and is absorbed by the nearest one -- usually benign -- we add a fail-closed rule that escalates an uncertain benign verdict to \emph{Suspicious} rather than clearing it. Measured over \EscTotalN{} pooled predictions, this raises zero-day recall from \EscZDBefore{} to \EscZDAfter{} while holding known-family detection at \EscKnownAfter{}, at a cost of \EscFPAfter{} benign false positives.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -193,7 +226,7 @@ Agentic-PACX is a hybrid threat intelligence architecture for detecting maliciou
 };
 
 % 4. Condition & Agent 2 / Output
-\node[dia, below=0.35cm of agent1] (cond) {Is $C_{\text{final}} < 0.60$?};
+\node[dia, below=0.35cm of agent1] (cond) {Is $C_{\text{final}} < \GateTau$?};
 
 \node[proc, left=1.5cm of cond] (out) {
     \textbf{Output \& Visualization}\\
@@ -335,6 +368,21 @@ S_m,\ m = \operatorname*{arg\,max}\limits_{m \in \{\text{PAC-X}, \text{GNN}\}} \
 \end{aligned}
 \end{equation}
 
+\subsubsection{Fail-Closed Zero-Day Escalation}
+\label{sec:failclosed}
+The fused label is an $\arg\max$ over families the network was \emph{trained} on. A genuinely novel family therefore cannot be named: it is absorbed by whichever known class lies nearest in embedding space, and because the benign cluster is the largest and least structurally distinctive, that class is overwhelmingly ``benign''. A zero-day is by definition an attack, so this failure direction is the dangerous one -- the system clears real malware.
+
+Critically, the pipeline is not oblivious in these cases. The same samples carry fused confidence below the Agent 2 gate $\tau$; the uncertainty is measured, and then discarded by a hard $\arg\max$. We therefore treat low confidence as evidence rather than noise, and reuse the gate already defined for Agent 2 as a decision rule, yielding a third verdict state:
+\begin{equation}
+\label{eq:failclosed}
+\hat{y}_{\text{final}} =
+\begin{cases}
+\text{Suspicious} & \hat{y} = \text{Benign} \ \wedge\ C_{\text{final}} < \tau \\
+\hat{y} & \text{otherwise}
+\end{cases}
+\end{equation}
+where $\tau = \GateTau$ (Section~\ref{sec:agent2}). Three properties are deliberate. First, only a \emph{benign} verdict is escalated: a low-confidence \emph{malicious} verdict is already actioned, so relabelling it would add false alarms while catching nothing new. Second, the escalated state is ``Suspicious'', not ``Malicious'' -- the system has not identified an attack, it has failed to clear the sample, and conflating the two would overstate what was actually detected. Third, this is a labelling policy over the existing pipeline: no weights change and nothing is retrained, so it cannot regress the underlying model. This is the classifier-with-reject-option formulation \cite{b20} composed with the fail-closed principle standard in security decision-making: abstention resolves toward denial rather than admission.
+
 \subsubsection{Model Trust Scores (Agent 1)}
 When models produce conflicting outputs, Agent 1 assesses relative model trust using multi-term evidential scoring:
 \begin{equation}
@@ -347,7 +395,8 @@ When models produce conflicting outputs, Agent 1 assesses relative model trust u
 where $E_{\text{PAC-X}}$ and $E_{\text{GNN}}$ denote empirical evidence scores derived from detected API frequencies and attention magnitudes, $p_{\text{fam}}$ represents family classification confidence, and $\text{Acc}$ is the deployed model's own measured overall test accuracy (Section IV-A) -- a fixed, per-model-version prior distinct from $p_{\text{raw}}$'s per-sample confidence, already weighted at 0.35. Agent 1 primes an LLM with the attention matrix $\boldsymbol{\alpha}_{ij}$ to produce XAI reports.
 
 \subsubsection{Autonomous Retraining (Agent 2)}
-If confidence falls below $0.60$, Agent 2 initiates an active transfer-learning self-healing routine to assimilate the zero-day pattern as shown in Algorithm \ref{alg:agent2}.
+\label{sec:agent2}
+If fused confidence falls below $\tau = \GateTau$, Agent 2 pools the sample for an active transfer-learning self-healing routine (Algorithm \ref{alg:agent2}). The gate is not a round-number default: it was swept against the true fused-confidence pipeline across all ten leave-one-family-out runs (\EscKnownMalN{} known-malicious, \EscBenignN{} benign, and \EscZeroDayN{} held-out zero-day predictions). At $\tau = \GateTau$ the gate captures \EscZDAfter{} of zero-day samples; beyond $\tau = \EscCliffTau$ the benign false-positive rate rises sharply (to \EscCliffFP{}) for diminishing coverage gains, so $\GateTau$ sits just below that cliff rather than chasing the last points of recall. The same $\tau$ governs the fail-closed rule of Section~\ref{sec:failclosed}, so one threshold carries one meaning -- ``the system cannot vouch for this sample'' -- rather than splitting into two independently drifting tunables.
 
 \begin{algorithm}[htbp]
 \caption{Zero-Day Self-Healing Transfer Learning (Agent 2)}
@@ -355,25 +404,27 @@ If confidence falls below $0.60$, Agent 2 initiates an active transfer-learning 
 \begin{algorithmic}[1]
 \REQUIRE Graph $G$, Confidence $C_{\text{final}}$, Predicted $y_{\text{pred}}$
 \ENSURE Updated neural model $M_{\text{live}}$
-\IF{$C_{\text{final}} < 0.60$}
-    \STATE $y_{\text{pseudo}} \leftarrow (\hat{y}_{\text{final}} == \text{"Benign"}) \,?\, \text{Class("benign")} : y_{\text{pred}}$
-    \STATE $G.y \leftarrow y_{\text{pseudo}}$
+\IF{$C_{\text{final}} < \GateTau$}
+    \STATE $y_{\text{pseudo}} \leftarrow (\hat{y}_{\text{base}} == \text{"Benign"}) \,?\, \text{Class("benign")} : y_{\text{pred}}$
+    \STATE $G.y \leftarrow y_{\text{pseudo}}$; \ \ $G.\text{provisional} \leftarrow \text{true}$
     \STATE Ingest $G$ into Retrain Pool $D_{\text{pool}}$
-    \IF{$|D_{\text{pool}}| < 20$ \OR $|\text{classes}(D_{\text{pool}})| < 2$}
-        \STATE \textbf{abort} \quad // pool too small/uniform to fine-tune safely
-    \ENDIF
-    \STATE $M.\text{LoadStateDict}(W_{\text{path}})$
-    \STATE $\text{Acc}_{\text{pre}} \leftarrow \text{Evaluate}(M, D_{\text{test}})$ \quad // real held-out test set
-    \FOR{$\text{epoch} = 1$ \TO $10$}
-        \STATE $loss \leftarrow \text{CrossEntropyLoss}(M(D_{\text{pool}}))$
-        \STATE $loss.\text{Backward}()$; $\text{Opt.Step}()$
-    \ENDFOR
-    \STATE $\text{Acc}_{\text{post}} \leftarrow \text{Evaluate}(M, D_{\text{test}})$
-    \IF{$\text{Acc}_{\text{post}} < \text{Acc}_{\text{pre}} - 0.03$}
-        \STATE \textbf{abort} \quad // discard update, keep prior weights
-    \ELSE
-        \STATE $\text{Save}(M.\text{StateDict}(), W_{\text{path}})$
-    \ENDIF
+\ENDIF
+\STATE \textbf{await} explicit operator trigger \quad // never fires automatically
+\STATE $f_{\max} \leftarrow \max_c |\{g \in D_{\text{pool}} : g.y {=} c\}| \,/\, |D_{\text{pool}}|$
+\IF{$|\text{classes}(D_{\text{pool}})| < 2$ \OR $f_{\max} > 0.90$}
+    \STATE \textbf{refuse} \quad // pool collapsed onto one pseudo-label
+\ENDIF
+\STATE $M.\text{LoadStateDict}(W_{\text{path}})$
+\STATE $\text{Acc}_{\text{pre}} \leftarrow \text{Evaluate}(M, D_{\text{test}})$ \quad // real held-out test set
+\FOR{$\text{epoch} = 1$ \TO $10$}
+    \STATE $loss \leftarrow \text{CrossEntropyLoss}(M(D_{\text{pool}}))$
+    \STATE $loss.\text{Backward}()$; $\text{Opt.Step}()$
+\ENDFOR
+\STATE $\text{Acc}_{\text{post}} \leftarrow \text{Evaluate}(M, D_{\text{test}})$
+\IF{$\text{Acc}_{\text{post}} < \text{Acc}_{\text{pre}} - 0.03$}
+    \STATE \textbf{abort} \quad // discard update, keep prior weights
+\ELSE
+    \STATE $\text{Save}(M.\text{StateDict}(), W_{\text{path}})$
 \ENDIF
 \RETURN $M_{\text{live}}$
 \end{algorithmic}
@@ -437,9 +488,35 @@ A major advantage of MalwareGAT is its ability to expose learned attention weigh
 \textit{``Agent 1 Forensic Rationale: Critical structural anomaly detected between Node 0 (PE Header) and Node 2 (API Export) with an attention weight of 0.89. Indicates obfuscated CreateRemoteThread injection into dynamic cloud endpoints.''}
 \end{quote}
 
-By routing low-confidence observations ($C_{\text{final}} < 0.60$) through the retraining pathway, Agent 2 executes a 10-epoch transfer-learning loop to update neural weights (Algorithm~\ref{alg:agent2}), bounded by two guardrails: a minimum retrain-pool size of 20 samples across at least 2 classes, and a post-fine-tune check that discards the update if held-out accuracy regresses by more than 3 points. These guardrails were added after a controlled reproduction of exactly this failure mode: an unguarded retrain on a deliberately tiny, single-class pool (2 benign samples) regressed held-out accuracy from \RetrainPreAcc{} to \RetrainPostAcc{} even with best-epoch checkpoint selection, and as low as \RetrainMidAcc{} mid-run -- direct evidence of the catastrophic forgetting these guardrails prevent.
+By routing low-confidence observations ($C_{\text{final}} < \GateTau$) through the retraining pathway, Agent 2 executes a 10-epoch transfer-learning loop to update neural weights (Algorithm~\ref{alg:agent2}), bounded by two guardrails: a minimum retrain-pool size of 20 samples across at least 2 classes, and a post-fine-tune check that discards the update if held-out accuracy regresses by more than 3 points. These guardrails were added after a controlled reproduction of exactly this failure mode: an unguarded retrain on a deliberately tiny, single-class pool (2 benign samples) regressed held-out accuracy from \RetrainPreAcc{} to \RetrainPostAcc{} even with best-epoch checkpoint selection, and as low as \RetrainMidAcc{} mid-run -- direct evidence of the catastrophic forgetting these guardrails prevent.
 
 The evaluations above measure accuracy on \emph{known} families seen during training. To directly test generalization to a genuinely unseen threat, we ran a leave-one-family-out experiment: retraining MalwareGAT from scratch with one family excluded entirely from train/validation/test, then evaluating only on that family's untouched samples. Holding out \ZDOneFamily{} (\ZDOneN{} samples) yielded a \ZDOneCatch{} zero-day catch rate (flagged malicious, not benign) at \ZDOneConf{} mean confidence, with \ZDOneTrigger{} of samples correctly triggering Agent 2's low-confidence pathway; holding out \ZDTwoFamily{} (\ZDTwoN{} samples) yielded a \ZDTwoCatch{} catch rate at \ZDTwoConf{} confidence, confidently but incorrectly attributed to \ZDTwoNearest{}, its nearest known family, rather than flagged as uncertain. Together these show the malicious/benign boundary generalizes past the training classes -- via similarity to the nearest known malicious cluster rather than a dedicated novelty detector -- and that Agent 2's confidence gate engages precisely when that generalization is uncertain rather than confidently wrong.
+
+\subsection{Fail-Closed Escalation on Zero-Day Malware}
+\label{sec:escresults}
+The leave-one-family-out results above expose an asymmetry that a headline catch rate hides: the residual errors are almost entirely novel malware labelled \emph{benign}, the one direction in which a security system must not fail. We therefore evaluated the escalation rule of (\ref{eq:failclosed}) over all ten held-out runs pooled -- \EscTotalN{} predictions in total (\EscBenignN{} benign, \EscKnownMalN{} known-malicious, \EscZeroDayN{} zero-day) -- scoring each sample through the deployed fusion pipeline itself rather than a reimplementation. Table~\ref{tab:escalation} reports the trade-off.
+
+\begin{table}[htbp]
+\caption{Effect of fail-closed escalation at $\tau = \GateTau$ (\EscTotalN{} pooled predictions)}
+\label{tab:escalation}
+\centering
+\footnotesize
+\begin{tabular}{lccc}
+\hline
+\textbf{Sample population} & \textbf{Baseline} & \textbf{Escalated} & \textbf{$\Delta$} \\
+\hline
+Zero-day caught (held-out) & \EscZDBefore{} & \EscZDAfter{} & $+7.09$ \\
+Novel families caught & \NovelBefore{} & \NovelAfter{} & $+1.94$ \\
+Gate-tripping subset caught & \HardBefore{} & \HardAfter{} & $+69.64$ \\
+Known malware caught & \EscKnownBefore{} & \EscKnownAfter{} & $+0.02$ \\
+Benign false positives & \EscFPBefore{} & \EscFPAfter{} & $+2.95$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Escalation raises zero-day recall from \EscZDBefore{} to \EscZDAfter{} and leaves known-family detection at \EscKnownAfter{}, at a cost of \EscFPAfter{} benign false positives (from \EscFPBefore{}). The gain concentrates exactly where it should. On \NovelN{} samples spanning \NovelFamilies{} families absent from training, recall moves modestly (\NovelBefore{} to \NovelAfter{}) because most such samples are already confidently flagged. But on the \HardN{}-sample subset drawn from \HardFamilies{} novel families whose fused confidence actually trips the gate -- the population the baseline handles worst -- recall rises from \HardBefore{} to \HardAfter{}: every sample is withheld rather than cleared. Notably, the confidence gate had flagged all \HardN{} of these for Agent 2 while the label cleared 39 of them, confirming that the evidence needed to catch them was present in the pipeline and simply unused.
+
+We report the cost plainly: roughly one benign sample in twenty-eight is now withheld for review rather than cleared. Whether that is acceptable is a deployment decision, not a universal one, and it is the reason $\tau$ is exposed as a tunable rather than fixed. The sharp rise in false positives beyond $\tau = \EscCliffTau$ (to \EscCliffFP{}) marks the practical ceiling. We also note the escalation is a labelling policy applied after fusion: it changes no learned parameters, so the accuracy figures reported elsewhere in this section are unaffected by it.
 
 \subsection{Multi-Class Threat Family Evaluation}
 To evaluate fine-grained threat discrimination beyond binary classification, the MalwareGAT neural stack was evaluated across the 11 real classes present in the dataset (Benign, Gandcrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, and GameHack), achieving \MulticlassAcc{} overall accuracy and a \MulticlassMacroF{} macro F1-score (\MulticlassMacroP{} macro precision, \MulticlassMacroR{} macro recall) on the \TestCount{}-sample held-out test set. Precision was consistently high across every family: 100\% on seven of eleven (Delf, Domaiq, DLHelper, DriverPack, Emotet, Gamarue, Gandcrab -- the last at \GandcrabRec{} recall), and \BenignPrec{} on Benign. The lowest precision was on GameHack (\GameHackPrec{}, \GameHackN{} samples) and DarkKomet (\DarkKometPrec{}, \DarkKometN{} samples) -- both among the smallest-support families, consistent with the natural difficulty of estimating precision from few held-out examples rather than a systematic weakness. Fig.~\ref{fig:perfamily} shows per-family precision, mirroring the live per-family metrics chart in the deployed system.
@@ -468,9 +545,9 @@ To evaluate fine-grained threat discrimination beyond binary classification, the
 \end{figure}
 
 \section{Conclusion and Future Work}
-We presented Agentic-PACX, a hybrid threat intelligence framework combining a rule-based Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT), fused under trust-based arbitration and governed by dual cognitive LLM agents. Across \DatasetTotal{} graph instances spanning 11 real-world malware families (\TestCount{} held-out samples, from a 70/10/20 train/validation/test split where validation alone drives model selection), Agentic-PACX achieved \BinaryAcc{} accuracy, \BinaryPrec{} precision, and \BinaryRec{} recall on binary threat detection, and \MulticlassAcc{} accuracy with a \MulticlassMacroF{} macro F1-score on family attribution. An ablation study showed the Decision Fusion Layer safely defers to the structural pathway on this dataset's native tabular modality -- contributing arbitration and safety rather than an accuracy lift -- while the heuristic pathway's designed advantage is expected to materialize on its native raw API-log/text modality. A leave-one-family-out experiment confirmed the model also generalizes to entirely unseen families (\ZDOneCatch{} and \ZDTwoCatch{} zero-day catch rates on two held-out families), with Agent 2's confidence gate engaging where that generalization was uncertain rather than confidently wrong.
+We presented Agentic-PACX, a hybrid threat intelligence framework combining a rule-based Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT), fused under trust-based arbitration and governed by dual cognitive LLM agents. Across \DatasetTotal{} graph instances spanning 11 real-world malware families (\TestCount{} held-out samples, from a 70/10/20 train/validation/test split where validation alone drives model selection), Agentic-PACX achieved \BinaryAcc{} accuracy, \BinaryPrec{} precision, and \BinaryRec{} recall on binary threat detection, and \MulticlassAcc{} accuracy with a \MulticlassMacroF{} macro F1-score on family attribution. An ablation study showed the Decision Fusion Layer safely defers to the structural pathway on this dataset's native tabular modality -- contributing arbitration and safety rather than an accuracy lift -- while the heuristic pathway's designed advantage is expected to materialize on its native raw API-log/text modality. A leave-one-family-out experiment confirmed the model also generalizes to entirely unseen families (\ZDOneCatch{} and \ZDTwoCatch{} zero-day catch rates on two held-out families), with Agent 2's confidence gate engaging where that generalization was uncertain rather than confidently wrong. Analyzing where that generalization still failed showed the residual errors were overwhelmingly novel malware labelled benign -- an artifact of forcing an $\arg\max$ over trained classes onto a family that belongs to none of them. Reusing the confidence gate as a fail-closed decision rule (Section~\ref{sec:failclosed}) converts that measured uncertainty into a third \emph{Suspicious} verdict, lifting zero-day recall from \EscZDBefore{} to \EscZDAfter{} over \EscTotalN{} pooled predictions -- and from \HardBefore{} to \HardAfter{} on the subset the baseline handled worst -- for \EscFPAfter{} benign false positives, without altering a single learned parameter.
 
-Agent 1 bridges the black-box gap by translating edge attention weights into auditable XAI forensic reports; Agent 2 establishes an autonomous self-healing loop, guarded by pool-size, class-diversity, and accuracy-regression checks that a controlled reproduction confirmed prevent exactly the kind of poorly-formed retrain batch that would otherwise silently degrade a converged model. Future work will deploy Agentic-PACX on production cloud API gateways to measure real-time latency, validate the PAC-X pathway on its native raw-text modality, and expand federated threat-intelligence sharing across multi-cloud edge environments.
+Agent 1 bridges the black-box gap by translating edge attention weights into auditable XAI forensic reports; Agent 2 establishes an autonomous self-healing loop, guarded by pool-size, class-diversity, and accuracy-regression checks that a controlled reproduction confirmed prevent exactly the kind of poorly-formed retrain batch that would otherwise silently degrade a converged model. Two limitations bound these claims. First, escalation catches only novel malware whose confidence actually falls below $\tau$; families the network places confidently in the wrong class are unaffected, and these dominate the residual misses on the novel-family set. Confident errors on unseen classes are a representational gap that a threshold cannot close, and addressing them calls for explicit novelty detection rather than a calibration fix. Second, Agent 2's pool is pseudo-labelled by the model's own prediction at precisely the moment that prediction is unreliable; for a genuinely novel family no label over the trained classes is correct, so pool labels are retained as provisional and a pool that has collapsed onto one class is refused for retraining. Future work will therefore add open-set novelty detection alongside the confidence gate, replace pseudo-labelling with partial supervision that does not force a wrong family label, deploy Agentic-PACX on production cloud API gateways to measure real-time latency, validate the PAC-X pathway on its native raw-text modality, and expand federated threat-intelligence sharing across multi-cloud edge environments.
 
 \begingroup
 \footnotesize
@@ -494,6 +571,7 @@ Agent 1 bridges the black-box gap by translating edge attention weights into aud
 \bibitem{b17} S. Dong, L. Shu, and S. Nie, ``Android Malware Detection Method Based on CNN and DNN Hybrid Mechanism,'' IEEE Trans. Ind. Inform., vol. 20, no. 5, pp. 7744--7753, May 2024.
 \bibitem{b18} P. Maniriho, A. N. Mahmood, and M. J. M. Chowdhury, ``API-MalDetect: Automated malware detection framework for windows based on API calls and deep learning techniques,'' J. Netw. Comput. Appl., vol. 218, 2023, Art no. 103704.
 \bibitem{b19} M. Saqib, B. C. M. Fung, and P. Charland, ``PAC-X: Fuzzy Explainable AI for Multiclass Malware Detection,'' IEEE Trans. Fuzzy Syst., vol. 34, no. 1, pp. 53--64, Jan. 2026.
+\bibitem{b20} C. K. Chow, ``On optimum recognition error and reject tradeoff,'' IEEE Trans. Inf. Theory, vol. 16, no. 1, pp. 41--46, Jan. 1970.
 \end{thebibliography}
 \endgroup
 

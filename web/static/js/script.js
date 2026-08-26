@@ -469,7 +469,11 @@ function restoreSidebar() {
 // ============================================
 // LIVE ANALYSIS LOGIC (runs only on dynamic page)
 // ============================================
-async function runAnalysis() {
+// Remembers the last batch response so a drill-down can return to it
+// without re-running all N rows through the pipeline.
+let lastBatchResult = null;
+
+async function runAnalysis(rowIndex = null) {
     // Get input from UI
     const inputPayload = document.getElementById('payloadInput').value;
     const fileInput = document.getElementById('fileUploader');
@@ -505,6 +509,12 @@ async function runAnalysis() {
         formData.append('text', inputPayload);
     }
 
+    // Drilling into a single row of a multi-row upload -- the backend returns
+    // the full single-sample shape for just that row.
+    if (rowIndex !== null) {
+        formData.append('row_index', rowIndex);
+    }
+
     try {
         const response = await fetch('/api/analyze/live', {
             method: 'POST',
@@ -517,6 +527,7 @@ async function runAnalysis() {
         console.log("Inference Result:", result);
 
         if (result.batch) {
+            lastBatchResult = result;
             renderBatchResults(result);
             return;
         }
@@ -611,6 +622,18 @@ async function runAnalysis() {
     }
 }
 
+/**
+ * Colour for a fused verdict. "Suspicious" is its own amber state: the sample
+ * was NOT cleared, but nothing was positively identified either -- showing it
+ * green would hide a likely zero-day, showing it red would claim a detection
+ * the system did not actually make.
+ */
+function verdictColor(label) {
+    if (label === 'Malicious') return 'var(--neon-red)';
+    if (label === 'Suspicious') return 'var(--verdict-amber)';
+    return 'var(--neon-green)';
+}
+
 function renderBatchResults(result) {
     const s = result.summary;
     const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => (
@@ -636,6 +659,7 @@ function renderBatchResults(result) {
 
     let summaryHtml = `Analyzed all <strong>${s.n_total}</strong> rows -- `
         + `<span style="color:var(--neon-green);">${s.benign_count} Benign</span>, `
+        + `<span style="color:var(--verdict-amber);">${s.suspicious_count || 0} Suspicious</span>, `
         + `<span style="color:var(--neon-red);">${s.malicious_count} Malicious</span>, `
         + `<strong>${s.agent2_triggered_count}</strong> flagged low-confidence (added to Agent 2's retrain pool -- `
         + `retraining still requires an explicit click, not automatic).`;
@@ -651,8 +675,9 @@ function renderBatchResults(result) {
         if (!r.success) {
             return `<tr><td>${r.row_index + 1}</td><td colspan="5" style="color:var(--neon-red);">${escapeHtml(r.error || 'Failed')}</td></tr>`;
         }
-        const color = r.fused_label === 'Malicious' ? 'var(--neon-red)' : 'var(--neon-green)';
-        return `<tr>
+        const color = verdictColor(r.fused_label);
+        return `<tr class="batch-row" data-row-index="${r.row_index}" tabindex="0"
+                    role="button" title="Click to see the full PAC-X / GNN / Fusion breakdown for this row">
             <td>${r.row_index + 1}</td>
             <td>${escapeHtml(r.pacx_label)}</td>
             <td>${escapeHtml(r.gnn_label)}${r.gnn_family && r.gnn_family !== 'benign' ? ' (' + escapeHtml(r.gnn_family) + ')' : ''}</td>
@@ -661,12 +686,55 @@ function renderBatchResults(result) {
             <td>${r.agent2_triggered ? '⚠️ Yes' : '-'}</td>
         </tr>`;
     }).join('');
-    document.getElementById('batchResultsBody').innerHTML = rows;
+    const tbody = document.getElementById('batchResultsBody');
+    tbody.innerHTML = rows;
+
+    // Click (or keyboard-activate) a row to drill into that single sample.
+    tbody.querySelectorAll('tr.batch-row').forEach(tr => {
+        const open = () => drillIntoRow(Number(tr.dataset.rowIndex));
+        tr.addEventListener('click', open);
+        tr.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+        });
+    });
 
     document.getElementById('jsonDump').innerText =
-        `Batch analysis complete: ${s.n_total} rows, ${s.malicious_count} malicious, ${s.agent2_triggered_count} triggered Agent 2.`;
+        `Batch analysis complete: ${s.n_total} rows, ${s.malicious_count} malicious, ${s.agent2_triggered_count} triggered Agent 2.\n`
+        + `Click any row for its full PAC-X / GNN / Fusion breakdown.`;
 
     sessionStorage.removeItem('scanData');
+}
+
+/**
+ * Re-analyzes ONE row of the current multi-row upload and shows the normal
+ * single-sample panels for it. The batch view deliberately hides those panels
+ * (they can't represent N samples at once), so this is how a single row's
+ * detail -- including Agent 1's LLM reasoning, which batch mode skips -- is
+ * recovered. Re-sends the same file with a row_index rather than caching N
+ * full analyses client-side.
+ */
+async function drillIntoRow(rowIndex) {
+    showRetrainStatus(`Loading full breakdown for row ${rowIndex + 1}...`);
+    await runAnalysis(rowIndex);
+
+    const backBtn = document.getElementById('backToBatchBtn');
+    if (backBtn) backBtn.style.display = 'inline-block';
+
+    const banner = document.getElementById('drillDownBanner');
+    if (banner) {
+        banner.style.display = 'block';
+        banner.innerText = `Showing row ${rowIndex + 1} of the uploaded batch.`;
+    }
+}
+
+/** Returns to the batch table without re-running every row. */
+function backToBatchResults() {
+    if (!lastBatchResult) return;
+    renderBatchResults(lastBatchResult);
+    const backBtn = document.getElementById('backToBatchBtn');
+    if (backBtn) backBtn.style.display = 'none';
+    const banner = document.getElementById('drillDownBanner');
+    if (banner) banner.style.display = 'none';
 }
 
 function updateDashboard(data, gnnConf) {
@@ -722,8 +790,24 @@ function updateDashboard(data, gnnConf) {
         const fusionData = data.decision_fusion || {};
         const fusionWeights = fusionData.weights || {};
         const fusionInputs = fusionData.inputs || {};
-        if (fusionLabelEl) fusionLabelEl.innerText = fusionData.final_label || "-";
+        if (fusionLabelEl) {
+            fusionLabelEl.innerText = fusionData.final_label || "-";
+            fusionLabelEl.style.color = verdictColor(fusionData.final_label);
+        }
         if (fusionConfEl) fusionConfEl.innerText = (fusionConf * 100).toFixed(1) + "%";
+
+        // Explain an escalated verdict in plain language, right under it --
+        // "Suspicious" is meaningless to a reader without the reason.
+        const escalationEl = document.getElementById('fusion_escalation');
+        if (escalationEl) {
+            if (fusionData.escalated) {
+                escalationEl.innerText = fusionData.escalation_reason
+                    || "Not cleared: confidence too low to call this benign.";
+                escalationEl.style.display = 'block';
+            } else {
+                escalationEl.style.display = 'none';
+            }
+        }
         if (fusionArbitrationEl) fusionArbitrationEl.innerText = describeArbitration(fusionData);
         if (fusionWPacxEl) fusionWPacxEl.innerText = ((fusionWeights.pacx || 0) * 100).toFixed(1) + "%";
         if (fusionWGnnEl) fusionWGnnEl.innerText = ((fusionWeights.gnn || 0) * 100).toFixed(1) + "%";
@@ -818,14 +902,52 @@ async function executePipelineAnimation() {
     }
 }
 
+function showRetrainStatus(message) {
+    const panel = document.getElementById('jsonDump');
+    if (panel) panel.innerText = message;
+}
+
 async function triggerRetraining() {
     const btn = document.getElementById('retrainBtn') || document.getElementById('retrainBtnLive');
     const originalText = btn.innerHTML;
 
+    // Show what's actually IN the pool before retraining on it. Retraining is
+    // never automatic -- a human reviewing this breakdown is the whole point.
+    let pool = null;
+    try {
+        const poolResp = await fetch('/api/retrain/pool');
+        pool = await poolResp.json();
+    } catch (e) {
+        // Fall through to the server-side check, which is authoritative.
+    }
+
+    if (pool && pool.blocked) {
+        // Report to the STATUS panel, not just alert(). Chrome suppresses
+        // repeated alert() dialogs ("prevent this page from creating more
+        // dialogs"), which made a refusal look like the button was dead --
+        // the click was correctly blocked but said so invisibly.
+        showRetrainStatus("[-] RETRAINING BLOCKED\n\n" + pool.reason
+              + "\n\nRemedy: clear data/retrain_pool.pt and rebuild it from "
+              + "samples with verified family labels before retraining.");
+        alert("🚫 RETRAINING BLOCKED\n\n" + pool.reason
+              + "\n\nClear data/retrain_pool.pt and rebuild it from samples with "
+              + "verified family labels before retraining.");
+        return;
+    }
+
+    let poolSummary = "";
+    if (pool && pool.size) {
+        const breakdown = Object.entries(pool.counts)
+            .map(([name, n]) => `  ${n} ${name}`).join("\n");
+        poolSummary = `\n\nPool contents (${pool.size} samples):\n${breakdown}\n`;
+    }
+
     if (!confirm(
-        "This manually starts Agent 2's retraining loop on the current low-confidence sample pool "
-        + "in the background. It normally runs automatically -- only do this if you specifically "
-        + "want to force it now. Continue?"
+        "This retrains Agent 2 on the current low-confidence sample pool and replaces "
+        + "the live model when it finishes."
+        + poolSummary
+        + "\nThese labels are the model's own guesses on samples it was uncertain about, "
+        + "not verified ground truth. Retraining on them can REDUCE real accuracy. Continue?"
     )) {
         return;
     }
@@ -838,21 +960,33 @@ async function triggerRetraining() {
         const response = await fetch('/api/retrain', { method: 'POST' });
         const result = await response.json();
 
-        if (result.success && result.queued) {
+        if (response.status === 409) {
+            const msg = "[-] RETRAINING BLOCKED\n\n" + (result.message || "Pool is unfit to train on.")
+                  + (result.remedy ? "\n\nRemedy: " + result.remedy : "");
+            showRetrainStatus(msg);
+            alert(msg);
+        } else if (result.success && result.queued) {
             // Retraining now runs in the background and reloads the model
             // when it finishes -- this response only confirms it *started*,
             // it hasn't evolved yet. Reloading the page immediately would
             // just show the pre-retrain model.
-            alert("🧬 AGENT 2 QUEUED: Retraining started in the background. " +
-                  "This can take a minute or two -- refresh the page after that to see the updated model.");
+            const msg = "[*] AGENT 2 QUEUED: retraining started in the background.\n"
+                  + "This takes a minute or two -- refresh the page afterwards to see the updated model.";
+            showRetrainStatus(msg);
+            alert(msg);
         } else if (result.success) {
+            showRetrainStatus("[+] AGENT 2: retraining complete.");
             alert("✅ AGENT 2 SUCCESS: The model has evolved and studied the new patterns.");
             location.reload();
         } else {
-            alert("❌ Retraining Error: " + (result.log || result.message || "Unknown error"));
+            const msg = "[-] Retraining error: " + (result.log || result.message || "Unknown error");
+            showRetrainStatus(msg);
+            alert(msg);
         }
     } catch (error) {
-        alert("❌ Agent 2 Offline: " + error.message);
+        const msg = "[-] Agent 2 offline: " + error.message;
+        showRetrainStatus(msg);
+        alert(msg);
     } finally {
         btn.innerHTML = originalText;
         btn.disabled = false;

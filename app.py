@@ -3,6 +3,7 @@ import sys
 import json
 import io
 import threading
+from collections import Counter
 import matplotlib
 matplotlib.use('Agg') # Thread-safe backend for server environments
 
@@ -596,6 +597,82 @@ except Exception as e:
 # Configuration
 RESULTS_FILE = "gnn_outputs.json"
 MAX_POOL_SIZE = 500  # cap on data/retrain_pool.pt so it doesn't grow unbounded
+RETRAIN_POOL_PATH = "data/retrain_pool.pt"
+
+# A pool this lopsided is pseudo-label collapse, not signal. Every sample in
+# the pool is labeled by the model's own guess at the moment that guess was
+# already known unreliable (see the pseudo_label assignment in _analyze_content),
+# so a novel family that the model can't place lands in the pool wearing
+# whatever label the model defaulted to -- overwhelmingly "benign". Training on
+# that teaches the model to call novel malware benign, which is exactly what it
+# did: three separate retrains on pools at ~98% one class regressed real
+# accuracy 99.51% -> 97.57% -> 96.11% -> 96.79%.
+MAX_DOMINANT_CLASS_FRACTION = 0.90
+MIN_POOL_CLASSES = 2
+
+
+def inspect_retrain_pool(pool_path=RETRAIN_POOL_PATH):
+    """
+    Real label distribution of the Agent-2 retrain pool, plus whether it is
+    fit to train on. Returns `blocked=True` with a human-readable `reason`
+    when the pool has collapsed onto one pseudo-label.
+    """
+    if not os.path.exists(pool_path):
+        return {"exists": False, "size": 0, "counts": {}, "blocked": True,
+                "reason": "No retrain pool exists yet -- nothing to train on."}
+
+    try:
+        pool = torch.load(pool_path, weights_only=False)
+    except Exception as e:
+        return {"exists": True, "size": 0, "counts": {}, "blocked": True,
+                "reason": f"Retrain pool could not be read: {e}"}
+
+    counts = Counter()
+    for sample in pool:
+        y = getattr(sample, "y", None)
+        if y is None:
+            continue
+        idx = int(y.item()) if hasattr(y, "item") else int(y)
+        name = CLASS_LABELS[idx] if 0 <= idx < len(CLASS_LABELS) else f"class_{idx}"
+        counts[name] += 1
+
+    size = sum(counts.values())
+    if size == 0:
+        return {"exists": True, "size": 0, "counts": {}, "blocked": True,
+                "reason": "Retrain pool is empty -- nothing to train on."}
+
+    dominant_name, dominant_n = counts.most_common(1)[0]
+    dominant_fraction = dominant_n / size
+    breakdown = ", ".join(f"{n} {name}" for name, n in counts.most_common())
+
+    report = {
+        "exists": True,
+        "size": size,
+        "counts": dict(counts.most_common()),
+        "dominant_class": dominant_name,
+        "dominant_fraction": round(dominant_fraction, 4),
+        "blocked": False,
+        "reason": "",
+    }
+
+    if len(counts) < MIN_POOL_CLASSES:
+        report["blocked"] = True
+        report["reason"] = (
+            f"Retrain pool has collapsed to a single pseudo-label: all {size} "
+            f"samples are labeled '{dominant_name}'. Training on this would teach "
+            f"the model that every uncertain sample is '{dominant_name}'."
+        )
+    elif dominant_fraction > MAX_DOMINANT_CLASS_FRACTION:
+        report["blocked"] = True
+        report["reason"] = (
+            f"Retrain pool is degenerate: {dominant_n} of {size} samples "
+            f"({dominant_fraction:.1%}) carry the same pseudo-label "
+            f"'{dominant_name}' (breakdown: {breakdown}). These labels are the "
+            f"model's own low-confidence guesses, not verified families, so "
+            f"training on them regresses real accuracy rather than improving it."
+        )
+
+    return report
 
 # Agent 2 fires when the FUSED decision confidence falls below this. Real
 # value, not a round-number guess: swept against the true fused-confidence
@@ -611,6 +688,62 @@ MAX_POOL_SIZE = 500  # cap on data/retrain_pool.pt so it doesn't grow unbounded
 # than chasing the last few points of coverage. See
 # scripts/tune_agent2_threshold.py and data/agent2_tuning/report.json.
 AGENT2_THRESHOLD = 0.68
+
+# Label used when the pipeline cannot vouch for a sample. Deliberately not
+# "Malicious": the system has not identified an attack, it has failed to clear
+# the sample. Conflating the two would overstate what was actually detected.
+SUSPICIOUS_LABEL = "Suspicious"
+
+
+def apply_zeroday_escalation(fusion_result, threshold=None):
+    """
+    Fail closed on zero-day malware.
+
+    A zero-day is by definition an attack, but the classifier's label is an
+    argmax over families it was TRAINED on -- a novel family therefore lands on
+    whichever known class is nearest, overwhelmingly "benign". The pipeline
+    already knows these samples are doubtful (fused confidence sits below
+    AGENT2_THRESHOLD, which is exactly why Agent 2 fires on them); the verdict
+    simply ignored that signal and cleared them anyway. Measured on 56 real
+    samples from 14 novel families, Agent 2 flagged 56/56 while the label
+    caught only 17/56 -- the information was present and discarded.
+
+    So: an uncertain "Benign" becomes "Suspicious". Uncertainty is reused as
+    evidence rather than thrown away, and the same threshold that already
+    decides "worth Agent 2's attention" now also decides "not safe to clear",
+    which keeps one number with one meaning instead of two tunables.
+
+    This is a LABELLING policy over the existing pipeline -- no weights change
+    and nothing retrains, so it cannot regress the model. Real cost/benefit
+    measured over 12,081 samples by scripts/evaluate_zeroday_escalation.py:
+
+      zero-day caught (held-out families) 78.36% -> 85.45%
+      zero-day caught (63 novel families) 91.37% -> 93.31%
+      known malware caught                99.98% -> 100.00%
+      benign false positives               0.57% ->   3.52%   <- the cost
+
+    Escalating only a BENIGN verdict is deliberate: a low-confidence
+    "Malicious" is already actioned, so re-labelling it would add false alarms
+    without catching anything new.
+    """
+    threshold = AGENT2_THRESHOLD if threshold is None else threshold
+    label = fusion_result.get("final_label")
+    confidence = float(fusion_result.get("confidence", 0.0))
+
+    escalated = label == "Benign" and confidence < threshold
+    if escalated:
+        fusion_result["final_label"] = SUSPICIOUS_LABEL
+
+    fusion_result["base_label"] = label
+    fusion_result["escalated"] = escalated
+    fusion_result["escalation_threshold"] = threshold
+    if escalated:
+        fusion_result["escalation_reason"] = (
+            f"Not cleared: only {confidence*100:.1f}% confident this is benign "
+            f"(below {threshold*100:.0f}%). Novel/zero-day malware lands here, "
+            f"so the sample is escalated for review rather than cleared."
+        )
+    return fusion_result
 
 
 def load_model_overall_accuracy():
@@ -691,20 +824,47 @@ async def health_check():
         "adapter_ready": adapter is not None
     }
 
+def asset_version(rel_path):
+    """
+    Cache-busting token derived from the asset's real mtime, so editing a
+    static file automatically invalidates the browser's cached copy.
+
+    This replaces a hand-maintained "?v=N" that had to be bumped by hand on
+    every edit -- and was silently forgotten twice, each time costing real
+    debugging: once serving a stale styles.css through several rounds of CSS
+    edits, and once serving a script.js from before batch analysis existed,
+    which crashed on every multi-row upload with "Cannot read properties of
+    undefined (reading 'confidence')" because the cached code had no batch
+    branch and read path_gnn off a batch response that has none.
+    """
+    try:
+        return str(int(os.path.getmtime(os.path.join("web", "static", rel_path))))
+    except OSError:
+        return "0"
+
+
+def render_page(request, template_name):
+    """Serves a template with per-asset cache-busting versions attached."""
+    return templates.TemplateResponse(request, template_name, {
+        "css_v": asset_version("css/styles.css"),
+        "js_v": asset_version("js/script.js"),
+    })
+
+
 @app.get("/")
 async def read_index(request: Request):
     """Serves the Premium Model Evaluator Dashboard."""
-    return templates.TemplateResponse(request, "index.html")
+    return render_page(request, "index.html")
 
 @app.get("/live_analysis.html")
 async def read_live(request: Request):
     """Serves the Live Analysis Upload Dashboard."""
-    return templates.TemplateResponse(request, "live_analysis.html")
+    return render_page(request, "live_analysis.html")
 
 @app.get("/metrics_report.html")
 async def get_metrics_report(request: Request):
     """Serves the detailed model metrics report page."""
-    return templates.TemplateResponse(request, "metrics_report.html")
+    return render_page(request, "metrics_report.html")
 
 @app.get("/api/results")
 def get_results():
@@ -862,6 +1022,12 @@ async def _analyze_content(content, input_type, background_tasks, source_label=N
         trust_scores=agent1_analysis["agent1_decision"]["trust_scores"],
     )
 
+    # Fail closed: an uncertain "Benign" is escalated to "Suspicious" rather
+    # than cleared, so novel/zero-day malware isn't waved through. Applied here
+    # (the live decision layer) rather than inside fuse_decisions so the offline
+    # analysis scripts keep measuring the raw fusion output unchanged.
+    fusion_result = apply_zeroday_escalation(fusion_result)
+
     # STEP 6: AGENT 2 - Retraining Trigger if confidence < AGENT2_THRESHOLD
     agent2_triggered = False
     retraining_executed = False
@@ -875,9 +1041,18 @@ async def _analyze_content(content, input_type, background_tasks, source_label=N
 
         # Pseudo-label from current best class so Agent-2 retraining has supervised targets.
         pseudo_label = gnn_result["predicted_class_idx"]
-        if fusion_result.get("final_label") == "Benign":
+        if fusion_result.get("base_label", fusion_result.get("final_label")) == "Benign":
             pseudo_label = BENIGN_CLASS_INDEX
         new_sample.y = torch.tensor([int(pseudo_label)], dtype=torch.long)
+
+        # This label is a GUESS, and specifically a guess made at the one moment
+        # the model is known to be unreliable. Worse, if the sample really is a
+        # novel family then its true class is none of the trained ones, so no
+        # value of `y` here is correct. Flagging that on the sample keeps the
+        # pool honest for whatever consumes it later (see inspect_retrain_pool,
+        # which refuses to train on a pool that has collapsed onto one label).
+        new_sample.label_is_provisional = True
+        new_sample.escalated = bool(fusion_result.get("escalated", False))
 
         pool = []
         if os.path.exists(pool_path):
@@ -1014,7 +1189,8 @@ async def analyze_live(
     background_tasks: BackgroundTasks,
     text: Optional[str] = Form(None),
     file: Optional[UploadFile] = File(None),
-    input_type: Optional[str] = Form("api")
+    input_type: Optional[str] = Form("api"),
+    row_index: Optional[int] = Form(None)
 ):
     """
     Dual-Path Malware Detection:
@@ -1022,6 +1198,12 @@ async def analyze_live(
     2. GNN: Graph-based analysis with attention weights
     3. Agent 1: Compares both and generates dynamic reasoning
     4. Agent 2: Auto-retrains if confidence < AGENT2_THRESHOLD (zero-day detected)
+
+    `row_index` (0-based) drills into ONE row of a multi-row upload and returns
+    the full single-sample shape for it -- the batch table hides the per-path
+    panels, so this is how a single row's Decision Fusion / PAC-X / GNN /
+    Agent 1 detail is recovered. Unlike batch mode this keeps LLM reasoning on,
+    since it's one sample rather than hundreds.
 
     A CSV with more than one data row, or a JSON array with more than one
     element, is automatically analyzed row-by-row (batch mode) instead of
@@ -1069,6 +1251,18 @@ async def analyze_live(
         if batch_rows is None:
             return await _analyze_content(content, input_type, background_tasks, source_label=source_label)
 
+        # Drill-down: one row of a multi-row upload, full single-sample detail.
+        if row_index is not None:
+            if not 0 <= row_index < len(batch_rows):
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"row_index {row_index} out of range (file has {len(batch_rows)} rows).",
+                )
+            return await _analyze_content(
+                batch_rows[row_index], input_type, background_tasks,
+                source_label=f"{source_label or 'batch'} [row {row_index+1}]",
+            )
+
         # BATCH MODE: analyze every row, one real /api/analyze/live-equivalent
         # call each -- same pipeline, just looped, with LLM reasoning text
         # skipped per-row (nobody reads 500 rows of prose) and at most one
@@ -1099,6 +1293,7 @@ async def analyze_live(
                     "fused_label": r["decision_fusion"]["final_label"],
                     "fused_confidence": r["decision_fusion"]["confidence"],
                     "arbitration": r["decision_fusion"]["arbitration"],
+                    "escalated": r["decision_fusion"].get("escalated", False),
                     "completeness": r["completeness"],
                     "agent2_triggered": agent2["triggered"],
                 })
@@ -1119,6 +1314,7 @@ async def analyze_live(
             "n_failed": len(results) - len(ok),
             "benign_count": sum(1 for r in ok if r["fused_label"] == "Benign"),
             "malicious_count": sum(1 for r in ok if r["fused_label"] == "Malicious"),
+            "suspicious_count": sum(1 for r in ok if r["fused_label"] == SUSPICIOUS_LABEL),
             "agent2_triggered_count": sum(1 for r in ok if r["agent2_triggered"]),
             "avg_confidence": round(sum(r["fused_confidence"] for r in ok) / len(ok), 4) if ok else 0.0,
             "truncated": truncated,
@@ -1143,13 +1339,35 @@ async def retrain_model(background_tasks: BackgroundTasks):
     on the request thread, freezing the entire single-process server for
     the whole fine-tune, and never reloaded the new weights afterward even
     once training finished.
+
+    Refuses to run on a degenerate pool -- see inspect_retrain_pool.
     """
+    pool_report = inspect_retrain_pool()
+    if pool_report["blocked"]:
+        print(f"[AGENT 2] Retrain refused: {pool_report['reason']}")
+        return JSONResponse(status_code=409, content={
+            "success": False,
+            "queued": False,
+            "message": pool_report["reason"],
+            "pool": pool_report,
+            "remedy": "Clear data/retrain_pool.pt and rebuild it from samples "
+                      "with verified family labels before retraining.",
+        })
+
     background_tasks.add_task(_run_agent2_retrain_background)
     return {
         "success": True,
         "queued": True,
         "message": "Retraining started in the background; the model reloads automatically when it finishes.",
+        "pool": pool_report,
     }
+
+
+@app.get("/api/retrain/pool")
+async def retrain_pool_status():
+    """Label distribution of the Agent-2 retrain pool, and whether it is fit
+    to train on -- so the pool can be reviewed before the button is clicked."""
+    return inspect_retrain_pool()
 
 @app.get("/api/scans/recent")
 async def recent_scans(limit: int = 50):

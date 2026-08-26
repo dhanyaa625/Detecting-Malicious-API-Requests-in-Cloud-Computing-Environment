@@ -1,0 +1,55 @@
+{
+  "note": "Real measurement of the fail-closed escalation policy (low-confidence 'Benign' -> 'Suspicious') using app.run_gnn_inference + app.fuse_decisions verbatim across all 10 leave-one-family-out zero-day runs. 'OFF' is today's behaviour. benign_false_positive_rate is the cost; zeroday_catch_rate is the benefit.",
+  "n_benign": 5790,
+  "n_known_malicious": 4050,
+  "n_zeroday": 2241,
+  "baseline_no_escalation": {
+    "benign_false_positive_rate": 0.0057,
+    "known_malicious_catch_rate": 0.9998,
+    "zeroday_catch_rate": 0.7836
+  },
+  "sweep": [
+    {
+      "threshold": 0.55,
+      "benign_false_positive_rate": 0.0074,
+      "known_malicious_catch_rate": 1.0,
+      "zeroday_catch_rate": 0.7961
+    },
+    {
+      "threshold": 0.6,
+      "benign_false_positive_rate": 0.01,
+      "known_malicious_catch_rate": 1.0,
+      "zeroday_catch_rate": 0.813
+    },
+    {
+      "threshold": 0.64,
+      "benign_false_positive_rate": 0.0162,
+      "known_malicious_catch_rate": 1.0,
+      "zeroday_catch_rate": 0.8286
+    },
+    {
+      "threshold": 0.68,
+      "benign_false_positive_rate": 0.0352,
+      "known_malicious_catch_rate": 1.0,
+      "zeroday_catch_rate": 0.8545
+    },
+    {
+      "threshold": 0.72,
+      "benign_false_positive_rate": 0.2249,
+      "known_malicious_catch_rate": 1.0,
+      "zeroday_catch_rate": 0.8786
+    },
+    {
+      "threshold": 0.76,
+      "benign_false_positive_rate": 0.2703,
+      "known_malicious_catch_rate": 1.0,
+      "zeroday_catch_rate": 0.9402
+    },
+    {
+      "threshold": 0.8,
+      "benign_false_positive_rate": 0.2988,
+      "known_malicious_catch_rate": 1.0,
+      "zeroday_catch_rate": 0.9656
+    }
+  ]
+}

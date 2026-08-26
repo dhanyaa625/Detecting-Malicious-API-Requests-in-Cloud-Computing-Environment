@@ -151,6 +151,35 @@ $$\text{Final Score} = (\text{PAC-X Weight} \times \text{PAC-X Score}) + (\text{
   $$\text{Reliability Bonus} = 0.20 \times \left( (0.50 \times \text{Completeness}) + (0.50 \times \text{Certainty}) \right)$$
 * GNN Weight is clamped between `[0.50, 0.80]`, ensuring balanced consensus at all times.
 
+#### Fail-closed zero-day escalation (three verdict states)
+
+The fused label is an `argmax` over the **11 families the model was trained on**. A genuinely novel family cannot be named by it, so it gets absorbed into whichever known class is nearest -- and because "benign" is the largest, least structurally distinctive cluster, that is usually where it lands. A zero-day is by definition an attack, so this is the dangerous failure direction: real malware gets cleared.
+
+The pipeline already knows these samples are doubtful -- their fused confidence is below `AGENT2_THRESHOLD`, which is exactly why Agent 2 fires on them. That signal was measured and then discarded by a hard `argmax`. So `apply_zeroday_escalation()` in `app.py` reuses it:
+
+```
+if final_label == "Benign" and confidence < AGENT2_THRESHOLD:
+    final_label = "Suspicious"
+```
+
+* **"Suspicious", not "Malicious"** -- the system has not identified an attack, it has failed to *clear* the sample. Claiming otherwise would overstate what was detected.
+* **Only a Benign verdict escalates** -- a low-confidence *Malicious* verdict is already actioned, so relabelling it adds false alarms and catches nothing new.
+* **No weights change and nothing retrains**, so this cannot regress the model. Accuracy figures elsewhere in this README are unaffected.
+
+Real measured cost/benefit over **12,081 pooled predictions** from all ten leave-one-family-out runs (`python scripts/evaluate_zeroday_escalation.py` -> `data/agent2_tuning/escalation_report.json`):
+
+| Population | Baseline | Escalated |
+|---|---|---|
+| Zero-day caught (held-out families) | 78.36% | **85.45%** |
+| Novel families caught (2,004 samples, 63 families) | 91.37% | **93.31%** |
+| Gate-tripping subset (56 samples, 14 novel families) | 30.36% | **100%** |
+| Known malware caught | 99.98% | **100.00%** |
+| Benign false positives | 0.57% | **3.52%** |
+
+The cost is real and stated plainly: roughly **1 benign sample in 28** is now withheld for review instead of cleared. Past `0.72` the false-positive rate jumps to 22.49%, which is the practical ceiling. Whether 3.52% is acceptable is a deployment decision, which is why the threshold is a tunable rather than a constant.
+
+**Known limitation:** escalation only catches novel malware whose confidence actually drops below the gate. Families the model places *confidently* in the wrong class are unaffected -- these dominate the residual misses (downloadguide, genkryptik). That is a representational gap requiring real novelty detection, not a threshold fix.
+
 ### 2. **Agent 1 (Comparative Showdowns)**
 Compares both pathways and generates natural, expert-level forensic reports explaining the diagnosis (using Gemini 2.0 Flash / Flash-Lite; falls back to static templated reasoning if no `GEMINI_API_KEY` is set or the API call fails). It evaluates Model Trust Scores based on completeness, evidence, and model confidence:
 * **PAC-X Trust:** $(0.7 \times \text{PAC-X Confidence}) + (0.3 \times \text{PAC-X Evidence})$
@@ -162,9 +191,13 @@ To maintain high speed and prevent redundant code blocks, **Agent 2 has no stand
 * **Trigger Orchestrator:** Located inside `agents/analyst_agent.py` (`trigger_agent_2_retraining()`).
 * **Learning Brain:** Located inside `agentic_pacx/gnn_classification.py` (`--retrain`).
 
-* **Trigger Condition:** Agent 2 triggers **ONLY** when the final fused confidence falls below **60% (< 0.60)**.
-* **Retrain Flow:** Appends the zero-day sample with a pseudo-label to `data/retrain_pool.pt`, runs a 10-epoch transfer learning loop to fine-tune `model.pt` (via a `BackgroundTasks` job, so it doesn't block the server), reloads the weights in active memory under a lock, and corrects future diagnoses automatically.
-* **Guardrails:** Refuses to fine-tune on a pool smaller than 20 samples or spanning fewer than 2 classes, and discards the update (keeping the prior `model.pt`) if held-out test accuracy regresses by more than 3 points after fine-tuning. These exist because an unguarded retrain on a tiny, single-class pool measurably regresses accuracy -- reproduced directly: a deliberately unguarded 2-sample, single-class retrain took held-out accuracy from 99.61% to 98.64% even with best-epoch selection, and as low as 80.08% mid-run.
+* **Trigger Condition:** Agent 2 pools a sample when the final fused confidence falls below **68% (`AGENT2_THRESHOLD = 0.68`)**. This is not a round-number default -- it was swept against the real fused-confidence pipeline across all ten zero-day runs (`scripts/tune_agent2_threshold.py`). The same threshold drives the fail-closed escalation above, so one number carries one meaning: *"the system cannot vouch for this sample."*
+* **Pooling is automatic. Retraining is NOT.** A low-confidence sample is appended to `data/retrain_pool.pt` with a *provisional* pseudo-label. Nothing fine-tunes the live model until a human clicks **Trigger Agent 2 Retraining**.
+
+> ⚠️ **Why retraining is never automatic.** A pooled sample's pseudo-label is the model's *own guess*, made at precisely the moment that guess is known to be unreliable -- and if the sample really is a novel family, then *no* label over the 11 trained classes is correct. Training on that teaches the model to call novel malware benign. This is not hypothetical: automatic retraining regressed the live model's real held-out accuracy three separate times (99.51% → 97.57% → 96.11% → 96.79%), each time recovered only by retraining from scratch. Automatic execution was removed; pooling (cheap, reversible, useful) was kept.
+
+* **Pool guardrail:** `/api/retrain` inspects the pool first and **refuses** to run if it has collapsed onto one pseudo-label (>90% a single class, or fewer than 2 classes), reporting the real label breakdown instead of failing silently. Inspect it any time via `GET /api/retrain/pool`. The UI shows the pool's composition in the confirm dialog so the human review step has something to actually review.
+* **Post-retrain guardrail:** discards the update (keeping the prior `model.pt`) if held-out test accuracy regresses by more than 3 points after fine-tuning.
 
 ---
 
