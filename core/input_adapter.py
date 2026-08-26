@@ -388,6 +388,31 @@ class UniversalInputAdapter:
         }
         nodes_filled = 0
 
+        # Native-schema detection independent of the declared input_type. A
+        # user (or caller) can select the wrong dropdown -- e.g. "API Call Log
+        # (Text)" -- for data that is actually this dataset's own native CSV
+        # schema. Only the "csv" branch below used to check for this, so the
+        # exact same content produced a fully-populated graph under one
+        # dropdown and a near-empty, silently wrong one under another --
+        # confirmed directly: completeness dropped 100% -> 25% and the fused
+        # verdict flipped from a correct "Suspicious" to a confidently wrong
+        # "Benign". Checking here, before the input_type dispatch, makes
+        # native-schema recognition robust to a mis-selected format. Scoped to
+        # is_native_schema only (not the rarer amauricio schema, which stays
+        # "csv"-only) -- that's the schema the reported bug actually hit.
+        if input_type != "csv" and isinstance(raw_text, str):
+            try:
+                df_native_probe = pd.read_csv(io.StringIO(raw_text))
+                if is_native_schema(df_native_probe.columns) and len(df_native_probe) > 0:
+                    row = df_native_probe.iloc[0]
+                    vectors = native_row_to_node_vectors(row.get, D_FEATURE)
+                    for node_idx, vec in vectors.items():
+                        nodes[node_idx] = vec.astype(np.float32)
+                    nodes_filled = 4
+                    input_type = "csv_native_schema"
+            except Exception:
+                pass
+
         # FORMAT AWARENESS LOGIC
         if input_type == "json":
             try:
