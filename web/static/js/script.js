@@ -516,6 +516,18 @@ async function runAnalysis() {
 
         console.log("Inference Result:", result);
 
+        if (result.batch) {
+            renderBatchResults(result);
+            return;
+        }
+
+        // A normal single-sample result -- make sure a previous batch run
+        // isn't still hiding these panels / showing its own table.
+        const singlePanels = document.getElementById('singleResultPanels');
+        if (singlePanels) singlePanels.style.display = 'contents';
+        const batchPanel = document.getElementById('batchResultsPanel');
+        if (batchPanel) batchPanel.style.display = 'none';
+
         // Format backend dual-path response
         const neuralConf = result.path_gnn.confidence;
         const pacxConf = result.path_pacx.confidence;
@@ -594,8 +606,67 @@ async function runAnalysis() {
         
     } catch (error) {
         console.error("Analysis Error:", error);
+        document.getElementById('m_total').innerText = "0";
         document.getElementById('jsonDump').innerText = "[-] Error: " + error.message;
     }
+}
+
+function renderBatchResults(result) {
+    const s = result.summary;
+    const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+    ));
+
+    // Metric ribbon reflects the whole batch, not a single sample.
+    document.getElementById('m_total').innerText = s.n_total;
+    document.getElementById('m_trusted').innerText = s.benign_count;
+    document.getElementById('m_escalated').innerText = s.malicious_count;
+    document.getElementById('m_comp').innerText = (s.avg_confidence * 100).toFixed(0) + '%';
+
+    // Single-sample panels (Decision Fusion verdict, PAC-X/GNN showdown,
+    // Agent 1 reasoning, structural graph...) don't make sense for N
+    // results at once -- swap them for the batch table instead.
+    const singlePanels = document.getElementById('singleResultPanels');
+    if (singlePanels) singlePanels.style.display = 'none';
+    const stepDetail = document.getElementById('stepDetailPanel');
+    if (stepDetail) stepDetail.style.display = 'none';
+
+    const batchPanel = document.getElementById('batchResultsPanel');
+    batchPanel.style.display = 'block';
+
+    let summaryHtml = `Analyzed all <strong>${s.n_total}</strong> rows -- `
+        + `<span style="color:var(--neon-green);">${s.benign_count} Benign</span>, `
+        + `<span style="color:var(--neon-red);">${s.malicious_count} Malicious</span>, `
+        + `<strong>${s.agent2_triggered_count}</strong> flagged low-confidence (added to Agent 2's retrain pool -- `
+        + `retraining still requires an explicit click, not automatic).`;
+    if (s.n_failed > 0) {
+        summaryHtml += ` <span style="color:var(--neon-red);">${s.n_failed} row(s) failed to parse.</span>`;
+    }
+    if (s.truncated) {
+        summaryHtml += ` <em>File had more rows than the ${s.n_total} processed -- truncated for this run.</em>`;
+    }
+    document.getElementById('batchSummaryLine').innerHTML = summaryHtml;
+
+    const rows = result.results.map(r => {
+        if (!r.success) {
+            return `<tr><td>${r.row_index + 1}</td><td colspan="5" style="color:var(--neon-red);">${escapeHtml(r.error || 'Failed')}</td></tr>`;
+        }
+        const color = r.fused_label === 'Malicious' ? 'var(--neon-red)' : 'var(--neon-green)';
+        return `<tr>
+            <td>${r.row_index + 1}</td>
+            <td>${escapeHtml(r.pacx_label)}</td>
+            <td>${escapeHtml(r.gnn_label)}${r.gnn_family && r.gnn_family !== 'benign' ? ' (' + escapeHtml(r.gnn_family) + ')' : ''}</td>
+            <td style="color:${color}; font-weight:bold;">${escapeHtml(r.fused_label)}</td>
+            <td>${(r.fused_confidence * 100).toFixed(1)}%</td>
+            <td>${r.agent2_triggered ? '⚠️ Yes' : '-'}</td>
+        </tr>`;
+    }).join('');
+    document.getElementById('batchResultsBody').innerHTML = rows;
+
+    document.getElementById('jsonDump').innerText =
+        `Batch analysis complete: ${s.n_total} rows, ${s.malicious_count} malicious, ${s.agent2_triggered_count} triggered Agent 2.`;
+
+    sessionStorage.removeItem('scanData');
 }
 
 function updateDashboard(data, gnnConf) {
