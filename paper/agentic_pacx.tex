@@ -283,7 +283,7 @@ For unstructured string tokens extracted from raw text/API logs -- the case Eq.~
 \end{equation}
 where $s$ denotes an arbitrary string token, $\hat{s}$ represents its canonicalized form, $\mathbf{u}$ is the raw feature frequency accumulator vector, and $\hat{\mathbf{u}}$ is the resulting L2-normalized vector.
 
-The dataset used to \emph{train} MalwareGAT (Section IV-A) is not raw text: it is a structured static-analysis feature table (PE header fields, section-entropy statistics, and pre-computed continuous embeddings of each sample's import/export lists and string artifacts). All four nodes are therefore built the same way -- each node's numeric column group is projected through the padding/local-standardization operator of Eq.~3, \emph{not} the string-hashing operator of Eq.~2, which is reserved for genuinely unstructured raw-text input. The live Universal Input Adapter reconstructs the identical four vectors whenever an uploaded record matches this native schema, falling back to the Eq.~1--2 hashing bridge otherwise.
+The dataset used to \emph{train} MalwareGAT (Section IV-A) is a structured static-analysis feature table, not raw text: PE header fields, section-entropy statistics, and pre-computed embeddings of import/export lists and string artifacts. All four nodes are built the same way, via Eq.~3's padding/standardization operator rather than Eq.~2's string-hashing operator, which is reserved for genuinely unstructured raw-text input; the live Universal Input Adapter reconstructs identical vectors for a native-schema upload, falling back to Eq.~1--2 otherwise.
 
 \subsubsection{Feature Normalization Formulation}
 Each node's feature block is normalized using the static mean $\mu_{i, j}$ and standard deviation $\sigma_{i, j}$ pre-computed across the training split $\mathcal{D}_{\text{train}}$ only (Section IV-A) -- never the validation or test split -- where $\epsilon = 10^{-8}$ prevents division by zero:
@@ -313,35 +313,7 @@ where $\mathbf{h}_i$ and $\mathbf{h}_j$ are the feature representations of nodes
 \end{equation}
 where $N(i)$ represents the 1-hop topological neighborhood of node $i$, $\alpha_{ij}$ is the attention coefficient, and $\sigma(\cdot)$ is the non-linear ELU activation function.
 
-MalwareGAT stacks three GATConv layers, 64 hidden channels per head: 4 heads with concatenation (256-dim) in layer 1, 2 heads concatenated (128-dim) in layer 2, and 1 head, no concatenation (64-dim), in layer 3, each followed by batch normalization and 0.25 dropout. Global mean pooling $\mathbf{h}_{G} = \frac{1}{|V|} \sum_{i \in V}\mathbf{h}'_i$ then feeds a linear classifier. Algorithm \ref{alg:gat} details the forward pass and attention weighting.
-
-\begin{algorithm}[htbp]
-\caption{MalwareGAT Forward Pass \& Attention Computation}
-\label{alg:gat}
-\begin{algorithmic}[1]
-\REQUIRE Graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \mathbf{X})$, Projection $\mathbf{W}^{(l)}$, Attention $\mathbf{a}^{(l)}$, per-layer heads $K^{(l)} \in \{4, 2, 1\}$ for $l \in \{1, 2, 3\}$.
-\ENSURE Graph embedding $\mathbf{h}_G$, Softmax distribution $\hat{\mathbf{y}}_{\text{GNN}}$.
-\FOR{each layer $l = 1$ \TO $3$}
-    \FOR{each node $i \in \mathcal{V}$}
-        \FOR{each attention head $k = 1$ \TO $K^{(l)}$}
-            \FOR{each neighbor $j \in \mathcal{N}(i)$}
-                \STATE $e_{ij}^{(k)} \leftarrow \text{LeakyReLU}\Big({\mathbf{a}^{(k)}}^\top \big[\mathbf{W}^{(k)}\mathbf{h}_i^{(l-1)} \,\Vert\,$
-                \STATE \qquad\qquad\qquad\qquad\quad $\mathbf{W}^{(k)}\mathbf{h}_j^{(l-1)}\big]\Big)$
-            \ENDFOR
-            \STATE $\alpha_{ij}^{(k)} \leftarrow \frac{\exp(e_{ij}^{(k)})}{\sum_{m \in \mathcal{N}(i)} \exp(e_{im}^{(k)})}$
-        \ENDFOR
-        \IF{$l < 3$}
-            \STATE $\mathbf{h}_i^{(l)} \leftarrow \sigma \left( \Big\Vert_{k=1}^{K^{(l)}} \sum_{j \in \mathcal{N}(i)} \alpha_{ij}^{(k)} \mathbf{W}^{(k)} \mathbf{h}_j^{(l-1)} \right)$ \quad // concat heads
-        \ELSE
-            \STATE $\mathbf{h}_i^{(l)} \leftarrow \sigma \left( \sum_{j \in \mathcal{N}(i)} \alpha_{ij}^{(1)} \mathbf{W}^{(1)} \mathbf{h}_j^{(l-1)} \right)$ \quad // single head
-        \ENDIF
-    \ENDFOR
-\ENDFOR
-\STATE $\mathbf{h}_G \leftarrow \frac{1}{|\mathcal{V}|} \sum_{i \in \mathcal{V}} \mathbf{h}_i^{(3)}$ \quad // Global Mean Pooling
-\STATE $\hat{\mathbf{y}}_{\text{GNN}} \leftarrow \text{Softmax}(\mathbf{W}_{\text{out}} \mathbf{h}_G + \mathbf{b}_{\text{out}})$
-\RETURN $\mathbf{h}_G, \hat{\mathbf{y}}_{\text{GNN}}$
-\end{algorithmic}
-\end{algorithm}
+MalwareGAT stacks three GATConv layers, 64 hidden channels per head: 4 heads with concatenation (256-dim) in layer 1, 2 heads concatenated (128-dim) in layer 2, and 1 head, no concatenation (64-dim), in layer 3, each followed by batch normalization and 0.25 dropout. Global mean pooling $\mathbf{h}_{G} = \frac{1}{|V|} \sum_{i \in V}\mathbf{h}'_i$ then feeds a linear classifier over the three stacked layers described above.
 
 \subsection{Decision Fusion Layer and LLM Agents}
 
@@ -451,7 +423,7 @@ If fused confidence falls below $\tau = \GateTau$, Agent 2 pools the sample for 
 \section{Results and Discussion}
 
 \subsection{Dataset and Experimental Setup}
-The framework was evaluated on a project-derived PE malware dataset of \DatasetTotal{} graph instances across 11 classes: Benign and 10 named malware families from public threat-intelligence feeds (Gandcrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, GameHack). Four feature groups feed the graph: (1) PE Header structures ($v_0$), (2) section-entropy and structural summary statistics ($v_1$), (3) pre-computed continuous embeddings of each sample's import/export lists ($v_2$), and (4) embeddings of network/string artifacts ($v_3$) -- Section III-B.2 details why all four are real numeric feature blocks, not hashed string tokens. Each node is a 260-dimensional feature vector.
+The framework was evaluated on a PE malware dataset of \DatasetTotal{} graph instances across 11 classes: Benign and 10 named malware families (Gandcrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, GameHack), sourced from the public GitHub repository accompanying \cite{b19} (verified byte-identical to its released \texttt{final\_data.csv}). Four feature groups feed the graph: (1) PE Header structures ($v_0$), (2) section-entropy and structural summary statistics ($v_1$), (3) pre-computed continuous embeddings of each sample's import/export lists ($v_2$), and (4) embeddings of network/string artifacts ($v_3$) -- Section III-B.2 details why all four are real numeric feature blocks, not hashed string tokens. Each node is a 260-dimensional feature vector.
 
 The dataset was partitioned using a 70/10/20 stratified train/validation/test split (seeded per-class for reproducibility): \TrainCount{} training, \ValCount{} validation, and \TestCount{} held-out test samples. The validation split -- not the test split -- drives early stopping and best-checkpoint selection, so the test split is touched exactly once, after model selection is complete, avoiding the optimistic bias of selecting a checkpoint on the same set its final number is reported against.
 
@@ -514,7 +486,7 @@ To evaluate fine-grained threat discrimination beyond binary classification, the
 \section{Conclusion and Future Work}
 We presented Agentic-PACX, a hybrid threat intelligence framework combining a rule-based Prospect-Aspect-Context (PAC-X) heuristic engine with a structural Graph Attention Network (MalwareGAT), fused under trust-based arbitration and governed by dual cognitive LLM agents. Across \DatasetTotal{} graph instances spanning 11 real-world malware families (\TestCount{} held-out samples, validation-only model selection), it achieved \BinaryAcc{}/\BinaryPrec{}/\BinaryRec{} binary accuracy, precision and recall, and \MulticlassAcc{} accuracy with \MulticlassMacroF{} macro F1 on family attribution. An ablation showed the Decision Fusion Layer safely defers to the structural pathway on this dataset's tabular modality, contributing arbitration and safety rather than an accuracy lift. A leave-one-family-out experiment confirmed generalization to entirely unseen families, with Agent 2's gate engaging where that generalization was uncertain rather than confidently wrong. Where it still failed, the residual errors were overwhelmingly novel malware labelled benign -- an artifact of forcing an $\arg\max$ over trained classes onto a family belonging to none of them. Reusing the gate as a fail-closed rule (Section~\ref{sec:failclosed}) converts that measured uncertainty into a third \emph{Suspicious} verdict, lifting zero-day recall \EscZDBefore{}$\rightarrow$\EscZDAfter{} over \EscTotalN{} predictions -- and \HardBefore{}$\rightarrow$\HardAfter{} on the subset handled worst -- for \EscFPAfter{} false positives, without altering a learned parameter.
 
-Agent 1 bridges the black-box gap by translating edge attention weights into auditable XAI forensic reports; Agent 2 establishes a self-healing loop, guarded by pool-diversity and accuracy-regression checks that a controlled reproduction confirmed prevent a poorly-formed retrain batch from silently degrading a converged model. Two limitations bound these claims. Escalation catches only novel malware whose confidence falls below $\tau$, so families placed \emph{confidently} in the wrong class dominate the residual misses; we tested the natural fix -- rejecting samples far from every class centroid -- and confirmed it fails: these samples sit \emph{closer} to a centroid than real known samples do on average, so the gap is genuine feature overlap with benign software, not statistical outlierness, and needs new discriminative features rather than distance-based novelty detection. Second, Agent 2's pool is pseudo-labelled by the model's own prediction at exactly the moment it is unreliable, so labels are kept provisional and a collapsed pool is refused for retraining. Future work will pursue discriminative features for these specific families, replace pseudo-labelling with partial supervision that does not force a wrong label, deploy on production cloud API gateways to measure latency, validate PAC-X on its native raw-text modality, and expand federated threat-intelligence sharing across multi-cloud edge environments.
+Agent 1 bridges the black-box gap via auditable XAI forensic reports; Agent 2 self-heals under pool-diversity and accuracy-regression guardrails a controlled reproduction confirmed prevent a poorly-formed retrain batch from degrading a converged model. Two limitations remain. Escalation catches only novel malware whose confidence falls below $\tau$, so families placed \emph{confidently} in the wrong class dominate the residual misses; the natural fix -- rejecting samples far from every class centroid -- was tested and fails, since these samples sit \emph{closer} to a centroid than real known samples do on average, meaning genuine feature overlap with benign software, not statistical outlierness, requiring new discriminative features rather than distance-based novelty detection. Second, Agent 2's pool is pseudo-labelled by the model's own unreliable-moment prediction, so labels stay provisional and a collapsed pool is refused. Future work: discriminative features for these families, partial supervision in place of forced pseudo-labels, production-gateway latency measurement, PAC-X on its native raw-text modality, and federated threat-intelligence sharing across multi-cloud edges.
 
 \begingroup
 \scriptsize
