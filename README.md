@@ -171,14 +171,18 @@ Real measured cost/benefit over **12,081 pooled predictions** from all ten leave
 | Population | Baseline | Escalated |
 |---|---|---|
 | Zero-day caught (held-out families) | 78.36% | **85.45%** |
-| Novel families caught (2,004 samples, 63 families) | 91.37% | **93.31%** |
+| Novel families caught (2,004 samples, 63 families) | 98.40% | **98.40%** |
 | Gate-tripping subset (56 samples, 14 novel families) | 30.36% | **100%** |
 | Known malware caught | 99.98% | **100.00%** |
 | Benign false positives | 0.57% | **3.52%** |
 
 The cost is real and stated plainly: roughly **1 benign sample in 28** is now withheld for review instead of cleared. Past `0.72` the false-positive rate jumps to 22.49%, which is the practical ceiling. Whether 3.52% is acceptable is a deployment decision, which is why the threshold is a tunable rather than a constant.
 
-**Known limitation:** escalation only catches novel malware whose confidence actually drops below the gate. Families the model places *confidently* in the wrong class are unaffected -- these dominate the residual misses (downloadguide, genkryptik). That is a representational gap requiring real novelty detection, not a threshold fix.
+**Known limitation, tested not assumed:** escalation only catches novel malware whose confidence actually drops below the gate. On the 2,004-sample novel-family set, 32 samples (1.6%, concentrated in `downloadguide` — 18/161 — and `msilperseus` — 7/24) are confidently placed in the wrong class and never reach the gate at all.
+
+The obvious next idea — reject samples far from every known class centroid — was built and tested (`python scripts/evaluate_novelty_detection.py` -> `data/novelty_detection/report.json`), scored through the real production `model.pt`/`CLASS_CENTROIDS`, not a re-implementation. It **fails**: those 32 samples sit *closer* to their nearest centroid (mean similarity 0.79) than the average real known sample does to its own (0.58). This isn't a statistical-outlier problem a distance threshold can catch — it's genuine feature overlap between these malware families' static-import/header signatures and real benign software in this 260-dim feature space. Fixing it needs new discriminative features or supervised augmentation targeting these specific families, not novelty detection.
+
+(In the course of this investigation, an earlier ad hoc — and never-saved — script that had originally produced the pre-correction 91.37%/93.31% figures above was found to have a stale-fallback bug on 151/2,004 rows: a cluster of suspiciously repeated confidence values across unrelated families, disproportionately inflating `downloadguide`'s apparent miss count from a real 18 to a reported 65, and wrongly implicating `genkryptik`, which actually has zero confidently-wrong misses. The table above and this section now reflect the corrected, re-verified numbers.)
 
 ### 2. **Agent 1 (Comparative Showdowns)**
 Compares both pathways and generates natural, expert-level forensic reports explaining the diagnosis (using Gemini 2.0 Flash / Flash-Lite; falls back to static templated reasoning if no `GEMINI_API_KEY` is set or the API call fails). It evaluates Model Trust Scores based on completeness, evidence, and model confidence:

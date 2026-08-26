@@ -1,0 +1,477 @@
+{
+  "note": "Tests whether raw (pre-softmax) max cosine similarity to the nearest of the 11 real CLASS_CENTROIDS separates known samples from the novel malware families that confidently defeat fail-closed escalation. Scored through the REAL production app.model / app.CLASS_CENTROIDS, no retraining or monkeypatching -- downloadguide/genkryptik were never in any training split, unlike the leave-one-out zero-day experiment.",
+  "n_known": 1029,
+  "n_novel": 2004,
+  "n_novel_families": 63,
+  "novel_catch_rate_baseline": 0.984,
+  "novel_catch_rate_escalated": 0.984,
+  "n_confidently_missed": 32,
+  "known_max_centroid_sim_distribution": {
+    "min": 0.1194547712802887,
+    "p1": 0.1658446931838989,
+    "p5": 0.22184767425060273,
+    "mean": 0.5823746031427175,
+    "max": 0.9996815323829651
+  },
+  "threshold_sweep": [
+    {
+      "name": "p1",
+      "threshold": 0.1658446931838989,
+      "confident_misses_caught": 0,
+      "n_confident_misses": 32,
+      "known_false_positives": 11,
+      "n_known": 1029
+    },
+    {
+      "name": "p5",
+      "threshold": 0.22184767425060273,
+      "confident_misses_caught": 0,
+      "n_confident_misses": 32,
+      "known_false_positives": 52,
+      "n_known": 1029
+    }
+  ],
+  "per_family": {
+    "downloadadmin": {
+      "n": 584,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.6961,
+      "min_max_centroid_sim": 0.632,
+      "max_max_centroid_sim": 0.8499
+    },
+    "firseria": {
+      "n": 224,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.725,
+      "min_max_centroid_sim": 0.6059,
+      "max_max_centroid_sim": 0.7753
+    },
+    "multiplug": {
+      "n": 163,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8188,
+      "min_max_centroid_sim": 0.4741,
+      "max_max_centroid_sim": 0.8814
+    },
+    "downloadguide": {
+      "n": 161,
+      "n_confidently_missed": 18,
+      "mean_max_centroid_sim": 0.7893,
+      "min_max_centroid_sim": 0.6448,
+      "max_max_centroid_sim": 0.8538
+    },
+    "fareit": {
+      "n": 115,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8231,
+      "min_max_centroid_sim": 0.1906,
+      "max_max_centroid_sim": 0.8516
+    },
+    "crossrider": {
+      "n": 48,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.6115,
+      "min_max_centroid_sim": 0.5633,
+      "max_max_centroid_sim": 0.8592
+    },
+    "genkryptik": {
+      "n": 46,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.6995,
+      "min_max_centroid_sim": 0.0301,
+      "max_max_centroid_sim": 0.8506
+    },
+    "flystudio": {
+      "n": 35,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8106,
+      "min_max_centroid_sim": 0.5799,
+      "max_max_centroid_sim": 0.9332
+    },
+    "farfli": {
+      "n": 34,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.619,
+      "min_max_centroid_sim": 0.4876,
+      "max_max_centroid_sim": 0.7832
+    },
+    "cosmu": {
+      "n": 33,
+      "n_confidently_missed": 1,
+      "mean_max_centroid_sim": 0.6408,
+      "min_max_centroid_sim": 0.4727,
+      "max_max_centroid_sim": 0.8142
+    },
+    "dalexis": {
+      "n": 33,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.4888,
+      "min_max_centroid_sim": 0.4542,
+      "max_max_centroid_sim": 0.7424
+    },
+    "fsysna": {
+      "n": 26,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7721,
+      "min_max_centroid_sim": 0.2558,
+      "max_max_centroid_sim": 0.9269
+    },
+    "dealply": {
+      "n": 25,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7849,
+      "min_max_centroid_sim": 0.2166,
+      "max_max_centroid_sim": 0.9526
+    },
+    "dapato": {
+      "n": 24,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7766,
+      "min_max_centroid_sim": 0.1571,
+      "max_max_centroid_sim": 0.9423
+    },
+    "msilperseus": {
+      "n": 24,
+      "n_confidently_missed": 7,
+      "mean_max_centroid_sim": 0.646,
+      "min_max_centroid_sim": 0.394,
+      "max_max_centroid_sim": 0.8532
+    },
+    "ibryte": {
+      "n": 20,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7809,
+      "min_max_centroid_sim": 0.6,
+      "max_max_centroid_sim": 0.8882
+    },
+    "dadobra": {
+      "n": 19,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8367,
+      "min_max_centroid_sim": 0.7209,
+      "max_max_centroid_sim": 0.8907
+    },
+    "fareitvb": {
+      "n": 18,
+      "n_confidently_missed": 1,
+      "mean_max_centroid_sim": 0.7373,
+      "min_max_centroid_sim": 0.6584,
+      "max_max_centroid_sim": 0.8534
+    },
+    "gamevance": {
+      "n": 18,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7501,
+      "min_max_centroid_sim": 0.6353,
+      "max_max_centroid_sim": 0.7747
+    },
+    "ekstak": {
+      "n": 16,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.78,
+      "min_max_centroid_sim": 0.4975,
+      "max_max_centroid_sim": 0.8835
+    },
+    "disfa": {
+      "n": 15,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.814,
+      "min_max_centroid_sim": 0.3974,
+      "max_max_centroid_sim": 0.9204
+    },
+    "driverupdate": {
+      "n": 14,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8038,
+      "min_max_centroid_sim": 0.4751,
+      "max_max_centroid_sim": 0.947
+    },
+    "dyzap": {
+      "n": 13,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7022,
+      "min_max_centroid_sim": 0.6984,
+      "max_max_centroid_sim": 0.7063
+    },
+    "downloadassistant": {
+      "n": 12,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8111,
+      "min_max_centroid_sim": 0.8103,
+      "max_max_centroid_sim": 0.8115
+    },
+    "dynamer": {
+      "n": 12,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8515,
+      "min_max_centroid_sim": 0.7588,
+      "max_max_centroid_sim": 0.8865
+    },
+    "forcestartpage": {
+      "n": 12,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.9047,
+      "min_max_centroid_sim": 0.9039,
+      "max_max_centroid_sim": 0.905
+    },
+    "hlux": {
+      "n": 12,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.602,
+      "min_max_centroid_sim": 0.0455,
+      "max_max_centroid_sim": 0.8206
+    },
+    "multibar": {
+      "n": 12,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8454,
+      "min_max_centroid_sim": 0.7568,
+      "max_max_centroid_sim": 0.9214
+    },
+    "crypmod": {
+      "n": 11,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7361,
+      "min_max_centroid_sim": 0.7152,
+      "max_max_centroid_sim": 0.7682
+    },
+    "gandcrypt": {
+      "n": 11,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.6958,
+      "min_max_centroid_sim": 0.5682,
+      "max_max_centroid_sim": 0.8026
+    },
+    "delphi": {
+      "n": 10,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8624,
+      "min_max_centroid_sim": 0.4695,
+      "max_max_centroid_sim": 0.9737
+    },
+    "diztakun": {
+      "n": 10,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7107,
+      "min_max_centroid_sim": 0.343,
+      "max_max_centroid_sim": 0.9362
+    },
+    "explosive": {
+      "n": 10,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.62,
+      "min_max_centroid_sim": 0.2222,
+      "max_max_centroid_sim": 0.8082
+    },
+    "crysis": {
+      "n": 9,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.5027,
+      "min_max_centroid_sim": 0.4569,
+      "max_max_centroid_sim": 0.867
+    },
+    "dovs": {
+      "n": 9,
+      "n_confidently_missed": 1,
+      "mean_max_centroid_sim": 0.5794,
+      "min_max_centroid_sim": 0.3755,
+      "max_max_centroid_sim": 0.7328
+    },
+    "elex": {
+      "n": 9,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7483,
+      "min_max_centroid_sim": 0.5947,
+      "max_max_centroid_sim": 0.816
+    },
+    "eorezo": {
+      "n": 9,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7242,
+      "min_max_centroid_sim": 0.6222,
+      "max_max_centroid_sim": 0.8049
+    },
+    "filetour": {
+      "n": 9,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.6821,
+      "min_max_centroid_sim": 0.5845,
+      "max_max_centroid_sim": 0.8467
+    },
+    "dllinject": {
+      "n": 8,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.5943,
+      "min_max_centroid_sim": 0.3777,
+      "max_max_centroid_sim": 0.7304
+    },
+    "dridex": {
+      "n": 8,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.5564,
+      "min_max_centroid_sim": 0.4392,
+      "max_max_centroid_sim": 0.7342
+    },
+    "expiro": {
+      "n": 8,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.5644,
+      "min_max_centroid_sim": 0.3009,
+      "max_max_centroid_sim": 0.801
+    },
+    "extenbro": {
+      "n": 8,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7218,
+      "min_max_centroid_sim": 0.6121,
+      "max_max_centroid_sim": 0.8057
+    },
+    "fraudrop": {
+      "n": 8,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7536,
+      "min_max_centroid_sim": 0.6023,
+      "max_max_centroid_sim": 0.8447
+    },
+    "fusioncore": {
+      "n": 8,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8087,
+      "min_max_centroid_sim": 0.7985,
+      "max_max_centroid_sim": 0.8507
+    },
+    "golroted": {
+      "n": 8,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.758,
+      "min_max_centroid_sim": 0.7241,
+      "max_max_centroid_sim": 0.7932
+    },
+    "hupigon": {
+      "n": 8,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7096,
+      "min_max_centroid_sim": 0.5171,
+      "max_max_centroid_sim": 0.8215
+    },
+    "dofoil": {
+      "n": 7,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.6428,
+      "min_max_centroid_sim": 0.081,
+      "max_max_centroid_sim": 0.8059
+    },
+    "evital": {
+      "n": 7,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8478,
+      "min_max_centroid_sim": 0.7925,
+      "max_max_centroid_sim": 0.864
+    },
+    "fuerboos": {
+      "n": 7,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.8234,
+      "min_max_centroid_sim": 0.5622,
+      "max_max_centroid_sim": 0.9396
+    },
+    "dimnie": {
+      "n": 6,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.4087,
+      "min_max_centroid_sim": 0.3088,
+      "max_max_centroid_sim": 0.4958
+    },
+    "filerepmalware": {
+      "n": 6,
+      "n_confidently_missed": 1,
+      "mean_max_centroid_sim": 0.5149,
+      "min_max_centroid_sim": 0.3596,
+      "max_max_centroid_sim": 0.7995
+    },
+    "genasom": {
+      "n": 6,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7017,
+      "min_max_centroid_sim": 0.365,
+      "max_max_centroid_sim": 0.8191
+    },
+    "hoax": {
+      "n": 6,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.6614,
+      "min_max_centroid_sim": 0.5975,
+      "max_max_centroid_sim": 0.7934
+    },
+    "hosts": {
+      "n": 6,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.6959,
+      "min_max_centroid_sim": 0.2838,
+      "max_max_centroid_sim": 0.8139
+    },
+    "hploki": {
+      "n": 6,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.781,
+      "min_max_centroid_sim": 0.7462,
+      "max_max_centroid_sim": 0.8562
+    },
+    "multidl": {
+      "n": 6,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.5091,
+      "min_max_centroid_sim": 0.5082,
+      "max_max_centroid_sim": 0.5101
+    },
+    "mucc": {
+      "n": 4,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7504,
+      "min_max_centroid_sim": 0.6427,
+      "max_max_centroid_sim": 0.7974
+    },
+    "hesv": {
+      "n": 2,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.5078,
+      "min_max_centroid_sim": 0.5072,
+      "max_max_centroid_sim": 0.5084
+    },
+    "multipacked": {
+      "n": 2,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.7987,
+      "min_max_centroid_sim": 0.7066,
+      "max_max_centroid_sim": 0.8909
+    },
+    "manbat": {
+      "n": 1,
+      "n_confidently_missed": 1,
+      "mean_max_centroid_sim": 0.5505,
+      "min_max_centroid_sim": 0.5505,
+      "max_max_centroid_sim": 0.5505
+    },
+    "microwinsearch": {
+      "n": 1,
+      "n_confidently_missed": 0,
+      "mean_max_centroid_sim": 0.5959,
+      "min_max_centroid_sim": 0.5959,
+      "max_max_centroid_sim": 0.5959
+    },
+    "mikey": {
+      "n": 1,
+      "n_confidently_missed": 1,
+      "mean_max_centroid_sim": 0.701,
+      "min_max_centroid_sim": 0.701,
+      "max_max_centroid_sim": 0.701
+    },
+    "mudrop": {
+      "n": 1,
+      "n_confidently_missed": 1,
+      "mean_max_centroid_sim": 0.5396,
+      "min_max_centroid_sim": 0.5396,
+      "max_max_centroid_sim": 0.5396
+    }
+  }
+}
