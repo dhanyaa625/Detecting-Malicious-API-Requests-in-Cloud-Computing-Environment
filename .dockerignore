@@ -3,8 +3,7 @@ __pycache__
 *.pyc
 .env
 kaggle_dataset/
-model.pt.pre_augmentation_backup
-model_augmented_candidate.pt
-_legacy_archive/
+yousuf_dataset/
+malware_samples/
 *.md
 agentic_pacx_walkthrough.html

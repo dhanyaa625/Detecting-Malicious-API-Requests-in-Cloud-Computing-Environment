@@ -1,0 +1,454 @@
+{
+  "note": "Real fused-confidence distributions (app.py's actual run_gnn_inference + fuse_decisions pipeline, replicated exactly via monkey-patched globals -- not an approximation) across all 10 leave-one-family-out zero-day experiments (data/zeroday_<family>/), for native-schema input. PAC-X's contribution is provably constant for this input type (empty text_summary -> fixed 0.5 confidence / 0.0 evidence / 0.35 trust), so the fused confidence variation shown here comes entirely from the GNN's model+centroid+evidence blend.",
+  "n_families": 10,
+  "families": [
+    "darkkomet",
+    "delf",
+    "dlhelper",
+    "domaiq",
+    "driverpack",
+    "emotet",
+    "gamarue",
+    "gamehack",
+    "gandcrab",
+    "hotbar"
+  ],
+  "n_known_correct": 9806,
+  "n_known_incorrect": 34,
+  "n_zeroday": 2241,
+  "per_family": {
+    "darkkomet": {
+      "n_known_correct": 1005,
+      "n_known_incorrect": 3,
+      "n_zeroday": 106,
+      "zeroday_caught_directly": 106
+    },
+    "delf": {
+      "n_known_correct": 1001,
+      "n_known_incorrect": 9,
+      "n_zeroday": 94,
+      "zeroday_caught_directly": 94
+    },
+    "dlhelper": {
+      "n_known_correct": 1015,
+      "n_known_incorrect": 1,
+      "n_zeroday": 66,
+      "zeroday_caught_directly": 66
+    },
+    "domaiq": {
+      "n_known_correct": 1011,
+      "n_known_incorrect": 1,
+      "n_zeroday": 84,
+      "zeroday_caught_directly": 0
+    },
+    "driverpack": {
+      "n_known_correct": 1015,
+      "n_known_incorrect": 1,
+      "n_zeroday": 62,
+      "zeroday_caught_directly": 62
+    },
+    "emotet": {
+      "n_known_correct": 961,
+      "n_known_incorrect": 7,
+      "n_zeroday": 304,
+      "zeroday_caught_directly": 255
+    },
+    "gamarue": {
+      "n_known_correct": 991,
+      "n_known_incorrect": 3,
+      "n_zeroday": 174,
+      "zeroday_caught_directly": 174
+    },
+    "gamehack": {
+      "n_known_correct": 1016,
+      "n_known_incorrect": 2,
+      "n_zeroday": 52,
+      "zeroday_caught_directly": 44
+    },
+    "gandcrab": {
+      "n_known_correct": 793,
+      "n_known_incorrect": 3,
+      "n_zeroday": 1163,
+      "zeroday_caught_directly": 819
+    },
+    "hotbar": {
+      "n_known_correct": 998,
+      "n_known_incorrect": 4,
+      "n_zeroday": 136,
+      "zeroday_caught_directly": 136
+    }
+  },
+  "threshold_sweep": [
+    {
+      "tau": 0.5,
+      "zeroday_handled_rate": 78.36,
+      "known_correct_false_trigger_rate": 0.0,
+      "known_incorrect_caught_rate": 0.0,
+      "objective": 0.7836
+    },
+    {
+      "tau": 0.51,
+      "zeroday_handled_rate": 78.45,
+      "known_correct_false_trigger_rate": 0.02,
+      "known_incorrect_caught_rate": 0.0,
+      "objective": 0.7843
+    },
+    {
+      "tau": 0.52,
+      "zeroday_handled_rate": 78.76,
+      "known_correct_false_trigger_rate": 0.04,
+      "known_incorrect_caught_rate": 2.94,
+      "objective": 0.7872
+    },
+    {
+      "tau": 0.53,
+      "zeroday_handled_rate": 79.07,
+      "known_correct_false_trigger_rate": 0.07,
+      "known_incorrect_caught_rate": 5.88,
+      "objective": 0.79
+    },
+    {
+      "tau": 0.54,
+      "zeroday_handled_rate": 79.29,
+      "known_correct_false_trigger_rate": 0.09,
+      "known_incorrect_caught_rate": 5.88,
+      "objective": 0.792
+    },
+    {
+      "tau": 0.55,
+      "zeroday_handled_rate": 79.61,
+      "known_correct_false_trigger_rate": 0.1,
+      "known_incorrect_caught_rate": 8.82,
+      "objective": 0.7951
+    },
+    {
+      "tau": 0.56,
+      "zeroday_handled_rate": 79.96,
+      "known_correct_false_trigger_rate": 0.11,
+      "known_incorrect_caught_rate": 14.71,
+      "objective": 0.7985
+    },
+    {
+      "tau": 0.57,
+      "zeroday_handled_rate": 80.41,
+      "known_correct_false_trigger_rate": 0.14,
+      "known_incorrect_caught_rate": 23.53,
+      "objective": 0.8027
+    },
+    {
+      "tau": 0.58,
+      "zeroday_handled_rate": 80.54,
+      "known_correct_false_trigger_rate": 0.17,
+      "known_incorrect_caught_rate": 26.47,
+      "objective": 0.8037
+    },
+    {
+      "tau": 0.59,
+      "zeroday_handled_rate": 80.9,
+      "known_correct_false_trigger_rate": 0.17,
+      "known_incorrect_caught_rate": 29.41,
+      "objective": 0.8073
+    },
+    {
+      "tau": 0.6,
+      "zeroday_handled_rate": 81.3,
+      "known_correct_false_trigger_rate": 0.25,
+      "known_incorrect_caught_rate": 32.35,
+      "objective": 0.8105
+    },
+    {
+      "tau": 0.61,
+      "zeroday_handled_rate": 81.57,
+      "known_correct_false_trigger_rate": 0.31,
+      "known_incorrect_caught_rate": 38.24,
+      "objective": 0.8126
+    },
+    {
+      "tau": 0.62,
+      "zeroday_handled_rate": 81.88,
+      "known_correct_false_trigger_rate": 0.39,
+      "known_incorrect_caught_rate": 47.06,
+      "objective": 0.815
+    },
+    {
+      "tau": 0.63,
+      "zeroday_handled_rate": 82.42,
+      "known_correct_false_trigger_rate": 0.5,
+      "known_incorrect_caught_rate": 50.0,
+      "objective": 0.8192
+    },
+    {
+      "tau": 0.64,
+      "zeroday_handled_rate": 82.86,
+      "known_correct_false_trigger_rate": 0.63,
+      "known_incorrect_caught_rate": 50.0,
+      "objective": 0.8223
+    },
+    {
+      "tau": 0.65,
+      "zeroday_handled_rate": 83.44,
+      "known_correct_false_trigger_rate": 0.8,
+      "known_incorrect_caught_rate": 52.94,
+      "objective": 0.8265
+    },
+    {
+      "tau": 0.66,
+      "zeroday_handled_rate": 84.07,
+      "known_correct_false_trigger_rate": 0.92,
+      "known_incorrect_caught_rate": 52.94,
+      "objective": 0.8315
+    },
+    {
+      "tau": 0.67,
+      "zeroday_handled_rate": 84.69,
+      "known_correct_false_trigger_rate": 1.24,
+      "known_incorrect_caught_rate": 52.94,
+      "objective": 0.8345
+    },
+    {
+      "tau": 0.68,
+      "zeroday_handled_rate": 85.45,
+      "known_correct_false_trigger_rate": 1.76,
+      "known_incorrect_caught_rate": 52.94,
+      "objective": 0.8369
+    },
+    {
+      "tau": 0.69,
+      "zeroday_handled_rate": 85.81,
+      "known_correct_false_trigger_rate": 2.57,
+      "known_incorrect_caught_rate": 58.82,
+      "objective": 0.8324
+    },
+    {
+      "tau": 0.7,
+      "zeroday_handled_rate": 86.43,
+      "known_correct_false_trigger_rate": 4.21,
+      "known_incorrect_caught_rate": 64.71,
+      "objective": 0.8222
+    },
+    {
+      "tau": 0.71,
+      "zeroday_handled_rate": 87.15,
+      "known_correct_false_trigger_rate": 11.53,
+      "known_incorrect_caught_rate": 70.59,
+      "objective": 0.7561
+    },
+    {
+      "tau": 0.72,
+      "zeroday_handled_rate": 87.86,
+      "known_correct_false_trigger_rate": 12.95,
+      "known_incorrect_caught_rate": 73.53,
+      "objective": 0.7491
+    },
+    {
+      "tau": 0.73,
+      "zeroday_handled_rate": 89.07,
+      "known_correct_false_trigger_rate": 13.76,
+      "known_incorrect_caught_rate": 76.47,
+      "objective": 0.7531
+    },
+    {
+      "tau": 0.74,
+      "zeroday_handled_rate": 90.18,
+      "known_correct_false_trigger_rate": 14.47,
+      "known_incorrect_caught_rate": 82.35,
+      "objective": 0.7571
+    },
+    {
+      "tau": 0.75,
+      "zeroday_handled_rate": 91.83,
+      "known_correct_false_trigger_rate": 15.09,
+      "known_incorrect_caught_rate": 82.35,
+      "objective": 0.7674
+    },
+    {
+      "tau": 0.76,
+      "zeroday_handled_rate": 94.02,
+      "known_correct_false_trigger_rate": 15.76,
+      "known_incorrect_caught_rate": 88.24,
+      "objective": 0.7826
+    },
+    {
+      "tau": 0.77,
+      "zeroday_handled_rate": 96.34,
+      "known_correct_false_trigger_rate": 16.31,
+      "known_incorrect_caught_rate": 88.24,
+      "objective": 0.8003
+    },
+    {
+      "tau": 0.78,
+      "zeroday_handled_rate": 96.47,
+      "known_correct_false_trigger_rate": 16.67,
+      "known_incorrect_caught_rate": 88.24,
+      "objective": 0.798
+    },
+    {
+      "tau": 0.79,
+      "zeroday_handled_rate": 96.52,
+      "known_correct_false_trigger_rate": 17.1,
+      "known_incorrect_caught_rate": 88.24,
+      "objective": 0.7942
+    },
+    {
+      "tau": 0.8,
+      "zeroday_handled_rate": 96.56,
+      "known_correct_false_trigger_rate": 17.53,
+      "known_incorrect_caught_rate": 88.24,
+      "objective": 0.7903
+    },
+    {
+      "tau": 0.81,
+      "zeroday_handled_rate": 96.61,
+      "known_correct_false_trigger_rate": 18.07,
+      "known_incorrect_caught_rate": 88.24,
+      "objective": 0.7854
+    },
+    {
+      "tau": 0.82,
+      "zeroday_handled_rate": 96.74,
+      "known_correct_false_trigger_rate": 18.6,
+      "known_incorrect_caught_rate": 88.24,
+      "objective": 0.7814
+    },
+    {
+      "tau": 0.83,
+      "zeroday_handled_rate": 96.88,
+      "known_correct_false_trigger_rate": 19.25,
+      "known_incorrect_caught_rate": 88.24,
+      "objective": 0.7762
+    },
+    {
+      "tau": 0.84,
+      "zeroday_handled_rate": 97.01,
+      "known_correct_false_trigger_rate": 19.89,
+      "known_incorrect_caught_rate": 91.18,
+      "objective": 0.7712
+    },
+    {
+      "tau": 0.85,
+      "zeroday_handled_rate": 97.5,
+      "known_correct_false_trigger_rate": 20.67,
+      "known_incorrect_caught_rate": 94.12,
+      "objective": 0.7683
+    },
+    {
+      "tau": 0.86,
+      "zeroday_handled_rate": 98.13,
+      "known_correct_false_trigger_rate": 21.77,
+      "known_incorrect_caught_rate": 97.06,
+      "objective": 0.7635
+    },
+    {
+      "tau": 0.87,
+      "zeroday_handled_rate": 98.35,
+      "known_correct_false_trigger_rate": 23.02,
+      "known_incorrect_caught_rate": 97.06,
+      "objective": 0.7533
+    },
+    {
+      "tau": 0.88,
+      "zeroday_handled_rate": 98.84,
+      "known_correct_false_trigger_rate": 24.72,
+      "known_incorrect_caught_rate": 97.06,
+      "objective": 0.7412
+    },
+    {
+      "tau": 0.89,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 28.45,
+      "known_incorrect_caught_rate": 97.06,
+      "objective": 0.7155
+    },
+    {
+      "tau": 0.9,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.0,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.41
+    },
+    {
+      "tau": 0.91,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.01,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.4099
+    },
+    {
+      "tau": 0.92,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.04,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.4096
+    },
+    {
+      "tau": 0.93,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.06,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.4094
+    },
+    {
+      "tau": 0.94,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.09,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.4091
+    },
+    {
+      "tau": 0.95,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.11,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.4089
+    },
+    {
+      "tau": 0.96,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.14,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.4086
+    },
+    {
+      "tau": 0.97,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.17,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.4083
+    },
+    {
+      "tau": 0.98,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.2,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.408
+    },
+    {
+      "tau": 0.99,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 59.3,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.407
+    },
+    {
+      "tau": 1.0,
+      "zeroday_handled_rate": 100.0,
+      "known_correct_false_trigger_rate": 100.0,
+      "known_incorrect_caught_rate": 100.0,
+      "objective": 0.0
+    }
+  ],
+  "current_hardcoded_threshold": {
+    "tau": 0.6,
+    "zeroday_handled_rate": 81.3,
+    "known_correct_false_trigger_rate": 0.25,
+    "known_incorrect_caught_rate": 32.35,
+    "objective": 0.8105
+  },
+  "best_by_objective": {
+    "tau": 0.68,
+    "zeroday_handled_rate": 85.45,
+    "known_correct_false_trigger_rate": 1.76,
+    "known_incorrect_caught_rate": 52.94,
+    "objective": 0.8369
+  }
+}

@@ -1,0 +1,7205 @@
+[
+  {
+    "idx": 963,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.847,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1185,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8995,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5039,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 232,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4697,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2637,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8948,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4027,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3205,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 249,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4092,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4687,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3775,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 655,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 898,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8588,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 239,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8871,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 807,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.86,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 814,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8216,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4911,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4252,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2533,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7256,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 986,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8995,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3934,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4915,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2077,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 823,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.711,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2502,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.731,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 546,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1766,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8978,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 864,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7055,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2574,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4056,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3592,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2612,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7058,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 436,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8702,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1787,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3353,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4168,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4292,
+    "true_label": "gamehack",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6496,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3536,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4200,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3684,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3801,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 326,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4657,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2234,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8948,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3276,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 403,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8991,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4084,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 248,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 896,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7061,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4542,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2536,
+    "true_label": "benign",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.5027,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 4933,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 456,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6957,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2220,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.716,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2933,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 4332,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1809,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8697,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2044,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7959,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1244,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3932,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4103,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2378,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7081,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2777,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2413,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2299,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5049,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 2872,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8935,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4443,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4923,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2869,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7067,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4723,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 108,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1917,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8986,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 952,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1531,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1663,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3208,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 2410,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8996,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8931,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3983,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 761,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1003,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.5618,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1170,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2927,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 278,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7002,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2544,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7093,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4063,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3022,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 2685,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.879,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2895,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7097,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 525,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3336,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1262,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8947,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4559,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2931,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 3862,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 870,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8594,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3853,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3073,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 3116,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.7712,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 2209,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7057,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2584,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7505,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4196,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3263,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 3302,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 3701,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 444,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8991,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 895,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8686,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4604,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3543,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9994,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1271,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3919,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8981,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 604,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8995,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3485,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3040,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 6,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8651,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2735,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7051,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2166,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2843,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.656,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1366,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 666,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4858,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2293,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1837,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8989,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1636,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8825,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3791,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 2675,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7035,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4589,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 397,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1751,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 522,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4384,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1139,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7346,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4741,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1162,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 438,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8818,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2625,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1550,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3378,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2251,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8787,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 867,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8677,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1754,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6379,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1634,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7119,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4667,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2271,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 421,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8989,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2727,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8859,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2161,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7494,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 979,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7445,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1903,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3421,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3082,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 1643,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2001,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.898,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1451,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.707,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2947,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 4127,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2815,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7064,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2297,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8499,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3635,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 102,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4104,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2661,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8807,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1154,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2910,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 2566,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7459,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3966,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4294,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4831,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 5118,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 3325,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9998,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1078,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2622,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8985,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3108,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 4198,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4172,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4864,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4622,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4659,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3458,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 356,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8952,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3923,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2696,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2094,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.854,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 751,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 237,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3184,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 5085,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 1002,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 473,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8977,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 221,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8946,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4615,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2333,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4289,
+    "true_label": "gamehack",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7005,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3398,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2453,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8975,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 932,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8993,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4094,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4644,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3090,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 1893,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8951,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1429,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.709,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2375,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1404,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8865,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5125,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 2495,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2873,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4425,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1811,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7071,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4744,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 5042,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 180,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4646,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4544,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4821,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2357,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7065,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4043,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3539,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4138,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2263,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1734,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7075,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3158,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 2390,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8706,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 177,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 953,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1029,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 977,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8454,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4114,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4471,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1286,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8926,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1513,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1470,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8445,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3770,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 283,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3253,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 1990,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1894,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 815,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8893,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 162,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8626,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1621,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8657,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1486,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8735,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 875,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7209,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2141,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8894,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 207,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4505,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 980,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8953,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 262,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4628,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 891,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7138,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3487,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 962,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8852,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3430,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4908,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1353,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7573,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2561,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8983,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3152,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.7718,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 3837,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3127,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 3603,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4492,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2080,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7067,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3267,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 187,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4369,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 38,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4585,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 634,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1266,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8964,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 700,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8991,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5048,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 933,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8977,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 39,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1879,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2167,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7134,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 651,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2372,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7844,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 999,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1731,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1937,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8977,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 862,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7127,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2315,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4982,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4548,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 317,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7864,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2261,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3395,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1112,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7166,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1904,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4564,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3534,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9994,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2860,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8995,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 968,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8986,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4805,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3117,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 995,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3992,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2961,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 5107,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 4490,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2119,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8958,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4746,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2899,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 1167,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.899,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4342,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 779,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8568,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4197,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4785,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 669,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5123,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 1688,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7074,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1741,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8511,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1732,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.707,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 47,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1722,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7477,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3324,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9999,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1566,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1653,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4623,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4115,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2719,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 208,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4221,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3089,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 1885,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7105,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 836,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8654,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4928,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3270,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 5062,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 3866,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 122,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8938,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3584,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1375,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3999,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 300,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 937,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3985,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 205,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4176,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3420,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3873,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4601,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2181,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3652,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 2435,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8769,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2854,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8146,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3696,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 2072,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8858,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 86,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7103,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3013,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 3521,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2093,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1765,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 777,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3153,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 5086,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 4329,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3465,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2952,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 1529,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3846,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3642,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 1389,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4835,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4349,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3114,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 3562,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9957,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 914,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8387,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1215,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4574,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 731,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7059,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1902,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8992,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1250,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1222,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8992,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2983,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 419,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.701,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5108,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 1717,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3289,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 4140,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3058,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 113,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7637,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4208,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1869,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2233,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7094,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4543,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2069,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4156,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 424,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2481,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7067,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3228,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 2617,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 833,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7117,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 101,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2283,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5046,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 4726,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1576,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.899,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2465,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7167,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2665,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8851,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3424,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2992,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 3087,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 472,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8982,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3773,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 1232,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.899,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4829,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 350,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 383,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.723,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 510,
+    "true_label": "benign",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.6898,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 1175,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3928,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3254,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 2207,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7095,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 189,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1372,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8962,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5069,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 1344,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8995,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4315,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4972,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3750,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 271,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.707,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3824,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 626,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1000,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8968,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1512,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8286,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1012,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3560,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2942,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 1556,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2863,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1465,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8991,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 379,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4285,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 4891,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3077,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 2609,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2859,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8476,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3416,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 942,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8847,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3596,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3176,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 4976,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3804,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 817,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7983,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2021,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7033,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1230,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3408,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9999,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1667,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4525,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2135,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2371,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1087,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7878,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 676,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8816,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 286,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8996,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4346,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3037,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 4497,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2702,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7124,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 674,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6903,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1284,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8996,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2884,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.713,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1491,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8992,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 796,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8935,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3490,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1912,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2976,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 938,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2276,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.898,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2896,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7225,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1096,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7807,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2792,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8943,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2172,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8988,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3496,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1599,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1061,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8318,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4854,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 521,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1455,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7302,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4169,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1683,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8996,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1927,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1276,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 542,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4573,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 541,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8984,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3229,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 234,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8846,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2385,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3259,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 4847,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4853,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1081,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7238,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2849,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1393,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8993,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1936,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4099,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4528,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1481,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4061,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4602,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2442,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7181,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2244,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7169,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3888,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4747,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2202,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 515,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1877,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1649,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1008,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3857,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 913,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7295,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2621,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7097,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3080,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 4430,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1010,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8938,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 574,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4392,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4921,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1697,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7783,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1319,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7104,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 290,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8993,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3615,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 960,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8954,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2745,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 535,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7054,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 646,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8989,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3214,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 1378,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8873,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2809,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4712,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 442,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8298,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 652,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3281,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 4457,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3890,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4242,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1085,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7549,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1023,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8913,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1733,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.716,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4710,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4173,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 396,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2024,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7079,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 240,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8978,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4571,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4006,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2595,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.878,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 435,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8992,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2526,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7467,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2619,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8913,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4965,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 720,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4557,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 585,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7067,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1239,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3784,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 636,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.887,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4499,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4075,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4323,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3870,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1141,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8951,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4733,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2749,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8946,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1493,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8988,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3903,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 858,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7188,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 372,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 469,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8988,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3729,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 644,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4411,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1083,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8872,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 571,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8985,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2874,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8484,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 418,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7011,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2208,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7082,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2331,
+    "true_label": "benign",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.5049,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 3657,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 2690,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7077,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1105,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7065,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 791,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2964,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 1938,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7075,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1285,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5025,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 2050,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7269,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2266,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8726,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4181,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2205,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7147,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4350,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 5058,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 2070,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4347,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 386,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3763,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 335,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7628,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3629,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 1946,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 158,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7831,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3026,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 1086,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7103,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2214,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7406,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 29,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1872,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 653,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2907,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 2986,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 536,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3957,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2890,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7114,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4783,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2921,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.7731,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 60,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.898,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4827,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1438,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7148,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4343,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2086,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8602,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2268,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7563,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4867,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4217,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3505,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 347,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3692,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3313,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9991,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4590,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4855,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4261,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4705,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3034,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 1718,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7395,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1020,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7086,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2589,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 860,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7578,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3847,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1408,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8922,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2846,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 130,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1200,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8133,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1352,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2225,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7074,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1863,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2232,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8961,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5044,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 2835,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8053,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4745,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4296,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1839,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8529,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3435,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3367,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4018,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2477,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4166,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 276,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8835,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3772,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3883,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3164,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 2298,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7158,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4782,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3298,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 1635,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2494,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1360,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3743,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 4414,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1993,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6956,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3814,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4465,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4765,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 308,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7065,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3943,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4680,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2861,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7912,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 681,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2472,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3882,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3241,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 2111,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8621,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2916,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 4288,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9999,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 3258,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 3369,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4649,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 5081,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 5098,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 4518,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 171,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2765,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1018,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8993,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1988,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1211,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8474,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2488,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1881,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8986,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1135,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1686,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 566,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7128,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2593,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5136,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 3456,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2196,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8632,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1620,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6092,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2079,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 13,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8526,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2440,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8983,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4536,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2306,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8872,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1092,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.898,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1138,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 665,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.861,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3745,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3443,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.996,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3235,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 4860,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1858,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8862,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2484,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7126,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2059,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8891,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1648,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4647,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 284,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8977,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 8,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3939,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3927,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2775,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8786,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1124,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7257,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4894,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 192,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4843,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1637,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8996,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 911,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7016,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2338,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1794,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7264,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3466,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 633,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8839,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2129,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8717,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 413,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8962,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5131,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 2087,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8942,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3746,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 1971,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.704,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4576,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1849,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 550,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8969,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1069,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.889,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4563,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 606,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7043,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2361,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4418,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1572,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4301,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 181,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3109,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 3141,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 4001,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1415,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7987,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2633,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7087,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4989,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 100,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3679,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 778,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8814,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3361,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3945,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 511,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.5564,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3937,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 725,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1952,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4236,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 298,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8327,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2409,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 974,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8246,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2437,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4752,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 873,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1126,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1356,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 409,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.857,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3220,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 5029,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 1563,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 877,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6906,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3994,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2121,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5030,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 2629,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1022,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8996,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3366,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9994,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1384,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.857,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 328,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 920,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3900,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2704,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.899,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2771,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7738,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4634,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1228,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7132,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4117,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1494,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8381,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4501,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1786,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7943,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1516,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3122,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.7081,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 1448,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6987,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1115,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 610,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1632,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2600,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3461,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4139,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3812,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 4682,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1168,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7078,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1226,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3191,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 4455,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1328,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8977,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4968,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1015,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8088,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3665,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.8898,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3529,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 5019,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 5073,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 1259,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8884,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3654,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3675,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 1989,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8995,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 96,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1292,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6505,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3497,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3643,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 4402,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1140,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3449,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4977,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 281,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2364,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4569,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 449,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8355,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 128,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 131,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2721,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7138,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4412,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1552,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7078,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 163,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7319,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1299,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8996,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4967,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3567,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2394,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 241,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8984,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3283,
+    "true_label": "driverpack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "driverpack"
+  },
+  {
+    "idx": 3196,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 2603,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8987,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4565,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 899,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8887,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1202,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7886,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3605,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2392,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8866,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2616,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1728,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7362,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 447,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7063,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2909,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 4262,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2067,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 881,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 695,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8789,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3616,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 297,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4019,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4039,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3570,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3135,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.6661,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 3674,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3012,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 322,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8406,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2654,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 661,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8382,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1093,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 22,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8994,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1642,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8964,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2418,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3713,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3094,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 2919,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 3633,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 1857,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8991,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4836,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 647,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 260,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8992,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3648,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 4488,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3168,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 1043,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1984,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7033,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2360,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 603,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8931,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 458,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8995,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4810,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4213,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2929,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 1664,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2753,
+    "true_label": "benign",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.5127,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1295,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 5105,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 4021,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4040,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1812,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7086,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 229,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 292,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8988,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1482,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7338,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3557,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9956,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3634,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 969,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1760,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4157,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2289,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2199,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2281,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8962,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 734,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2323,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8729,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4863,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 401,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7769,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1336,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7348,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3852,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 902,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7084,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4068,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3961,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3218,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 4613,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2570,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8375,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1068,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7065,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3470,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 1016,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8282,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3418,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2187,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8989,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 32,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8874,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 497,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4586,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2649,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3518,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 5115,
+    "true_label": "hotbar",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "hotbar"
+  },
+  {
+    "idx": 4493,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1779,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8997,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1028,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1944,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1432,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8302,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1143,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1672,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2254,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3984,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3916,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3446,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3351,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4076,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3394,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 495,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8996,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3139,
+    "true_label": "dlhelper",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "dlhelper"
+  },
+  {
+    "idx": 4798,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3234,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 1815,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2799,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7071,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3724,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3051,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 4269,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 3516,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4225,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2737,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8472,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3559,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 2684,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7081,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1554,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3459,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 147,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1843,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2738,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8734,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1327,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8995,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1801,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1747,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 26,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7836,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1729,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7074,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1577,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3330,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 4218,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 280,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3048,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 3807,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 712,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.899,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 14,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2505,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7074,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1133,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8999,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4152,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4817,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4966,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4080,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2105,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2175,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.707,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3892,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 3175,
+    "true_label": "domaiq",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "domaiq"
+  },
+  {
+    "idx": 1076,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7303,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3526,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3979,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1084,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8408,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3627,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 3088,
+    "true_label": "delf",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "delf"
+  },
+  {
+    "idx": 784,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8915,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 382,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3492,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9997,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3997,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1780,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7068,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2270,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1865,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 79,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7069,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4900,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 1072,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8821,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4171,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 2259,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1288,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.736,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3533,
+    "true_label": "emotet",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "emotet"
+  },
+  {
+    "idx": 3799,
+    "true_label": "gamehack",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.9371,
+    "gnn_family": "gamehack"
+  },
+  {
+    "idx": 156,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.9,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 1826,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8998,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2708,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7106,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4398,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 785,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8581,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 2965,
+    "true_label": "darkkomet",
+    "fused_label": "Malicious",
+    "fused_confidence": 0.7731,
+    "gnn_family": "darkkomet"
+  },
+  {
+    "idx": 491,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.7386,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 3740,
+    "true_label": "gamarue",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gamarue"
+  },
+  {
+    "idx": 787,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.8814,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4820,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 378,
+    "true_label": "benign",
+    "fused_label": "Benign",
+    "fused_confidence": 0.6164,
+    "gnn_family": "benign"
+  },
+  {
+    "idx": 4420,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  },
+  {
+    "idx": 4135,
+    "true_label": "gandcrab",
+    "fused_label": "Malicious",
+    "fused_confidence": 1.0,
+    "gnn_family": "gandcrab"
+  }
+]

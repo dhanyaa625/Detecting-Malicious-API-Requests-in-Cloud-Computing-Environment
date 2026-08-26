@@ -18,9 +18,76 @@ body {
     overflow: hidden;
 }
 
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .dashboard-container {
     display: flex;
-    height: 100%;
+    flex: 1;
+    min-height: 0; /* let sidebar/arena scroll independently below the topnav */
+}
+
+/* Top navigation -- present and identical on every page, so all three
+   pages (Overview, Live Analysis, Metrics Report) are always one click
+   away from each other instead of relying on buried/conditional links. */
+.topnav {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 24px;
+    height: 56px;
+    background: rgba(15, 23, 42, 0.98);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    z-index: 20;
+}
+
+.topnav-brand {
+    color: var(--neon-purple);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.topnav-links {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.topnav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.topnav-link:hover {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Active page highlight -- driven by the existing body[data-page] attribute
+   each template already sets, no extra JS needed. */
+body[data-page="static"] .topnav-link[data-nav="overview"],
+body[data-page="live"] .topnav-link[data-nav="live"],
+body[data-page="metrics"] .topnav-link[data-nav="metrics"] {
+    color: var(--neon-cyan);
+    border-color: rgba(34, 211, 238, 0.4);
+    background: rgba(34, 211, 238, 0.1);
 }
 
 .sidebar {
@@ -411,6 +478,15 @@ input[type="file"]::file-selector-button:hover {
 }
 
 @media (max-width: 768px) {
+    .topnav {
+        padding: 0 12px;
+        gap: 12px;
+    }
+
+    .topnav-link span.topnav-link-text {
+        display: none;
+    }
+
     .dashboard-container {
         flex-direction: column;
     }
@@ -432,6 +508,140 @@ input[type="file"]::file-selector-button:hover {
     .chart-arena {
         grid-template-columns: 1fr;
     }
+}
+
+/* Accessibility: a visible keyboard-focus ring on every interactive
+   element. Without this, tabbing through the page (keyboard-only users,
+   screen-magnifier users) gives no indication of where focus is. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.topnav-link:focus-visible,
+.pipeline-tracker .step:focus-visible {
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: 2px;
+}
+
+/* Plain-language info tooltip -- a real <button> (not a hover-only span) so
+   it works for keyboard/touch users too, not just mouse hover. Click or
+   focus to reveal; explains jargon (PAC-X, GNN, Agent 1/2, fusion) inline
+   instead of assuming the reader already knows the architecture. */
+.info-tip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+    border-radius: 50%;
+    border: 1px solid #64748b;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 0.7rem;
+    font-weight: bold;
+    line-height: 1;
+    cursor: help;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.info-tip:hover,
+.info-tip:focus-visible {
+    color: #000;
+    background: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+}
+
+.info-tip .info-tip-bubble {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 26px;
+    transform: translateX(-50%);
+    width: 240px;
+    background: #0f172a;
+    border: 1px solid var(--neon-cyan);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #cbd5e1;
+    font-size: 0.8rem;
+    font-weight: normal;
+    line-height: 1.4;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: normal;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 30;
+}
+
+.info-tip:hover .info-tip-bubble,
+.info-tip:focus-visible .info-tip-bubble {
+    display: block;
+}
+
+/* De-emphasized "advanced" sidebar section (Agent 2 manual retrain) --
+   separated from the primary analyze action so the rarer, heavier action
+   doesn't compete with the thing most visitors actually came to do. */
+.sidebar-divider {
+    border: none;
+    border-top: 1px solid #334155;
+    margin: 4px 0;
+}
+
+/* Explicit collapse instead of relying on the browser's native <details>
+   UA-stylesheet behavior, which was found not to hide content reliably
+   here -- belt-and-suspenders, not just a style preference. */
+.sidebar-advanced > *:not(summary) {
+    display: none;
+}
+
+.sidebar-advanced[open] > *:not(summary) {
+    display: block;
+}
+
+.sidebar-advanced summary {
+    cursor: pointer;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 0;
+    list-style: none;
+}
+
+.sidebar-advanced summary::-webkit-details-marker {
+    display: none;
+}
+
+.sidebar-advanced summary::before {
+    content: "▸ ";
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+.sidebar-advanced[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.sidebar-advanced p {
+    color: #64748b;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin: 8px 0 10px;
+}
+
+/* Recent Scans "Source" column -- raw scan input (a pasted API log, a
+   filename) can be arbitrarily long; truncate visually with the full text
+   still available on hover/focus via the title attribute. */
+.source-cell {
+    display: inline-block;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
 }
 
 /* Detailed Analysis Report Styles */

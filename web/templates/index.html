@@ -4,29 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malicious API Request Detector - Overview</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/styles.css?v=2">
     <script src="/static/js/chart.min.js"></script>
 </head>
 <body data-page="static">
+    <div class="app-shell">
+    <nav class="topnav" aria-label="Primary">
+        <a href="/" class="topnav-brand">🛡️ Malicious API Request Detector</a>
+        <div class="topnav-links">
+            <a href="/" class="topnav-link" data-nav="overview" aria-current="page" aria-label="Overview"><span aria-hidden="true">🏠</span><span class="topnav-link-text">Overview</span></a>
+            <a href="/live_analysis.html" class="topnav-link" data-nav="live" aria-label="Live Analysis"><span aria-hidden="true">🔎</span><span class="topnav-link-text">Live Analysis</span></a>
+            <a href="/metrics_report.html" class="topnav-link" data-nav="metrics" aria-label="Metrics Report"><span aria-hidden="true">📊</span><span class="topnav-link-text">Metrics Report</span></a>
+        </div>
+    </nav>
     <div class="dashboard-container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <h2 class="neon-purple">Malicious API Request Detector</h2>
-            
-            <div style="margin-top: 20px; color: #cbd5e1; line-height: 1.6; font-size: 0.95rem;">
-                <p><strong>Welcome to the Database Overview!</strong></p>
+            <h2 class="neon-purple">Overview</h2>
+
+            <div style="color: #cbd5e1; line-height: 1.6; font-size: 0.95rem;">
                 <p id="overview_summary">Loading dataset evaluation results...</p>
             </div>
 
-            <div style="margin-top: auto; padding-top: 20px;">
-                <p style="color: #94a3b8; font-size: 0.85rem; text-align: center; margin-bottom: 10px;">Agent 2: Retraining Orchestrator</p>
-                <button id="retrainBtn" class="glow-button" style="background: rgba(192, 132, 252, 0.1); border-color: #c084fc; margin-bottom: 10px;" onclick="triggerRetraining()">🔄 Trigger Agent 2 Retraining</button>
-                
-                <p style="color: #94a3b8; font-size: 0.85rem; text-align: center; margin-bottom: 15px;">Want to test your own API request data?</p>
+            <div>
+                <p style="color: #94a3b8; font-size: 0.85rem; text-align: center; margin-bottom: 10px;">Want to test your own API request data?</p>
                 <a href="live_analysis.html" style="text-decoration: none;">
-                    <button class="glow-button" style="background: rgba(34, 211, 238, 0.1);">Analyze New API Requests</button>
+                    <button class="glow-button btn-analyze" style="background: rgba(34, 211, 238, 0.1);">▶ Analyze New API Requests</button>
                 </a>
             </div>
+
+            <hr class="sidebar-divider">
+
+            <details class="sidebar-advanced">
+                <summary>Advanced: Agent 2 controls</summary>
+                <p>
+                    Manually kicks off Agent 2's retraining loop on whatever
+                    low-confidence samples have queued up so far, instead of
+                    waiting for the next automatic trigger. This retrains the
+                    live model in the background -- most visitors don't need
+                    this.
+                </p>
+                <button id="retrainBtn" class="glow-button" style="background: rgba(192, 132, 252, 0.1); border-color: #c084fc;" onclick="triggerRetraining()">🔄 Trigger Agent 2 Retraining</button>
+            </details>
         </aside>
 
         <!-- Detection Arena -->
@@ -45,14 +64,18 @@
             <!-- VS Showdown Panels -->
             <div class="showdown-arena">
                 <div class="glass-card showdown-panel">
-                    <h3 class="panel-header">🛡️ <span id="ov_base_name">PAC-X</span></h3>
+                    <h3 class="panel-header">🛡️ <span id="ov_base_name">PAC-X</span>
+                        <button class="info-tip" aria-label="What is PAC-X?">?<span class="info-tip-bubble">A fast rule-based heuristic engine: checks entropy, known-suspicious API calls, and text patterns (Prospect-Aspect-Context). No training required, but easier for malware to evade than a learned model.</span></button>
+                    </h3>
                     <div class="stat-row"><span>Accuracy Score:</span><strong style="color: #e2e8f0;" id="ov_base_acc">-</strong></div>
                     <div class="stat-row"><span>Ability to avoid false alarms (Precision):</span><strong style="color: #e2e8f0;" id="ov_base_pre">-</strong></div>
                     <div class="stat-row"><span>Ability to catch all threats (Recall):</span><span class="status-badge" style="background: #334155; color: #cbd5e1;" id="ov_base_rec">-</span></div>
                     <div style="margin-top: 8px; color: #64748b; font-size: 0.8rem;" id="ov_base_note"></div>
                 </div>
                 <div class="glass-card showdown-panel" style="box-shadow: 0 0 15px rgba(74, 222, 128, 0.3); border-color: var(--neon-green);">
-                    <h3 class="panel-header">🧠 <span id="ov_gnn_name">Agentic-PACX</span></h3>
+                    <h3 class="panel-header">🧠 <span id="ov_gnn_name">Agentic-PACX</span>
+                        <button class="info-tip" aria-label="What is the GNN pathway?">?<span class="info-tip-bubble">A Graph Attention Network trained on real malware structure (header, entropy, imports, network signals). Learns patterns rule-based checks miss, including on families it wasn't directly trained on.</span></button>
+                    </h3>
                     <div class="stat-row"><span>Accuracy Score:</span><strong style="color: var(--neon-green);" id="ov_gnn_acc">-</strong></div>
                     <div class="stat-row"><span>Ability to avoid false alarms (Precision):</span><strong style="color: var(--neon-green);" id="ov_gnn_pre">-</strong></div>
                     <div class="stat-row"><span>Ability to catch all threats (Recall):</span><span class="status-badge badge-trusted" id="ov_gnn_rec">-</span></div>
@@ -83,6 +106,7 @@
                 </div>
             </div>
         </main>
+    </div>
     </div>
     <script src="/static/js/script.js?v=9"></script>
 </body>

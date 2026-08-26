@@ -1,0 +1,36 @@
+{
+  "holdout_family": "hotbar",
+  "holdout_n_samples": 136,
+  "known_classes": [
+    "benign",
+    "darkkomet",
+    "delf",
+    "dlhelper",
+    "domaiq",
+    "driverpack",
+    "emotet",
+    "gamarue",
+    "gamehack",
+    "gandcrab"
+  ],
+  "known_class_split": {
+    "train": 3501,
+    "val": 499,
+    "test": 1002
+  },
+  "known_class_test_accuracy": 99.6,
+  "known_class_test_f1_macro": 98.95,
+  "zero_day_catch_rate": 86.03,
+  "predicted_benign_count": 19,
+  "predicted_malicious_count": 117,
+  "mean_confidence": 45.47,
+  "median_confidence": 40.25,
+  "agent2_trigger_rate": 87.5,
+  "agent2_trigger_count": 119,
+  "predicted_family_distribution": {
+    "dlhelper": 37,
+    "driverpack": 78,
+    "benign": 19,
+    "gandcrab": 2
+  }
+}

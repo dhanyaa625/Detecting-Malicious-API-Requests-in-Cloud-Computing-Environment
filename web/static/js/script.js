@@ -119,6 +119,15 @@ window.onload = async function () {
     } else if (pageType === "live") {
         document.querySelectorAll('.pipeline-tracker .step').forEach(el => {
             el.addEventListener('click', () => showStepDetail(el.dataset.step));
+            // Keyboard users get tabindex="0" in the HTML; a bare tabindex
+            // doesn't make Enter/Space activate a <div> the way it would a
+            // real <button>, so wire that up explicitly.
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    showStepDetail(el.dataset.step);
+                }
+            });
         });
 
         const uploader = document.getElementById('fileUploader');
@@ -242,14 +251,19 @@ async function loadRecentScans() {
             container.innerHTML = '<p style="color:#64748b; font-size:0.9rem;">No scans yet -- run one from the Live Analysis page.</p>';
             return;
         }
+        const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => (
+            { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+        ));
         const rows = scans.map(s => {
             const label = s.fused_diagnosis || '-';
             const color = label === 'Malicious' ? 'var(--neon-red)' : (label === 'Benign' ? 'var(--neon-green)' : '#94a3b8');
             const when = s.timestamp ? new Date(s.timestamp).toLocaleString() : '-';
             const conf = s.fused_confidence != null ? (s.fused_confidence * 100).toFixed(1) + '%' : '-';
+            const rawSource = s.source_label || s.input_type || '-';
+            const source = escapeHtml(rawSource);
             return `<tr>
                 <td>${when}</td>
-                <td>${s.source_label || s.input_type || '-'}</td>
+                <td><span class="source-cell" title="${source}">${source}</span></td>
                 <td style="color:${color}; font-weight:bold;">${label}</td>
                 <td>${conf}</td>
                 <td>${s.agent2_triggered ? '⚠️ Yes' : '-'}</td>
@@ -434,9 +448,6 @@ function restoreSidebar() {
                 if (data.formattedData.agent2.triggered) {
                     stepDecision.className = "step escalated";
                     stepDecision.innerHTML = "5. Zero-Day Detected → Agent 2 Active";
-                } else if (data.gnnConf < 0.60) {
-                    stepDecision.className = "step escalated";
-                    stepDecision.innerHTML = "5. Low Confidence - Manual Review";
                 } else {
                     stepDecision.className = "step trusted";
                     stepDecision.innerHTML = "5. Verified - " + agent1Decision.better_model + " Trusted";
@@ -739,6 +750,14 @@ async function executePipelineAnimation() {
 async function triggerRetraining() {
     const btn = document.getElementById('retrainBtn') || document.getElementById('retrainBtnLive');
     const originalText = btn.innerHTML;
+
+    if (!confirm(
+        "This manually starts Agent 2's retraining loop on the current low-confidence sample pool "
+        + "in the background. It normally runs automatically -- only do this if you specifically "
+        + "want to force it now. Continue?"
+    )) {
+        return;
+    }
 
     try {
         btn.innerHTML = "🧬 Evolving Model...";

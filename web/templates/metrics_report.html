@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malicious API Request Detector - Detailed Metrics</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/styles.css?v=2">
     <script src="/static/js/chart.min.js"></script>
     <style>
         /* Specific overrides for Page 2 */
@@ -14,25 +14,30 @@
     </style>
 </head>
 <body data-page="metrics">
+    <div class="app-shell">
+    <nav class="topnav" aria-label="Primary">
+        <a href="/" class="topnav-brand">🛡️ Malicious API Request Detector</a>
+        <div class="topnav-links">
+            <a href="/" class="topnav-link" data-nav="overview" aria-label="Overview"><span aria-hidden="true">🏠</span><span class="topnav-link-text">Overview</span></a>
+            <a href="/live_analysis.html" class="topnav-link" data-nav="live" aria-label="Live Analysis"><span aria-hidden="true">🔎</span><span class="topnav-link-text">Live Analysis</span></a>
+            <a href="/metrics_report.html" class="topnav-link" data-nav="metrics" aria-current="page" aria-label="Metrics Report"><span aria-hidden="true">📊</span><span class="topnav-link-text">Metrics Report</span></a>
+        </div>
+    </nav>
     <div class="dashboard-container">
         <!-- Input Rail (Constant Sidebar) -->
         <aside class="sidebar">
-            <h2 class="neon-purple">API Request Testing Console</h2>
-            
-            <div class="pipeline-tracker">
-                <div class="step active" id="step-input">1. Submit API Request Data</div>
-                <div class="step" id="step-adapter">2. Normalize Request Features</div>
-                <div class="step" id="step-graph">3. Build Request Graph</div>
-                <div class="step" id="step-gnn">4. GNN + PAC-X Analysis</div>
-                <div class="step" id="step-decision">5. Fused Threat Verdict</div>
+            <h2 class="neon-purple">Metrics Report</h2>
+            <p style="color:#94a3b8; font-size:0.85rem; line-height:1.5;">
+                Full detail behind the headline numbers: your most recent live scan
+                compared side-by-side, the ablation study (what each pathway
+                contributes alone vs. fused), and the real 11-class evaluation
+                with confusion matrices.
+            </p>
+
+            <div class="input-panel" style="margin-top: auto;">
+                <a href="/live_analysis.html" class="glow-button" style="display: block; text-align: center; text-decoration: none; padding: 12px;">▶ Run a New Analysis</a>
             </div>
 
-            <div class="input-panel">
-                <h3>Navigation Options</h3>
-                <a href="/live_analysis.html" class="glow-button" style="display: block; text-align: center; text-decoration: none; padding: 12px; margin-bottom: 15px; background: rgba(192, 132, 252, 0.1); border-color: #c084fc;">⬅ Back to Live Analysis</a>
-                <a href="/" class="glow-button" style="display: block; text-align: center; text-decoration: none; padding: 12px; background: rgba(34, 211, 238, 0.1); border-color: #22d3ee;">🏠 Global Overview (Home)</a>
-            </div>
-            
             <div class="explanation-panel mt-4">
                <h3>System Status Log</h3>
                <pre><code id="jsonDump">Viewing static detailed metrics...</code></pre>

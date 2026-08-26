@@ -175,7 +175,19 @@ class UniversalInputAdapter:
             if re.search(r'(dll!|^[a-z_][a-z0-9_]+(?:file|process|thread|alloc|load|exec|connect|socket|http|crypt|reg|inject|write|read))', lowered_token):
                 api_like_tokens.append(self.canonicalize_api(cleaned))
 
-        for marker in ["mz", "pe", ".text", ".rsrc", ".idata", ".reloc", "dos stub", "rich"]:
+        # "mz"/"pe" are real PE-file signature markers, but as bare 2-letter
+        # substrings they false-positive constantly -- "pe" matches inside
+        # "InternetOpenA", "RegOpenKeyExA", "OpenProcess" (any API name
+        # containing "Open"), which is nearly every API call list. That
+        # false match alone was enough to mark the header node "filled" with
+        # noise (a hash of the literal string "pe") for nearly every
+        # plain-text API-log submission, regardless of real content -- word
+        # boundaries fix the false-positive without losing genuine literal
+        # "MZ"/"PE" header mentions.
+        for marker in ["mz", "pe"]:
+            if re.search(r'\b' + marker + r'\b', lowered):
+                header_markers.append(marker)
+        for marker in [".text", ".rsrc", ".idata", ".reloc", "dos stub", "rich"]:
             if marker in lowered:
                 header_markers.append(marker)
 
@@ -452,10 +464,37 @@ class UniversalInputAdapter:
         # Keeping duplicates is heavily intentional: 
         # Phase 1's `hash_feature_vector()` uses += 1.0 logic to explicitly score API call frequency.
 
-        # Exact ground truth of which nodes carry real signal vs. zero-padding,
-        # checked directly on the feature arrays rather than approximated from
-        # signal_summary counts (which only reflect the text-heuristic path,
-        # not the structured JSON/CSV column fills above).
+        def build_tensors(node_map):
+            tensors = []
+            for i in range(4):
+                one_hot = np.array(get_one_hot_type(i), dtype=np.float32)
+                comb = np.concatenate([node_map[i], one_hot])
+                tensors.append(torch.tensor(comb, dtype=torch.float32))
+            return tensors
+
+        # The text-heuristic entropy node is a synthetic proxy (character
+        # entropy/digit/upper/symbol ratios of whatever text was pasted) --
+        # not real PE section entropy, and structurally unlike anything in
+        # training data. Confirmed by direct testing: fed alongside a real
+        # API node, this proxy alone was enough to collapse GNN predictions
+        # to a near-constant "gandcrab" regardless of actual API content
+        # (500-sample synthetic benchmark, 100% "Malicious" including on
+        # true-benign samples). check_node_ood already exists for exactly
+        # this -- flag statistically-implausible node values and treat them
+        # as honestly unfilled -- but was only ever wired into the raw-binary
+        # and native-row paths, not this one. Same two-pass fix here.
+        from core.pe_feature_extractor import check_node_ood
+        probe_normed = torch.stack(self._apply_normalization(build_tensors(nodes)))
+        ood_flags = check_node_ood(probe_normed)
+        for node_idx, is_ood in ood_flags.items():
+            if is_ood:
+                nodes[node_idx] = np.zeros(D_FEATURE, dtype=np.float32)
+
+        # Exact ground truth of which nodes carry real signal vs. zero-padding
+        # (including OOD-zeroed ones), checked directly on the feature arrays
+        # rather than approximated from signal_summary counts (which only
+        # reflect the text-heuristic path, not the structured JSON/CSV column
+        # fills above).
         nodes_filled_detail = {
             "header": bool(np.count_nonzero(nodes[NODE_HEADER])),
             "entropy": bool(np.count_nonzero(nodes[NODE_ENTROPY])),
@@ -463,18 +502,10 @@ class UniversalInputAdapter:
             "network": bool(np.count_nonzero(nodes[NODE_NETWORK])),
         }
 
-        # Stitch One-Hots back onto Vectors safely
-        final_tensors = []
-        for i in range(4):
-            vec = nodes[i]
-            one_hot = np.array(get_one_hot_type(i), dtype=np.float32)
-            comb = np.concatenate([vec, one_hot])
-            final_tensors.append(torch.tensor(comb, dtype=torch.float32))
-
         # Push the arrays (and zeroes) directly through the original normalization logic
-        normed_nodes = self._apply_normalization(final_tensors)
+        normed_nodes = self._apply_normalization(build_tensors(nodes))
         X = torch.stack(normed_nodes)
-        
+
         data = Data(x=X, edge_index=EDGE_INDEX, y=None)
 
         # C_graph = (1/4) * sum(indicator(||x_i||_2 > 0)) -- recounted directly

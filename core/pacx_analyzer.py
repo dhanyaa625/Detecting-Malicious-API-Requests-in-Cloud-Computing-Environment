@@ -14,6 +14,7 @@ _FALLBACK_SUSPICIOUS_APIS = [
     "WriteProcessMemory", "CreateRemoteThread", "CryptDecrypt",
 ]
 _MINED_SIGNALS_PATH = "data/pacx_mining/mined_api_signals.json"
+_MINED_STATIC_SIGNALS_PATH = "data/pacx_mining/mined_static_import_signals.json"
 
 
 class PACXHeuristicAnalyzer:
@@ -37,13 +38,27 @@ class PACXHeuristicAnalyzer:
         # or threshold selection. See scripts/mine_pacx_api_signals.py and
         # data/pacx_mining/mined_api_signals.json (real Cuckoo Sandbox
         # traces, kaggle_dataset/dynamic_api_call_sequence_per_malware_100_0_306.csv).
-        self.api_weights, self.aspect_threshold = self._load_mined_signals()
+        self.api_weights, self.aspect_threshold = self._load_mined_signals(_MINED_SIGNALS_PATH)
+        # Separate weight table for STATIC import-table content (a raw PE
+        # upload's real DIRECTORY_ENTRY_IMPORT names). Mined independently
+        # from real static imports (18,551 real malware samples paired
+        # against real Windows system-binary imports as the benign side --
+        # see scripts/mine_pacx_static_import_signals.py) rather than reusing
+        # the dynamic-trace weights with a hand-picked min_weight=2.5 floor
+        # (that floor was a reasonable-but-unvalidated guess). Falls back to
+        # the dynamic weights (still better than nothing) if the static
+        # mining hasn't been run.
+        self.static_api_weights, self.static_aspect_threshold = self._load_mined_signals(
+            _MINED_STATIC_SIGNALS_PATH, fallback=(self.api_weights, self.aspect_threshold)
+        )
 
-    def _load_mined_signals(self):
-        if os.path.exists(_MINED_SIGNALS_PATH):
-            with open(_MINED_SIGNALS_PATH) as f:
+    def _load_mined_signals(self, path, fallback=None):
+        if os.path.exists(path):
+            with open(path) as f:
                 report = json.load(f)
             return report["weights"], report["decision_threshold"]
+        if fallback is not None:
+            return fallback
         # Fallback: flat weight 1.0 for the original hand-picked list, with
         # a threshold matching the old "3 matches -> aspect score 45" scale.
         return {api: 1.0 for api in _FALLBACK_SUSPICIOUS_APIS}, 3.0
@@ -108,32 +123,28 @@ class PACXHeuristicAnalyzer:
         # that's actually more common in benign software) -- summing signed
         # log-likelihood-ratio evidence is the statistically correct way to
         # combine many weak indicators, unlike flat +N-per-match scoring.
-        # The mined weights were validated against real DYNAMIC execution
-        # traces (an API observed actually being called, in sequence, at
-        # runtime -- Cuckoo Sandbox data). A raw PE upload only gives PAC-X
-        # a STATIC import table (APIs the binary merely links against,
-        # which any number of legitimate programs do for unrelated
-        # reasons) -- confirmed as a real, different, weaker signal by
-        # testing: applying the full dynamic-trace weights to notepad.exe's
-        # static import list produced a false "Malicious" call that the
-        # original conservative list did not. For static-extraction input,
-        # only count the strong, high-confidence signals (weight > 2.5,
-        # roughly >=5.7x more likely in malware) -- the medium-strength
-        # ones are real evidence for a dynamic trace but too weak a signal
-        # from mere static linkage.
-        min_weight = 2.5 if input_type == "pe_binary" else float("-inf")
+        # A raw PE upload gives PAC-X a STATIC import table (APIs the binary
+        # merely links against), a structurally different and weaker signal
+        # than a DYNAMIC execution trace (an API actually observed being
+        # called at runtime) -- so static content uses its own weight table,
+        # mined from real static imports rather than reusing the dynamic
+        # weights (see scripts/mine_pacx_static_import_signals.py).
+        is_static = input_type == "pe_binary"
+        api_weights = self.static_api_weights if is_static else self.api_weights
+        aspect_threshold = self.static_aspect_threshold if is_static else self.aspect_threshold
         content_lower = content.lower()
-        matched_apis = [
-            api for api in self.api_weights
-            if self.api_weights[api] >= min_weight and api.lower() in content_lower
-        ]
+        matched_apis = [api for api in api_weights if api.lower() in content_lower]
         if matched_apis:
-            llr_sum = sum(self.api_weights[api] for api in matched_apis)
+            llr_sum = sum(api_weights[api] for api in matched_apis)
             # Scaled so reaching the real, validated decision threshold
             # (measured on held-out data -- see data/pacx_mining/
-            # mined_api_signals.json) contributes just over this function's
-            # overall malicious cutoff (score > 40) on its own.
-            api_score = max(0.0, (llr_sum / self.aspect_threshold) * 41.0)
+            # mined_api_signals.json / mined_static_import_signals.json)
+            # contributes just over this function's overall malicious cutoff
+            # (score > 40) on its own, and moves linearly with the margin
+            # past that boundary. Margin-linear (not ratio-scaled) because
+            # the static threshold is negative -- a ratio would flip sign.
+            margin = llr_sum - aspect_threshold
+            api_score = max(0.0, 41.0 + margin)
             score += api_score
             category_scores["aspect"] += api_score
             # Only surface the strong, positive-evidence matches in the
@@ -141,8 +152,8 @@ class PACXHeuristicAnalyzer:
             # noise; most matched APIs have small or negative weight and are
             # only meaningful summed together, not individually.
             strong_matches = sorted(
-                (api for api in matched_apis if self.api_weights[api] > 1.0),
-                key=lambda api: self.api_weights[api], reverse=True,
+                (api for api in matched_apis if api_weights[api] > 1.0),
+                key=lambda api: api_weights[api], reverse=True,
             )
             detected_apis = strong_matches
             if strong_matches:

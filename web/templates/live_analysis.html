@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malicious API Request Detector - Live Upload</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/styles.css?v=2">
     <script src="/static/js/chart.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
 </head>
 <body data-page="live">
+    <div class="app-shell">
+    <nav class="topnav" aria-label="Primary">
+        <a href="/" class="topnav-brand">🛡️ Malicious API Request Detector</a>
+        <div class="topnav-links">
+            <a href="/" class="topnav-link" data-nav="overview" aria-label="Overview"><span aria-hidden="true">🏠</span><span class="topnav-link-text">Overview</span></a>
+            <a href="/live_analysis.html" class="topnav-link" data-nav="live" aria-current="page" aria-label="Live Analysis"><span aria-hidden="true">🔎</span><span class="topnav-link-text">Live Analysis</span></a>
+            <a href="/metrics_report.html" class="topnav-link" data-nav="metrics" aria-label="Metrics Report"><span aria-hidden="true">📊</span><span class="topnav-link-text">Metrics Report</span></a>
+        </div>
+    </nav>
     <div class="dashboard-container">
         <!-- Input Rail -->
         <aside class="sidebar">
             <h2 class="neon-purple">API Request Testing Console</h2>
-
-            <div class="pipeline-tracker">
-                <div class="step active" id="step-input" data-step="input">1. Submit API Request Data</div>
-                <div class="step" id="step-adapter" data-step="adapter">2. Normalize Request Features</div>
-                <div class="step" id="step-graph" data-step="graph">3. Build Request Graph</div>
-                <div class="step" id="step-gnn" data-step="gnn">4. GNN + PAC-X Analysis</div>
-                <div class="step" id="step-decision" data-step="decision">5. Fused Threat Verdict</div>
-            </div>
-            <p style="color:#64748b; font-size:0.78rem; text-align:center; margin: -8px 0 0 0;">Click a step above to see what happened at that stage</p>
 
             <div class="input-panel" id="restored-banner" style="display: none; padding: 10px 14px; border-color: #4ade80;">
                 <p style="color: #4ade80; font-size: 0.85rem; margin: 0;">✅ Showing your last analysis. <a href="#" onclick="clearSession(); return false;" style="color:#94a3b8;">Clear &amp; start fresh</a></p>
@@ -29,22 +29,40 @@
 
             <div class="input-panel" id="upload-panel">
                 <h3>Submit API Request Data</h3>
-                <select id="inputType">
+                <select id="inputType" aria-label="Input format">
                     <option value="api">API Call Log (Text)</option>
                     <option value="json">Partial Request Data (JSON)</option>
                     <option value="csv">Full Feature Record (CSV)</option>
                 </select>
+                <label for="fileUploader" style="display:block; color:#94a3b8; font-size:0.8rem; margin-bottom:6px;">Upload a file (.txt, .json, .csv, .exe, .dll)</label>
                 <input type="file" id="fileUploader" accept=".txt,.json,.csv,.exe,.dll" style="width: 100%; background: #1e293b; color: #94a3b8; border: 1px dashed var(--neon-cyan); border-radius: 5px; padding: 12px; margin-bottom: 15px; box-sizing: border-box; cursor: pointer;">
                 <p style="color:#64748b; font-size:0.78rem; margin: -10px 0 15px;">A real .exe/.dll is auto-detected regardless of the dropdown above -- no separate mode needed.</p>
-                <textarea id="payloadInput" rows="4" placeholder="Or paste a raw API call log here..."></textarea>
-                <button class="glow-button btn-analyze" onclick="runAnalysis()">Analyze Request</button>
+                <label for="payloadInput" style="display:block; color:#94a3b8; font-size:0.8rem; margin-bottom:6px;">...or paste text directly</label>
+                <textarea id="payloadInput" rows="4" placeholder="Paste a raw API call log here..."></textarea>
+                <button class="glow-button btn-analyze" onclick="runAnalysis()">▶ Analyze Request</button>
             </div>
 
-            <div class="input-panel" style="margin-top: 15px;">
-                <p style="color: #94a3b8; font-size: 0.85rem; text-align: center; margin-bottom: 10px;">Agent 2: Retraining Orchestrator</p>
-                <button id="retrainBtnLive" class="glow-button" style="background: rgba(192, 132, 252, 0.1); border-color: #c084fc; margin-bottom: 10px;" onclick="triggerRetraining()">🔄 Trigger Agent 2 Retraining</button>
-                <a href="/" style="text-decoration: none; display: block; text-align: center; color: #94a3b8; font-size: 0.85rem;">⬅ Go Back to Global Overview</a>
+            <div class="pipeline-tracker" role="list" aria-label="Analysis pipeline stages">
+                <p style="color:#94a3b8; font-size:0.8rem; margin: 0 0 8px 2px; text-transform:uppercase; letter-spacing:0.5px;">How this works</p>
+                <div class="step active" id="step-input" data-step="input" tabindex="0" role="listitem">1. Submit API Request Data</div>
+                <div class="step" id="step-adapter" data-step="adapter" tabindex="0" role="listitem">2. Normalize Request Features</div>
+                <div class="step" id="step-graph" data-step="graph" tabindex="0" role="listitem">3. Build Request Graph</div>
+                <div class="step" id="step-gnn" data-step="gnn" tabindex="0" role="listitem">4. GNN + PAC-X Analysis</div>
+                <div class="step" id="step-decision" data-step="decision" tabindex="0" role="listitem">5. Fused Threat Verdict</div>
             </div>
+            <p style="color:#64748b; font-size:0.78rem; text-align:center; margin: -8px 0 0 0;">Click (or tab to) a step above to see what happened at that stage</p>
+
+            <hr class="sidebar-divider">
+
+            <details class="sidebar-advanced">
+                <summary>Advanced: Agent 2 controls</summary>
+                <p>
+                    Manually kicks off Agent 2's retraining loop on whatever
+                    low-confidence samples have queued up so far. Most
+                    visitors don't need this -- it happens automatically.
+                </p>
+                <button id="retrainBtnLive" class="glow-button" style="background: rgba(192, 132, 252, 0.1); border-color: #c084fc;" onclick="triggerRetraining()">🔄 Trigger Agent 2 Retraining</button>
+            </details>
 
             <div class="explanation-panel mt-4">
                <h3>Status</h3>
@@ -70,7 +88,9 @@
 
             <!-- THE VERDICT -- shown first, everything below is supporting detail -->
             <div class="glass-card" style="border-color: #22d3ee; box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);">
-                <h3 style="color: var(--neon-cyan); margin-top: 0; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">⚖️ Decision Fusion Layer -- The Verdict</h3>
+                <h3 style="color: var(--neon-cyan); margin-top: 0; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">⚖️ Decision Fusion Layer -- The Verdict
+                    <button class="info-tip" aria-label="What is the Decision Fusion Layer?">?<span class="info-tip-bubble" style="text-transform:none; letter-spacing:normal;">Combines the PAC-X and GNN verdicts below into one final answer. When they agree, it blends their scores; when they disagree, it defers to whichever one Agent 1 judged more trustworthy for this specific sample.</span></button>
+                </h3>
                 <div class="stat-row"><span>Final Label</span><strong id="fusion_label">-</strong></div>
                 <div class="stat-row"><span>Final Confidence</span><strong id="fusion_confidence">-</strong></div>
                 <div class="stat-row"><span>How the decision was made</span><strong id="fusion_arbitration">-</strong></div>
@@ -84,13 +104,17 @@
             <!-- VS Showdown Panels: how the verdict above was reached -->
             <div class="showdown-arena">
                 <div class="glass-card showdown-panel">
-                    <h3 class="panel-header">🛡️ PAC-X</h3>
+                    <h3 class="panel-header">🛡️ PAC-X
+                        <button class="info-tip" aria-label="What is PAC-X?">?<span class="info-tip-bubble">A fast rule-based heuristic engine: checks entropy, known-suspicious API calls, and text patterns. No training required, but easier for malware to evade than a learned model.</span></button>
+                    </h3>
                     <div class="stat-row"><span>Diagnosis:</span><strong id="pacx_pred">-</strong></div>
                     <div class="stat-row"><span>Confidence Score:</span><strong id="pacx_conf">-</strong></div>
                     <div class="stat-row"><span>Action Taken:</span><span class="status-badge" id="pacx_status">-</span></div>
                 </div>
                 <div class="glass-card showdown-panel" id="gnn_board">
-                    <h3 class="panel-header">🧠 Agentic-PACX</h3>
+                    <h3 class="panel-header">🧠 Agentic-PACX
+                        <button class="info-tip" aria-label="What is the GNN pathway?">?<span class="info-tip-bubble">A Graph Attention Network trained on real malware structure. Learns patterns rule-based checks miss, including on malware families it wasn't directly trained on (zero-day generalization).</span></button>
+                    </h3>
                     <div class="stat-row"><span>Diagnosis:</span><strong id="gnn_pred">-</strong></div>
                     <div class="stat-row"><span>Confidence Level:</span><strong id="gnn_conf">-</strong></div>
                     <div class="stat-row"><span>Action Taken:</span><span class="status-badge" id="gnn_status">-</span></div>
@@ -99,7 +123,9 @@
 
             <!-- Agent 1 Decision Box -->
             <div class="glass-card" style="border-color: #c084fc; box-shadow: 0 0 15px rgba(192, 132, 252, 0.2);">
-                <h3 style="color: var(--neon-purple); margin-top: 0; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">🧠 Agent 1: Dynamic Forensic Decision</h3>
+                <h3 style="color: var(--neon-purple); margin-top: 0; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">🧠 Agent 1: Dynamic Forensic Decision
+                    <button class="info-tip" aria-label="What is Agent 1?">?<span class="info-tip-bubble" style="text-transform:none; letter-spacing:normal;">Compares PAC-X and the GNN for this specific sample and explains, in plain language, which one to trust more and why -- the reasoning behind the fusion verdict above.</span></button>
+                </h3>
                 <div id="agent1_reasoning" style="color: #cbd5e1; line-height: 1.6; font-size: 0.95rem;">
                     <em>Waiting for dual-pathway comparison...</em>
                 </div>
@@ -128,6 +154,7 @@
                 </a>
             </div>
         </main>
+    </div>
     </div>
     <script src="/static/js/script.js?v=9"></script>
 </body>

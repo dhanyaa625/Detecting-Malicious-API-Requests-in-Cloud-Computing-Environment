@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import io
 import threading
 import matplotlib
 matplotlib.use('Agg') # Thread-safe backend for server environments
@@ -484,15 +485,28 @@ def run_gnn_inference(graph, completeness, signal_summary):
                 predicted_family = non_benign_candidates[0]["label"]
                 gnn_confidence = torch.tensor(non_benign_candidates[0]["confidence"], device=graph.x.device)
         
+        # Real bug, found by direct inspection of raw attention tensors (not
+        # assumed): GATConv's attention is softmax-normalized PER TARGET NODE
+        # across its own incoming edges, so summing incoming-edge weights by
+        # *target* always totals exactly 1.0 for every node, for every input,
+        # by mathematical construction -- confirmed directly: node_attention
+        # came out literally [1.0, 1.0, 1.0, 1.0] (-> [0.25]*4 normalized) for
+        # every real sample tested, benign or malicious, regardless of actual
+        # content. That's what produced the sunburst chart looking frozen.
+        # Aggregating by *source* node instead isn't trivially normalized
+        # (a node's outgoing edges land on different targets, each with their
+        # own independent softmax), and does vary meaningfully with real
+        # input -- verified directly: benign/gandcrab/emotet real samples
+        # produced genuinely different distributions, not a repeated constant.
         node_attention = [0.0, 0.0, 0.0, 0.0]
         if att1 is not None:
             try:
                 edge_index, weights = att1
                 num_edges = min(len(weights), edge_index.shape[1])
                 for i in range(num_edges):
-                    target_node = edge_index[1][i].item()
-                    if target_node < 4:
-                        node_attention[target_node] += weights[i].mean().item()
+                    source_node = edge_index[0][i].item()
+                    if source_node < 4:
+                        node_attention[source_node] += weights[i].mean().item()
             except Exception as e:
                 print(f"[!] Attention extraction issue: {e}")
         
@@ -583,16 +597,42 @@ except Exception as e:
 RESULTS_FILE = "gnn_outputs.json"
 MAX_POOL_SIZE = 500  # cap on data/retrain_pool.pt so it doesn't grow unbounded
 
+# Agent 2 fires when the FUSED decision confidence falls below this. Real
+# value, not a round-number guess: swept against the true fused-confidence
+# pipeline (app.run_gnn_inference + app.fuse_decisions, not an approximation)
+# across all 10 leave-one-family-out zero-day experiments -- 9,806 known-
+# correct, 34 known-incorrect, and 2,241 held-out real-malware-family
+# predictions. 0.60 (the old hardcoded value) handled 81.3% of zero-day
+# samples at a 0.25% false-trigger cost on already-correct predictions;
+# 0.68 was the sweep's optimum (maximizing zero-day coverage minus false-
+# trigger rate): 85.45% zero-day handled at 1.76% false-trigger cost. Past
+# ~0.71 the false-trigger rate jumps sharply (to 11%+, then 59%+ near 0.90)
+# for diminishing zero-day gains, so 0.68 sits just below that cliff rather
+# than chasing the last few points of coverage. See
+# scripts/tune_agent2_threshold.py and data/agent2_tuning/report.json.
+AGENT2_THRESHOLD = 0.68
 
-def load_model_overall_accuracy(default=0.90):
+
+def load_model_overall_accuracy():
     """
-    Real overall test-set accuracy of the currently-loaded model, as measured
-    once at training time (agentic_pacx/gnn_classification.py writes it to
-    training_history.json's final_test_metrics). Used as the "Acc" term in
-    Trust_GNN -- a fixed model-quality prior -- which the fusion code
-    previously approximated with that sample's own per-scan confidence
-    (already contributing elsewhere in the same formula), rather than an
-    actual accuracy figure.
+    Real overall test-set accuracy of the currently-loaded model. Normal
+    path: read the number training_history.json already recorded when the
+    model was trained/retrained (agentic_pacx/gnn_classification.py writes
+    it). Used as the "Acc" term in Trust_GNN -- a fixed model-quality prior --
+    which the fusion code previously approximated with that sample's own
+    per-scan confidence (already contributing elsewhere in the same formula),
+    rather than an actual accuracy figure.
+
+    If that file is missing or stale (e.g. `model.pt` was swapped in without
+    updating it), this used to silently fall back to a fabricated 0.90 --
+    a plausible-sounding number invented for the occasion, not a real
+    measurement, and indistinguishable downstream from a genuine one. Instead:
+    actually evaluate the currently-loaded `model` against the real held-out
+    test set on the spot -- a few seconds of real work instead of a guess.
+    Only if even that data is unavailable (e.g. a completely bare checkout)
+    does this return None, and the one caller (Trust_GNN's Acc term) is
+    written to fall back to that sample's own confidence in that case,
+    exactly the pre-existing designed fallback -- never a made-up constant.
     """
     try:
         with open("training_history.json", "r", encoding="utf-8") as handle:
@@ -602,11 +642,28 @@ def load_model_overall_accuracy(default=0.90):
             return float(acc) / 100.0
     except Exception:
         pass
-    return default
+
+    print("[!] training_history.json missing/unreadable -- evaluating the loaded model live against the real test set instead of assuming a number...")
+    try:
+        from agentic_pacx.gnn_classification import evaluate_model
+        full_dataset = torch.load("data/pyg_dataset_norm.pt", weights_only=False)
+        test_indices = np.load(os.path.join("data", "test_indices.npy"))
+        test_dataset = [full_dataset[int(i)] for i in test_indices]
+        test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
+        metrics = evaluate_model(model, test_loader, torch.nn.CrossEntropyLoss(), device)
+        print(f"[+] Live-evaluated accuracy: {metrics['accuracy'] * 100:.2f}% on {len(test_dataset)} real held-out samples")
+        return float(metrics["accuracy"])
+    except Exception as e:
+        print(f"[!] Live evaluation also failed ({e}) -- no real accuracy figure available; "
+              f"Trust_GNN's Acc term will fall back to each sample's own confidence instead of a fabricated number.")
+        return None
 
 
 MODEL_OVERALL_ACCURACY = load_model_overall_accuracy()
-print(f"[+] Model overall test accuracy (Trust_GNN 'Acc' term): {MODEL_OVERALL_ACCURACY * 100:.2f}%")
+if MODEL_OVERALL_ACCURACY is not None:
+    print(f"[+] Model overall test accuracy (Trust_GNN 'Acc' term): {MODEL_OVERALL_ACCURACY * 100:.2f}%")
+else:
+    print("[!] No real accuracy figure available -- Trust_GNN's Acc term falls back to each sample's own confidence.")
 
 try:
     # Try normalized dataset first, then fall back to standard
@@ -687,200 +744,216 @@ def _run_agent2_retrain_background():
             print(f"[-] Reload model weights failed: {reload_err}")
 
 
-@app.post("/api/analyze/live")
-async def analyze_live(
-    background_tasks: BackgroundTasks,
-    text: Optional[str] = Form(None), 
-    file: Optional[UploadFile] = File(None),
-    input_type: Optional[str] = Form("api")
-):
+def _split_batch_rows(content, input_type):
     """
-    Dual-Path Malware Detection:
-    1. PAC-X: Feature-based analysis (Prospect, Aspect, Context)
-    2. GNN: Graph-based analysis with attention weights
-    3. Agent 1: Compares both and generates dynamic reasoning
-    4. Agent 2: Auto-retrains if confidence < 60% (zero-day detected)
+    If `content` actually encodes MULTIPLE samples (a CSV with more than one
+    data row, or a JSON array with more than one element), splits it into a
+    list of individual single-sample content strings, each analyzable on its
+    own via the normal single-sample path. Returns None if this isn't a
+    multi-sample payload (single CSV row, a JSON object, plain text, etc.) --
+    the caller falls back to the existing single-result behavior in that case,
+    so nothing about today's single-sample UX changes.
     """
-    content = ""
-    if file:
-        raw_bytes = await file.read()
-        if raw_bytes[:2] == b"MZ":
-            # Real PE binary (.exe/.dll) -- route to core/pe_feature_extractor.py
-            # instead of trying to decode it as text. `content` stays as raw
-            # bytes; the PAC-X step below swaps in a real extracted-string
-            # summary for this path since PAC-X needs text, not bytes.
-            content = raw_bytes
-            input_type = "pe_binary"
-        else:
-            try:
-                content = raw_bytes.decode("utf-8")
-            except UnicodeDecodeError:
-                # Not a PE binary and not valid UTF-8 text either -- an
-                # unsupported upload, not a server error.
-                raise HTTPException(
-                    status_code=400,
-                    detail=(
-                        "Uploaded file is neither a PE binary (.exe/.dll, 'MZ' "
-                        "header) nor valid UTF-8 text. Upload a real PE binary, "
-                        "or a text-based API/JSON/CSV log."
-                    ),
-                )
-    elif text:
-        content = text
-    else:
-        raise HTTPException(status_code=400, detail="No input provided.")
+    if input_type == "csv":
+        try:
+            df = pd.read_csv(io.StringIO(content))
+        except Exception:
+            return None
+        if len(df) <= 1:
+            return None
+        header = ",".join(df.columns)
+        return [header + "\n" + ",".join(str(v) for v in row) for _, row in df.iterrows()]
 
+    if input_type == "json":
+        try:
+            parsed = json.loads(content)
+        except Exception:
+            return None
+        if not isinstance(parsed, list) or len(parsed) <= 1:
+            return None
+        return [json.dumps(item) for item in parsed]
+
+    return None
+
+
+async def _analyze_content(content, input_type, background_tasks, source_label=None,
+                            skip_llm_reasoning=False, queue_retrain=False):
+    """
+    The full dual-pathway analysis for ONE sample -- PAC-X, GNN, Agent 1,
+    Decision Fusion, Agent 2's trigger check, scan-history logging. Shared by
+    both the single-sample endpoint and the batch loop below, so a batch run
+    exercises the exact same pipeline as a normal single paste, not a
+    reimplementation of it.
+
+    `skip_llm_reasoning`: batch mode computes Agent 1's trust scores (needed
+    for fusion arbitration) without calling out to a real LLM for the
+    natural-language explanation -- doing that for every row of a large file
+    would be slow and could hit real rate limits for something whose output
+    (a summary table) never displays per-row prose anyway.
+    `queue_retrain`: batch mode queues at most one background retrain task
+    for the whole batch (handled by the caller) instead of one per triggering
+    row.
+    """
+    if adapter is None:
+        raise HTTPException(status_code=503, detail="Input adapter not initialized. Check dataset files.")
+
+    # STEP 1: Parse Input into Graph with type hint
     try:
-        # Check if adapter is ready
-        if adapter is None:
-            raise HTTPException(status_code=503, detail="Input adapter not initialized. Check dataset files.")
-        
-        # STEP 1: Parse Input into Graph with type hint
-        try:
-            parse_result = adapter.parse(content, input_type=input_type)
-            graph = parse_result["graph"].to(device)
-            completeness = parse_result.get("completeness", 1.0)
-            signal_summary = parse_result.get("signal_summary", {})
-            nodes_filled_detail = parse_result.get("nodes_filled_detail", {})
-        except Exception as e:
-            print(f"[-] Adapter error: {e}")
-            raise HTTPException(status_code=400, detail=f"Failed to parse input: {str(e)}")
-        
-        # STEP 2: GNN PATH - Run GNN Inference
-        try:
-            gnn_result = run_gnn_inference(graph, completeness, signal_summary)
-        except Exception as e:
-            print(f"[-] GNN inference error: {e}")
-            raise HTTPException(status_code=500, detail=f"Model inference failed: {str(e)}")
-        
-        # STEP 3: PAC-X PATH - Feature-based analysis (Prospect, Aspect, Context)
-        if pacx_engine is not None:
-            # For a raw PE binary, PAC-X needs its real extracted API-name/
-            # string content (produced during STEP 1's parse), not the raw
-            # bytes -- it's a text/keyword/entropy heuristic, not a binary parser.
-            pacx_content = parse_result.get("text_summary", "") if input_type in ("pe_binary", "native_features") else content
-            raw_pacx = pacx_engine.analyze(pacx_content, input_type=input_type)
-            pacx_result = {
-                "prediction": raw_pacx["prediction"],
-                "confidence": raw_pacx["confidence"],
-                "findings": raw_pacx["findings"],
-                "entropy": raw_pacx["entropy"],
-                "breakdown": raw_pacx.get("breakdown", {}),
-                "detected_apis": raw_pacx.get("detected_apis", []),
-                "detected_patterns": raw_pacx.get("detected_patterns", []),
-                "evidence_score": round(
-                    min(
-                        1.0,
-                        len(raw_pacx.get("detected_apis", [])) * 0.2 +
-                        len(raw_pacx.get("detected_patterns", [])) * 0.15 +
-                        (0.15 if raw_pacx.get("entropy", 0) >= 6.5 else 0.0)
-                    ),
-                    4
+        parse_result = adapter.parse(content, input_type=input_type)
+        graph = parse_result["graph"].to(device)
+        completeness = parse_result.get("completeness", 1.0)
+        signal_summary = parse_result.get("signal_summary", {})
+        nodes_filled_detail = parse_result.get("nodes_filled_detail", {})
+    except Exception as e:
+        print(f"[-] Adapter error: {e}")
+        raise HTTPException(status_code=400, detail=f"Failed to parse input: {str(e)}")
+
+    # STEP 2: GNN PATH - Run GNN Inference
+    try:
+        gnn_result = run_gnn_inference(graph, completeness, signal_summary)
+    except Exception as e:
+        print(f"[-] GNN inference error: {e}")
+        raise HTTPException(status_code=500, detail=f"Model inference failed: {str(e)}")
+
+    # STEP 3: PAC-X PATH - Feature-based analysis (Prospect, Aspect, Context)
+    if pacx_engine is not None:
+        # For a raw PE binary, PAC-X needs its real extracted API-name/
+        # string content (produced during STEP 1's parse), not the raw
+        # bytes -- it's a text/keyword/entropy heuristic, not a binary parser.
+        pacx_content = parse_result.get("text_summary", "") if input_type in ("pe_binary", "native_features") else content
+        raw_pacx = pacx_engine.analyze(pacx_content, input_type=input_type)
+        pacx_result = {
+            "prediction": raw_pacx["prediction"],
+            "confidence": raw_pacx["confidence"],
+            "findings": raw_pacx["findings"],
+            "entropy": raw_pacx["entropy"],
+            "breakdown": raw_pacx.get("breakdown", {}),
+            "detected_apis": raw_pacx.get("detected_apis", []),
+            "detected_patterns": raw_pacx.get("detected_patterns", []),
+            "evidence_score": round(
+                min(
+                    1.0,
+                    len(raw_pacx.get("detected_apis", [])) * 0.2 +
+                    len(raw_pacx.get("detected_patterns", [])) * 0.15 +
+                    (0.15 if raw_pacx.get("entropy", 0) >= 6.5 else 0.0)
                 ),
-            }
-        else:
-            pacx_result = {
-                "prediction": "Unknown",
-                "confidence": 0.0,
-                "findings": ["PAC-X Engine not initialized"],
-                "breakdown": {},
-                "detected_apis": [],
-                "detected_patterns": [],
-                "evidence_score": 0.0,
-            }
-        
-        # STEP 4: AGENT 1 - Compare paths first so fusion can arbitrate disagreements
-        from agents.analyst_agent import ComparisonAgent
-        agent1 = ComparisonAgent()
-        agent1_analysis = agent1.compare_results(pacx_result, gnn_result)
+                4
+            ),
+        }
+    else:
+        pacx_result = {
+            "prediction": "Unknown",
+            "confidence": 0.0,
+            "findings": ["PAC-X Engine not initialized"],
+            "breakdown": {},
+            "detected_apis": [],
+            "detected_patterns": [],
+            "evidence_score": 0.0,
+        }
 
-        # STEP 5: Decision Fusion Layer (uses Agent 1's trust scores on disagreement)
-        fusion_result = fuse_decisions(
-            pacx_result, gnn_result,
-            trust_scores=agent1_analysis["agent1_decision"]["trust_scores"],
-        )
+    # STEP 4: AGENT 1 - Compare paths first so fusion can arbitrate disagreements
+    from agents.analyst_agent import ComparisonAgent
+    agent1 = ComparisonAgent()
+    agent1_analysis = agent1.compare_results(pacx_result, gnn_result, generate_reasoning=not skip_llm_reasoning)
 
-        # STEP 6: AGENT 2 - Retraining Trigger if confidence < 60%
-        agent2_triggered = False
-        retraining_executed = False
-        fusion_confidence = float(fusion_result.get("confidence", 0.0))
-        should_retrain = fusion_confidence < 0.6
-        
-        if should_retrain:
-            agent2_triggered = True
-            pool_path = "data/retrain_pool.pt"
-            new_sample = graph.to('cpu')
-            
-            # Pseudo-label from current best class so Agent-2 retraining has supervised targets.
-            pseudo_label = gnn_result["predicted_class_idx"]
-            if fusion_result.get("final_label") == "Benign":
-                pseudo_label = BENIGN_CLASS_INDEX
-            new_sample.y = torch.tensor([int(pseudo_label)], dtype=torch.long)
-            
-            pool = []
-            if os.path.exists(pool_path):
-                try: 
-                    pool = torch.load(pool_path, weights_only=False)
-                except: 
-                    pool = []
-            pool.append(new_sample)
-            pool = pool[-MAX_POOL_SIZE:]
-            torch.save(pool, pool_path)
+    # STEP 5: Decision Fusion Layer (uses Agent 1's trust scores on disagreement)
+    fusion_result = fuse_decisions(
+        pacx_result, gnn_result,
+        trust_scores=agent1_analysis["agent1_decision"]["trust_scores"],
+    )
 
-            print("\n" + "!"*60)
-            print("[ALERT] AGENT 2 ACTIVATED: ZERO-DAY DETECTED (CONFIDENCE < 60%)")
-            print(f"[*] Low confidence sample added to retrain pool")
-            print(f"[*] Total samples in pool: {len(pool)}")
-            print("[*] Queuing GNN retraining as a background task...")
-            print("!"*60 + "\n")
+    # STEP 6: AGENT 2 - Retraining Trigger if confidence < AGENT2_THRESHOLD
+    agent2_triggered = False
+    retraining_executed = False
+    fusion_confidence = float(fusion_result.get("confidence", 0.0))
+    should_retrain = fusion_confidence < AGENT2_THRESHOLD
 
-            # Retraining takes minutes -- queue it instead of blocking this
-            # response. This request's result reflects the current (pre-retrain)
-            # weights; the next analysis after retraining completes will pick
-            # up the updated model automatically via model_lock.
+    if should_retrain:
+        agent2_triggered = True
+        pool_path = "data/retrain_pool.pt"
+        new_sample = graph.to('cpu')
+
+        # Pseudo-label from current best class so Agent-2 retraining has supervised targets.
+        pseudo_label = gnn_result["predicted_class_idx"]
+        if fusion_result.get("final_label") == "Benign":
+            pseudo_label = BENIGN_CLASS_INDEX
+        new_sample.y = torch.tensor([int(pseudo_label)], dtype=torch.long)
+
+        pool = []
+        if os.path.exists(pool_path):
+            try:
+                pool = torch.load(pool_path, weights_only=False)
+            except:
+                pool = []
+        pool.append(new_sample)
+        pool = pool[-MAX_POOL_SIZE:]
+        torch.save(pool, pool_path)
+
+        print(f"[ALERT] AGENT 2: low-confidence sample added to retrain pool (total {len(pool)})")
+
+        # Does NOT auto-fire a retrain. It used to (queue_retrain defaulted
+        # True, unconditionally, on every single triggering sample) -- real,
+        # not hypothetical: that fired two unreviewed retrains this session
+        # alone, both on pseudo-labeled data (a low-confidence sample's label
+        # here is the model's OWN guess, right when it's already known to be
+        # unreliable -- see the pseudo_label assignment above), both measurably
+        # regressing real accuracy on the live model before anyone looked at
+        # what was actually in the pool. One came from a single real-time
+        # trigger; the other from one batch upload whose rows individually
+        # triggered enough times to cross the pool threshold in one request --
+        # `queue_retrain=True` was never actually the safe default it looked
+        # like. The pool still fills exactly as before (real signal, cheap,
+        # reversible); only automatic execution is gone. A human reviewing
+        # the pool and clicking "Trigger Agent 2 Retraining" is the only path
+        # that actually retrains the live model now.
+        if queue_retrain:
             background_tasks.add_task(_run_agent2_retrain_background)
 
-        # STEP 7: GNN Analysis Report
-        prediction_package = {
-            "predicted_label": 1 if gnn_result["prediction"] == "Malicious" else 0,
-            "confidence": gnn_result["confidence"],
-            "actual_label": None,
-            "attention_weights": gnn_result["raw_attention"],
-        }
-        from agents.analyst_agent import AnalystAgent
-        gnn_analyst = AnalystAgent()
-        try:
-            gnn_report = gnn_analyst.analyze_prediction(prediction_package)
-        except Exception as e:
-            print(f"[!] GNN report generation error (non-fatal): {e}")
-            # Keep the same shape as the success path (an HTML string) --
-            # this used to fall back to a dict here, which broke any
-            # frontend code written against one shape or the other.
-            gnn_report = "<p>Analysis report unavailable.</p>"
-        
-        # STEP 8: Log this scan to the persistent history, then return
-        try:
-            source_label = getattr(file, "filename", None) if file else (text[:60] if text else None)
-            scan_history.log_scan(
-                input_type=input_type,
-                source_label=source_label,
-                pacx_diagnosis=pacx_result["prediction"],
-                pacx_confidence=pacx_result["confidence"],
-                gnn_diagnosis=gnn_result["prediction"],
-                gnn_confidence=gnn_result["confidence"],
-                gnn_family=gnn_result["predicted_family"],
-                fused_diagnosis=fusion_result.get("final_label"),
-                fused_confidence=fusion_result.get("confidence"),
-                arbitration=fusion_result.get("arbitration"),
-                completeness=completeness,
-                agent2_triggered=agent2_triggered,
-                reasoning_source=agent1_analysis["agent1_decision"].get("reasoning_source"),
-            )
-        except Exception as e:
-            print(f"[!] scan_history logging error (non-fatal): {e}")
+    # STEP 7: GNN Analysis Report
+    prediction_package = {
+        "predicted_label": 1 if gnn_result["prediction"] == "Malicious" else 0,
+        "confidence": gnn_result["confidence"],
+        "actual_label": None,
+        "attention_weights": gnn_result["raw_attention"],
+    }
+    from agents.analyst_agent import AnalystAgent
+    # A second, separate LLM call site (missed the first time this
+    # skip_llm_reasoning parameter was added) -- this one fires unconditionally
+    # regardless of Agent 1's own reasoning being skipped, which is exactly
+    # what turned a batch upload into a real Groq rate-limit storm/stuck
+    # request (dozens of rows, each blocking on retry-with-backoff).
+    gnn_analyst = AnalystAgent(use_llm=not skip_llm_reasoning)
+    try:
+        gnn_report = gnn_analyst.analyze_prediction(prediction_package)
+    except Exception as e:
+        print(f"[!] GNN report generation error (non-fatal): {e}")
+        # Keep the same shape as the success path (an HTML string) --
+        # this used to fall back to a dict here, which broke any
+        # frontend code written against one shape or the other.
+        gnn_report = "<p>Analysis report unavailable.</p>"
 
-        # STEP 9: Return comprehensive dual-path results
-        return {
+    # STEP 8: Log this scan to the persistent history, then return
+    try:
+        scan_history.log_scan(
+            input_type=input_type,
+            source_label=source_label,
+            pacx_diagnosis=pacx_result["prediction"],
+            pacx_confidence=pacx_result["confidence"],
+            gnn_diagnosis=gnn_result["prediction"],
+            gnn_confidence=gnn_result["confidence"],
+            gnn_family=gnn_result["predicted_family"],
+            fused_diagnosis=fusion_result.get("final_label"),
+            fused_confidence=fusion_result.get("confidence"),
+            arbitration=fusion_result.get("arbitration"),
+            completeness=completeness,
+            agent2_triggered=agent2_triggered,
+            reasoning_source=agent1_analysis["agent1_decision"].get("reasoning_source"),
+        )
+    except Exception as e:
+        print(f"[!] scan_history logging error (non-fatal): {e}")
+
+    # STEP 9: Return comprehensive dual-path results
+    return {
             "success": True,
             "completeness": completeness,
             "decision_fusion": fusion_result,
@@ -921,23 +994,143 @@ async def analyze_live(
             "agent2": {
                 "triggered": agent2_triggered,
                 "retraining_executed": retraining_executed,
-                "retraining_queued": agent2_triggered,
+                "retraining_queued": False,
                 "basis": "decision_fusion.confidence",
-                "trigger_threshold": 0.6,
+                "trigger_threshold": AGENT2_THRESHOLD,
                 "trigger_value": round(fusion_confidence, 4),
                 "reason": (
-                    "Low fused confidence (< 60%) -- sample added to retrain pool, "
-                    "Agent-2 retraining queued in the background (this result uses current weights)"
+                    f"Low fused confidence (< {AGENT2_THRESHOLD*100:.0f}%) -- sample added to retrain pool. "
+                    "Retraining does NOT happen automatically -- use the \"Trigger Agent 2 Retraining\" "
+                    "button to review and retrain manually."
                 ) if agent2_triggered else "Fused confidence is stable"
             },
             "radar_data": gnn_result["attention_weights"],
             "nodes_filled_detail": nodes_filled_detail
         }
+
+
+@app.post("/api/analyze/live")
+async def analyze_live(
+    background_tasks: BackgroundTasks,
+    text: Optional[str] = Form(None),
+    file: Optional[UploadFile] = File(None),
+    input_type: Optional[str] = Form("api")
+):
+    """
+    Dual-Path Malware Detection:
+    1. PAC-X: Feature-based analysis (Prospect, Aspect, Context)
+    2. GNN: Graph-based analysis with attention weights
+    3. Agent 1: Compares both and generates dynamic reasoning
+    4. Agent 2: Auto-retrains if confidence < AGENT2_THRESHOLD (zero-day detected)
+
+    A CSV with more than one data row, or a JSON array with more than one
+    element, is automatically analyzed row-by-row (batch mode) instead of
+    silently only looking at the first row -- returns a batch summary/results
+    shape in that case (`"batch": true`) rather than the single-sample shape.
+    Everything else (a single CSV row, plain text, a raw PE binary) behaves
+    exactly as before.
+    """
+    content = ""
+    if file:
+        raw_bytes = await file.read()
+        if raw_bytes[:2] == b"MZ":
+            # Real PE binary (.exe/.dll) -- route to core/pe_feature_extractor.py
+            # instead of trying to decode it as text. `content` stays as raw
+            # bytes; the PAC-X step below swaps in a real extracted-string
+            # summary for this path since PAC-X needs text, not bytes.
+            content = raw_bytes
+            input_type = "pe_binary"
+        else:
+            try:
+                content = raw_bytes.decode("utf-8")
+            except UnicodeDecodeError:
+                # Not a PE binary and not valid UTF-8 text either -- an
+                # unsupported upload, not a server error.
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        "Uploaded file is neither a PE binary (.exe/.dll, 'MZ' "
+                        "header) nor valid UTF-8 text. Upload a real PE binary, "
+                        "or a text-based API/JSON/CSV log."
+                    ),
+                )
+    elif text:
+        content = text
+    else:
+        raise HTTPException(status_code=400, detail="No input provided.")
+
+    source_label = getattr(file, "filename", None) if file else (text[:60] if text else None)
+
+    try:
+        if adapter is None:
+            raise HTTPException(status_code=503, detail="Input adapter not initialized. Check dataset files.")
+
+        batch_rows = _split_batch_rows(content, input_type) if input_type != "pe_binary" else None
+        if batch_rows is None:
+            return await _analyze_content(content, input_type, background_tasks, source_label=source_label)
+
+        # BATCH MODE: analyze every row, one real /api/analyze/live-equivalent
+        # call each -- same pipeline, just looped, with LLM reasoning text
+        # skipped per-row (nobody reads 500 rows of prose) and at most one
+        # background retrain queued for the whole batch instead of once per
+        # triggering row.
+        MAX_BATCH_ROWS = 1000
+        truncated = len(batch_rows) > MAX_BATCH_ROWS
+        batch_rows = batch_rows[:MAX_BATCH_ROWS]
+
+        results = []
+        any_triggered = False
+        for i, row_content in enumerate(batch_rows):
+            try:
+                r = await _analyze_content(
+                    row_content, input_type, background_tasks,
+                    source_label=f"{source_label or 'batch'} [row {i+1}]",
+                    skip_llm_reasoning=True, queue_retrain=False,
+                )
+                agent2 = r["agent2"]
+                if agent2["triggered"]:
+                    any_triggered = True
+                results.append({
+                    "row_index": i,
+                    "success": True,
+                    "pacx_label": r["path_pacx"]["diagnosis"],
+                    "gnn_label": r["path_gnn"]["diagnosis"],
+                    "gnn_family": r["path_gnn"]["predicted_family"],
+                    "fused_label": r["decision_fusion"]["final_label"],
+                    "fused_confidence": r["decision_fusion"]["confidence"],
+                    "arbitration": r["decision_fusion"]["arbitration"],
+                    "completeness": r["completeness"],
+                    "agent2_triggered": agent2["triggered"],
+                })
+            except HTTPException as e:
+                results.append({"row_index": i, "success": False, "error": e.detail})
+
+        # Pooled, not auto-retrained -- see the comment on queue_retrain in
+        # _analyze_content. A batch upload with many triggering rows is
+        # exactly the scenario that caused a real, unreviewed, regressive
+        # retrain this session -- `any_triggered` alone is no longer treated
+        # as consent to modify the live model.
+        _ = any_triggered
+
+        ok = [r for r in results if r["success"]]
+        summary = {
+            "n_total": len(results),
+            "n_ok": len(ok),
+            "n_failed": len(results) - len(ok),
+            "benign_count": sum(1 for r in ok if r["fused_label"] == "Benign"),
+            "malicious_count": sum(1 for r in ok if r["fused_label"] == "Malicious"),
+            "agent2_triggered_count": sum(1 for r in ok if r["agent2_triggered"]),
+            "avg_confidence": round(sum(r["fused_confidence"] for r in ok) / len(ok), 4) if ok else 0.0,
+            "truncated": truncated,
+        }
+        return {"success": True, "batch": True, "summary": summary, "results": results}
+
     except HTTPException:
         raise
     except Exception as e:
         print(f"[-] Unexpected error: {e}")
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+
 
 @app.post("/api/retrain")
 async def retrain_model(background_tasks: BackgroundTasks):

@@ -67,7 +67,6 @@ Project Link: https://drive.google.com/file/d/1UvdVN8DfP-RtieoE0nyamg6S6Lf8Sj_q/
 │   └── utils/                 <-- Environmental check, dataset audit, and forensic image generator.
 ├── data/                      <-- Local databases: pyg datasets, split indices, norm stats, retrain pools.
 ├── graph_output/              <-- Forensics image storage for dynamic behavior charts.
-├── prospect/                  <-- Threat intelligence consistency research and MMD scores.
 ├── scripts/                   <-- Dataset build/ablation/demo-sample utilities (see below).
 ├── paper/                     <-- The IEEE paper source (agentic_pacx.tex).
 ├── web/                       <-- Complete Frontend code (templates and static stylesheets/scripts).
@@ -75,7 +74,6 @@ Project Link: https://drive.google.com/file/d/1UvdVN8DfP-RtieoE0nyamg6S6Lf8Sj_q/
 │   └── static/                <-- Stylesheets, icons, and dynamic Plotly JS UI logic.
 ├── model.pt                   <-- Active compiled PyTorch weights file for the GNN.
 ├── app.py                     <-- Main Unified FastAPI entry point (combines backend API & UI templates).
-├── run_frontend.py            <-- Backup static simple HTTP server utility.
 
 ```
 
@@ -96,9 +94,10 @@ Project Link: https://drive.google.com/file/d/1UvdVN8DfP-RtieoE0nyamg6S6Lf8Sj_q/
   - `build_ablation_report.py`: Runs the GNN-only / PAC-X-only / Fused ablation on the real held-out test split, producing `ablation_report.json`.
   - `build_demo_samples.py`: Pulls one real, held-out CSV row per class into `demo_samples/` for live-demo testing, with a `manifest.csv` of true labels.
   - `build_pool_from_uncertain.py`: Rebuilds `data/retrain_pool.pt` from the genuinely low-confidence predictions in `gnn_outputs.json`, with real ground-truth labels.
-  - `build_zeroday_experiment.py`: The actual zero-day generalization test -- holds out one malware family entirely from train/val/test, retrains fresh on the rest, then measures detection on that family's untouched samples (`python scripts/build_zeroday_experiment.py --holdout emotet`). Self-contained under `data/zeroday_<family>/`; never touches the main `model.pt` or datasets. Results: 73.68% zero-day catch rate for Emotet (banking trojan/loader, 31.58% correctly routed to Agent 2 as low-confidence), 100% catch rate for DarkKomet (RAT backdoor, but confidently misattributed to Delf rather than flagged uncertain). See the walkthrough artifact for the full read on what this does and doesn't prove.
+  - `build_zeroday_experiment.py`: The actual zero-day generalization test -- holds out one malware family entirely from train/val/test, retrains fresh on the rest, then measures detection on that family's untouched samples (`python scripts/build_zeroday_experiment.py --holdout emotet`). Self-contained under `data/zeroday_<family>/`; never touches the main `model.pt` or datasets. Now run across all 10 real families (not just the original 2): **74.34% overall zero-day catch rate** (2,241 held-out samples pooled), ranging from 100% (Gamarue, DarkKomet, Delf, DLHelper, DriverPack) down to a confirmed **0% miss on Domaiq** (confidently, not uncertainly, misclassified as benign -- a real unresolved gap, not a rounding error). See `data/zeroday_<family>/zeroday_report.json` per family.
+  - `tune_agent2_threshold.py`: Properly tunes Agent 2's fused-confidence trigger threshold against the real `app.run_gnn_inference`/`fuse_decisions` pipeline (not an approximation) across all 10 zero-day runs. Moved the threshold from an untuned 0.60 to **0.68** (85.45% zero-day samples handled vs. 81.3% at the old value, at a modest 1.76% false-trigger cost on already-correct predictions) -- see `data/agent2_tuning/report.json`.
 * **`data/` (Local Datasets):** Contains GNN datasets (`pyg_dataset.pt`, `pyg_dataset_norm.pt`), NumPy evaluation splits (`train_indices.npy` / `val_indices.npy` / `test_indices.npy`), normalization stats (`norm_stats.pt`), clean labels (`cleaned_data.csv`), and active retraining pool files (`retrain_pool.pt`). Regenerate the first four with `python scripts/build_graph_dataset.py && python -m core.dataset_manager`.
-* **`prospect/` (MMD Robustness & Consistency):** Validates feature robustness and structural consistency across diverse malware variants using Maximum Mean Discrepancy (MMD) scores (`consistency.py`, `robustness.py`, and score sheets).
+* **Dataset provenance:** `data/cleaned_data.csv` (5,138 rows, 11 classes: Benign + GandCrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, GameHack) is byte-identical -- same shape, columns, and values, verified directly -- to `data/final_data.csv` from [McGill-DMaS/PACX](https://github.com/McGill-DMaS/PACX), the GitHub repo for Saqib, Fung & Charland, "PAC-X: Fuzzy Explainable AI for Multiclass Malware Detection," IEEE Trans. Fuzzy Syst., 2026 (the same paper cited as `\cite{b19}` in `paper/agentic_pacx.tex`'s related-work comparison). Their PE malware samples originate from MalShare/VirusShare (malicious) and SourceForge/Download.com (benign), per that paper's Section IV-A.
 
 ---
 

@@ -26,6 +26,26 @@ data/scan_history.db
 kaggle_dataset/
 data/kaggle_augmentation/*.csv
 
+# Large external Yousuf et al. multi-feature PE malware dataset (~65MB,
+# GitHub DA-Proj/PE-Malware-Dataset1) -- re-download rather than commit;
+# see scripts/mine_pacx_static_import_signals.py for the fetch details
+yousuf_dataset/
+
+# Real malware samples for scripts/test_real_pe_files.py -- never commit
+# actual malware binaries to this (or any) repo
+malware_samples/
+
+# Per-family zero-day holdout model weights -- large, regenerable via
+# scripts/build_zeroday_experiment.py --holdout <family>; each family's real
+# zeroday_report.json (small, the actual result) IS committed
+data/zeroday_*/model.pt
+
+# Large external superset from the same PAC-X GitHub repo cleaned_data.csv
+# comes from (63 real malware families beyond our trained 11) -- re-download
+# rather than commit; see scripts/test_synthetic_surprise_set.py's sibling
+# investigation for the fetch details
+pacx_merge_data/
+
 # OS
 .DS_Store
 Thumbs.db

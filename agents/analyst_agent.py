@@ -91,14 +91,20 @@ Provide a 3-4 sentence expert analysis focusing on technical differences and whi
             f"The GNN still contributes structural context through `{gnn_family}`, but this input is too incomplete for it to fully dominate yet."
         )
     
-    def compare_results(self, pacx_result, gnn_result):
+    def compare_results(self, pacx_result, gnn_result, generate_reasoning=True):
         """
         Compare PAC-X and GNN results and generate dynamic reasoning.
-        
+
         Args:
             pacx_result: dict with keys: accuracy, precision, recall, confidence, prediction, explanation
             gnn_result: dict with keys: accuracy, precision, recall, confidence, prediction, attention_weights, explanation
-        
+            generate_reasoning: set False to skip the real LLM call for the
+                natural-language explanation -- trust_scores (what fusion
+                arbitration actually needs) are computed either way. Used by
+                batch analysis, where dozens/hundreds of real LLM calls for
+                per-row prose nobody will read would be slow and could hit
+                real rate limits for no benefit.
+
         Returns:
             dict with comparison data and Agent 1 reasoning
         """
@@ -129,8 +135,12 @@ Provide a 3-4 sentence expert analysis focusing on technical differences and whi
         # quality prior for this model version) -- not this sample's
         # per-scan confidence, which already contributes at weight 0.35
         # above via gnn_raw_conf. Falls back to gnn_raw_conf only if the
-        # caller didn't supply model_accuracy (e.g. older cached results).
-        gnn_model_accuracy = gnn_result.get('model_accuracy', gnn_raw_conf)
+        # caller didn't supply model_accuracy (e.g. older cached results), or
+        # supplied it as None (no real figure was available at load time --
+        # see app.py's load_model_overall_accuracy -- never a fabricated
+        # placeholder). `or`, not .get(..., default), so an explicit None
+        # falls back the same way a genuinely missing key would.
+        gnn_model_accuracy = gnn_result.get('model_accuracy') or gnn_raw_conf
         gnn_trust = (
             (gnn_raw_conf * 0.35) +
             (gnn_model_accuracy * 0.10) +
@@ -139,18 +149,21 @@ Provide a 3-4 sentence expert analysis focusing on technical differences and whi
             (gnn_family_conf * 0.15)
         )
         better_model = "GNN" if gnn_trust >= pacx_trust else "PAC-X"
-        
-        # Generate dynamic reasoning
-        reasoning, reasoning_source = self._generate_comparison_reasoning(
-            pacx_metrics,
-            gnn_metrics,
-            pacx_pred,
-            gnn_pred,
-            pacx_result,
-            gnn_result,
-            better_model,
-        )
-        
+
+        if generate_reasoning:
+            reasoning, reasoning_source = self._generate_comparison_reasoning(
+                pacx_metrics,
+                gnn_metrics,
+                pacx_pred,
+                gnn_pred,
+                pacx_result,
+                gnn_result,
+                better_model,
+            )
+        else:
+            reasoning, reasoning_source = "", "skipped_batch_mode"
+
+
         # Calculate agreement
         prediction_agreement = pacx_pred == gnn_pred
         

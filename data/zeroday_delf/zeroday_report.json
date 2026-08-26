@@ -1,0 +1,34 @@
+{
+  "holdout_family": "delf",
+  "holdout_n_samples": 94,
+  "known_classes": [
+    "benign",
+    "darkkomet",
+    "dlhelper",
+    "domaiq",
+    "driverpack",
+    "emotet",
+    "gamarue",
+    "gamehack",
+    "gandcrab",
+    "hotbar"
+  ],
+  "known_class_split": {
+    "train": 3530,
+    "val": 504,
+    "test": 1010
+  },
+  "known_class_test_accuracy": 99.7,
+  "known_class_test_f1_macro": 98.95,
+  "zero_day_catch_rate": 100.0,
+  "predicted_benign_count": 0,
+  "predicted_malicious_count": 94,
+  "mean_confidence": 88.74,
+  "median_confidence": 92.74,
+  "agent2_trigger_rate": 3.19,
+  "agent2_trigger_count": 3,
+  "predicted_family_distribution": {
+    "darkkomet": 29,
+    "dlhelper": 65
+  }
+}

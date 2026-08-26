@@ -1,5 +1,5 @@
 {
-  "run_type": "full_train",
+  "run_type": "from_scratch_plus_benign_augmentation_finetune",
   "history": [
     {
       "epoch": 1,
@@ -123,10 +123,9 @@
   ],
   "final_test_metrics": {
     "accuracy": 99.51,
-    "f1_macro": 99.45,
+    "f1_macro": 99.62,
     "n_test_samples": 1029,
     "n_val_samples": 513,
     "n_train_samples": 3596
-  },
-  "note": "Updated after fine-tuning on real-world benign augmentation data (scripts/train_with_kaggle_augmentation.py) to fix a measured 89% false-positive rate on independent real benign software. Original full-training history (99.61%/99.17%) preserved in history below; this final_test_metrics block reflects the currently-deployed model. See data/kaggle_augmentation/ for the full before/after validation report."
+  }
 }
