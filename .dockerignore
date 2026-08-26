@@ -7,3 +7,10 @@ yousuf_dataset/
 malware_samples/
 *.md
 agentic_pacx_walkthrough.html
+
+# Dev-session runtime state -- not part of the application, and baking in
+# the current known-degenerate retrain pool / scan log would ship a stale
+# snapshot of one developer's local testing as if it were a clean deploy.
+# The app creates fresh ones on first run if these are absent.
+data/scan_history.db
+data/retrain_pool.pt
