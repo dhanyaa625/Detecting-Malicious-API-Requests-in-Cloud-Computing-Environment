@@ -2,6 +2,8 @@
 
 **Agentic-PACX** is a hybrid threat-detection framework that fuses a rule-based heuristic engine (PAC-X) with a structural Graph Attention Network (GNN), arbitrated by a trust-based Decision Fusion Layer and governed by two cognitive LLM agents — one for forensic explanation, one for gated self-healing retraining.
 
+🔗 **Live demo:** [detecting-malicious-api-requests-in.onrender.com](https://detecting-malicious-api-requests-in.onrender.com/live_analysis.html) (free-tier hosting — sleeps after ~15 min idle, first request after that takes ~30-60s to wake up)
+
 ---
 
 ## 🌟 System Architecture
