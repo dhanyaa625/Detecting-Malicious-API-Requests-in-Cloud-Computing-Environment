@@ -9,6 +9,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
+
+# Install the CPU-only torch build first (~200MB vs ~2GB+ for the default
+# CUDA wheel) -- this is inference-only on free-tier hosts with no GPU, and
+# pip will see the already-satisfied torch>=2.0.0 requirement below and skip
+# re-downloading it.
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
