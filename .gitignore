@@ -46,6 +46,9 @@ data/zeroday_*/model.pt
 # investigation for the fetch details
 pacx_merge_data/
 
+# Paper source -- kept local only, not published to the GitHub repo
+paper/
+
 # OS
 .DS_Store
 Thumbs.db
