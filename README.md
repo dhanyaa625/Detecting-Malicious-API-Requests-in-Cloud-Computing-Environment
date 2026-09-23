@@ -1,10 +1,10 @@
 # Detecting Malicious API Requests in Cloud Computing Environment
 
-**Agentic-PACX** is a hybrid, next-generation threat intelligence and explainability ecosystem. It seamlessly fuses rule-based heuristics with deep structural Graph Attention Networks (GNN), dynamically orchestrated by cooperative cognitive LLM agents to deliver automated forensic reasoning and self-healing transfer-learning cycles.
+**Agentic-PACX** is a hybrid threat-detection framework that fuses a rule-based heuristic engine (PAC-X) with a structural Graph Attention Network (GNN), arbitrated by a trust-based Decision Fusion Layer and governed by two cognitive LLM agents — one for forensic explanation, one for gated self-healing retraining.
 
 ---
-Project Link: https://drive.google.com/file/d/1UvdVN8DfP-RtieoE0nyamg6S6Lf8Sj_q/view?usp=drive_link
-## 🌟 System Architecture & Dynamic Flow
+
+## 🌟 System Architecture
 
 ```
                      +---------------------------------------+
@@ -16,250 +16,116 @@ Project Link: https://drive.google.com/file/d/1UvdVN8DfP-RtieoE0nyamg6S6Lf8Sj_q/
                          |    Universal Input Adapter    |
                          +-------------------------------+
                                   /            \
-                                 /              \
-                                v                v
+                                 v              v
                      +--------------------+    +--------------------+
                      |  PATH 1: PAC-X     |    |   PATH 2: GNN      |
                      |  Heuristic Engine  |    |  Graph Attention   |
                      +--------------------+    +--------------------+
                                  \              /
-                                  \            /
-                                   v          v
+                                  v            v
                         +-------------------------------+
-                        |     Decision Fusion Layer     |
+                        |   Agent 1: Trust Scoring       |
                         +-------------------------------+
                                         |
                                         v
                         +-------------------------------+
-                        |    Agent 1: Forensic LLM      |
+                        |    Decision Fusion Layer       |
                         +-------------------------------+
                                    /         \
-                                  /           \
-                 (Confidence >= 60%)         (Confidence < 60%)
+                    (Confidence >= 68%)   (Confidence < 68%)
                                 /               \
                                v                 v
                  +-------------------+     +-------------------------+
-                 | System Safe /     |     |   AGENT 2 ACTIVATED     |
-                 | Threat Isolated   |     |   Zero-Day Retrain Pool |
+                 | Output + Forensic |     |   AGENT 2: Self-Healing |
+                 | XAI Report        |     |   Zero-Day Retrain Pool |
                  +-------------------+     +-------------------------+
-                                                     |
-                                                     v
-                                           +-------------------------+
-                                           | Transfer Learning Loop  |
-                                           |  Updates model.pt weights|
-                                           +-------------------------+
-                                                     |
-                                                     v
-                                           +-------------------------+
-                                           | Active Memory Reload    |
-                                           +-------------------------+
 ```
 
 ---
 
-## 📂 Project Folder Directory Structure
+## 📂 Project Structure
 
 ```
 [Project Root]
-├── agentic_pacx/              <-- Core GNN neural network implementation and training script.
-├── agents/                    <-- System Orchestration Agents (Agent 1 & Agent 2 trigger).
-├── core/                      <-- Core utility algorithms (Adapter, PAC-X, Graphs, Visualizer).
-│   └── utils/                 <-- Environmental check, dataset audit, and forensic image generator.
-├── data/                      <-- Local databases: pyg datasets, split indices, norm stats, retrain pools.
-├── graph_output/              <-- Forensics image storage for dynamic behavior charts.
-├── scripts/                   <-- Dataset build/ablation/demo-sample utilities (see below).
-├── paper/                     <-- The IEEE paper source (agentic_pacx.tex).
-├── web/                       <-- Complete Frontend code (templates and static stylesheets/scripts).
-│   ├── templates/             <-- Server-served HTML dashboard layouts.
-│   └── static/                <-- Stylesheets, icons, and dynamic Plotly JS UI logic.
-├── model.pt                   <-- Active compiled PyTorch weights file for the GNN.
-├── app.py                     <-- Main Unified FastAPI entry point (combines backend API & UI templates).
-
+├── agentic_pacx/   <-- MalwareGAT (GNN) model + training script
+├── agents/         <-- Agent 1 (forensic reasoning) & Agent 2 (retrain trigger)
+├── core/           <-- Input adapter, PAC-X engine, graph construction, dataset splits
+├── data/           <-- PyG datasets, split indices, norm stats, retrain pool
+├── scripts/        <-- Dataset build, ablation, zero-day, and demo-sample utilities
+├── paper/          <-- IEEE paper source (agentic_pacx.tex)
+├── web/            <-- FastAPI-served frontend (templates + static assets)
+├── model.pt        <-- Trained GNN weights
+└── app.py          <-- FastAPI entry point (API + UI)
 ```
 
-### Folder Roles & Responsibilities
-* **`web/` (The Front-End Codebase):** Manages the entire visual dashboard layer. 
-  - `web/templates/` holds the served layouts: `index.html` (main evaluation dashboard), `live_analysis.html` (real-time upload and fusion scan page), `metrics_report.html` (ROC/confusion matrix comparisons), and `visual_graphs.html` (interactive topological node graphs).
-  - `web/static/` holds `css/style.css` (custom dark-mode design system) and `js/script.js` (UI logic, form submissions, and Plotly dynamic rendering).
-* **`agentic_pacx/` (GNN Core Algorithms):** Houses the GNN mathematical model definition (`MalwareGAT` - a deeper 3-layer GAT architecture with batch normalization and dropout) and `gnn_classification.py` which executes GNN training and Phase 3 transfer-learning retraining loops.
-* **`agents/` (The Orchestration Agents):** Contains `analyst_agent.py`. It holds the logic for **Agent 1** (forensic LLM threat reasoning) and the starting trigger for **Agent 2** (`trigger_agent_2_retraining()`).
-* **`core/` (Core Logic Layers):**
-  - `core/input_adapter.py`: Standardizes live raw-text/JSON/CSV input, normalizes vector features against `data/norm_stats.pt` (train-split statistics), and handles format conversions. This is an approximate bridge from unstructured logs into the model's structured feature space, not a byte-for-byte reconstruction of the training data's PE-analysis features.
-  - `core/pacx_analyzer.py`: Performs Prospect-Aspect-Context heuristic evaluations.
-  - `core/graph_constructor.py`: Shared node/edge constants and the `hash_feature_vector`/`pad_numeric_features` helpers.
-  - `core/dataset_manager.py`: Stratified train/val/test split (70/10/20) and train-split-only feature normalization.
-  - `core/utils/visualizer.py`: Generates the forensic behavior graphs saved to disk.
-* **`scripts/` (Dataset & Reporting Utilities):**
-  - `build_graph_dataset.py`: Builds the 4-node graph dataset from `data/cleaned_data.csv` -- every node (Header, Entropy, API, Network) is a real numeric feature vector pulled directly from that node's CSV columns, not a hash of stringified values.
-  - `build_ablation_report.py`: Runs the GNN-only / PAC-X-only / Fused ablation on the real held-out test split, producing `ablation_report.json`.
-  - `build_demo_samples.py`: Pulls one real, held-out CSV row per class into `demo_samples/` for live-demo testing, with a `manifest.csv` of true labels.
-  - `build_pool_from_uncertain.py`: Rebuilds `data/retrain_pool.pt` from the genuinely low-confidence predictions in `gnn_outputs.json`, with real ground-truth labels.
-  - `build_zeroday_experiment.py`: The actual zero-day generalization test -- holds out one malware family entirely from train/val/test, retrains fresh on the rest, then measures detection on that family's untouched samples (`python scripts/build_zeroday_experiment.py --holdout emotet`). Self-contained under `data/zeroday_<family>/`; never touches the main `model.pt` or datasets. Now run across all 10 real families (not just the original 2): **74.34% overall zero-day catch rate** (2,241 held-out samples pooled), ranging from 100% (Gamarue, DarkKomet, Delf, DLHelper, DriverPack) down to a confirmed **0% miss on Domaiq** (confidently, not uncertainly, misclassified as benign -- a real unresolved gap, not a rounding error). See `data/zeroday_<family>/zeroday_report.json` per family.
-  - `tune_agent2_threshold.py`: Properly tunes Agent 2's fused-confidence trigger threshold against the real `app.run_gnn_inference`/`fuse_decisions` pipeline (not an approximation) across all 10 zero-day runs. Moved the threshold from an untuned 0.60 to **0.68** (85.45% zero-day samples handled vs. 81.3% at the old value, at a modest 1.76% false-trigger cost on already-correct predictions) -- see `data/agent2_tuning/report.json`.
-* **`data/` (Local Datasets):** Contains GNN datasets (`pyg_dataset.pt`, `pyg_dataset_norm.pt`), NumPy evaluation splits (`train_indices.npy` / `val_indices.npy` / `test_indices.npy`), normalization stats (`norm_stats.pt`), clean labels (`cleaned_data.csv`), and active retraining pool files (`retrain_pool.pt`). Regenerate the first four with `python scripts/build_graph_dataset.py && python -m core.dataset_manager`.
-* **Dataset provenance:** `data/cleaned_data.csv` (5,138 rows, 11 classes: Benign + GandCrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, GameHack) is byte-identical -- same shape, columns, and values, verified directly -- to `data/final_data.csv` from [McGill-DMaS/PACX](https://github.com/McGill-DMaS/PACX), the GitHub repo for Saqib, Fung & Charland, "PAC-X: Fuzzy Explainable AI for Multiclass Malware Detection," IEEE Trans. Fuzzy Syst., 2026 (the same paper cited as `\cite{b19}` in `paper/agentic_pacx.tex`'s related-work comparison). Their PE malware samples originate from MalShare/VirusShare (malicious) and SourceForge/Download.com (benign), per that paper's Section IV-A.
+* **`core/input_adapter.py`** — normalizes raw text, JSON, CSV, or a PE binary into the model's 4-node graph format.
+* **`core/pacx_analyzer.py`** — Prospect-Aspect-Context heuristic scoring.
+* **`agentic_pacx/gnn_classification.py`** — MalwareGAT architecture, training, and `--retrain` (Agent 2's fine-tuning path).
+* **`agents/analyst_agent.py`** — Agent 1 (trust comparison + forensic XAI reports) and Agent 2's trigger orchestration.
+* **Dataset provenance:** `data/cleaned_data.csv` (5,138 rows, 11 classes: Benign + GandCrab, Emotet, Gamarue, Hotbar, DarkKomet, Delf, Domaiq, DLHelper, DriverPack, GameHack) matches `final_data.csv` from [McGill-DMaS/PACX](https://github.com/McGill-DMaS/PACX) (Saqib, Fung & Charland, *PAC-X: Fuzzy Explainable AI for Multiclass Malware Detection*, IEEE Trans. Fuzzy Syst., 2026).
 
 ---
 
-## 🛠️ Technology Stack Breakdown
+## 🛠️ Technology Stack
 
-### Frontend:
-* **HTML5 & CSS3:** Responsive structural grid layout built on a Catppuccin-inspired dark-mode slate theme, styled with premium glassmorphism tokens, hover micro-animations, and status cards.
-* **Vanilla JavaScript:** Event-driven async architecture managing dynamic API requests, parsing responses, and refreshing panels without page reloads.
-* **Plotly.js:** Powers dynamic forensic visuals in the dashboard:
-  - **Topological Node Graphs:** Interactively displays node-connection strengths between the 4 core nodes (Header, Entropy, API, Network).
-  - **Behavioral Sunburst Charts:** Hierarchically maps complex dynamic indicators in the "Deep Dive" panel for easy forensics.
-
-### Backend:
-* **FastAPI (ASGI Core):** Asynchronous Python web framework serving endpoints, health checks, environment diagnostics, and Jinja2-rendered templates.
-* **PyTorch & PyTorch Geometric (PyG):** Defines and runs the neural engine:
-  - **MalwareGAT:** A 3-layer **Graph Attention Network (GAT)** stack (`gat1`, `gat2`, `gat3`) with hidden dimension 64 throughout. Attention heads step down per layer -- 4 heads (concat, → 256-dim) in `gat1`, 2 heads (concat, → 128-dim) in `gat2`, 1 head (no concat, → 64-dim) in `gat3` -- with Batch Normalization and Dropout (25%) after each. It convolutes structural semantic associations and runs global mean pooling to output predictions across 11 classes.
+* **Frontend:** HTML5/CSS3, vanilla JS, Plotly.js (topological node graphs, sunburst forensic charts)
+* **Backend:** FastAPI (ASGI), Jinja2 templates
+* **ML:** PyTorch + PyTorch Geometric — MalwareGAT is a 3-layer GAT stack (4 → 2 → 1 attention heads, 256 → 128 → 64-dim, BatchNorm + 25% dropout per layer), global mean pooling, 11-class output
 
 ---
 
-## 🎯 Universal Input Adapter & Drop-down Selector
+## 🧠 How Detection Works
 
-The frontend features a drop-down to specify format structures, but the backend is designed to be **extremely robust against user misconfigurations**:
+**Universal Input Adapter** accepts four input shapes and normalizes each into the same 4-node graph (PE Header, Section Entropy, API Import/Export, Network/String artifacts): raw API-call text/logs, JSON telemetry, CSV records (native schema or a public Kaggle PE-header schema), or a raw PE binary. Malformed input degrades gracefully to a lower-completeness graph rather than failing outright.
 
-### Supported Dropdown Formats
-1. **Simple Text check (API dropdown):**
-   * **Accepts:** Raw comma-separated commands, API traces, or command logs.
-   * **Example File:** [demo_samples/api_call_log_malicious.txt](demo_samples/api_call_log_malicious.txt) (also see `api_call_log_benign.txt`).
-2. **Structured JSON (JSON dropdown):**
-   * **Accepts:** JSON telemetry records.
-   * **Parser Logic:** Maps `"api"`, `"api_calls"`, `"network"`, and `"ip"` keys directly to corresponding API and Network nodes.
-   * No bundled example file ships yet -- see `core/tests/demo_adapter_inputs.py` for a JSON payload you can paste in directly.
-3. **CSV Log File (CSV dropdown):**
-   * **Accepts:** Tabular log tables.
-   * **Parser Logic:** Searches for column headings containing `"api"`, `"network"`, or `"ip"` to extract values.
-   * **Example Files:** [demo_samples/](demo_samples/) -- one held-out CSV row per malware family (e.g. `gandcrab_3814.csv`, `benign_1.csv`), with true labels listed in `demo_samples/manifest.csv`. Regenerate with `python scripts/build_demo_samples.py`.
+**Decision Fusion Layer** blends the two pathways' scores when they agree (dynamically weighted by graph completeness and model certainty, GNN weight clamped to `[0.50, 0.80]`), or arbitrates by trust score when they disagree — Agent 1 computes those trust scores first, since fusion's disagreement branch depends on them.
 
-### 🛡️ Corner-Point & Fail-Safe Mechanisms
-* **Drop-Down Mismatch Recovery:** If you upload a `.csv` log but keep the drop-down selected as `"JSON"`, the adapter catches the parsing error, degrades to global regex extraction, and successfully builds a valid 4-node GNN graph anyway.
-* **Format Corruption Fallback:** If a JSON or CSV file is malformed, the adapter intercepts the exception and seamlessly processes the payload as standard raw text.
-* **Obfuscation Stripping:** Runs `canonicalize_api()` to remove common API wrappers (e.g. stripping kernel indicators like `Nt`, `Zw` and Windows ABI flags like `Ex`, `A`, `W`) to map zero-days directly back to the GNN's known behavioral mappings.
+**Fail-closed zero-day escalation:** a fused verdict of "Benign" with confidence below the gate (`AGENT2_THRESHOLD = 0.68`) is relabeled "Suspicious" instead of cleared — a labelling rule only, no weights change. Measured over 12,081 pooled leave-one-family-out predictions: zero-day recall rises 78.36% → 85.45%, known-malware detection 99.98% → 100.00%, at a benign false-positive cost of 0.57% → 3.52%. Full derivation and the negative-result novelty-detection experiment are in `paper/agentic_pacx.tex`.
+
+**Agent 2 (self-healing):** pooling a low-confidence sample into `data/retrain_pool.pt` is automatic; retraining is not — it requires an explicit `POST /api/retrain` trigger, and is refused if the pool has collapsed onto one pseudo-label or fewer than 2 classes, or discarded post-hoc if held-out accuracy regresses more than 3 points.
 
 ---
 
-## 🧠 Model Fusion Math & Orchestration Agents
+## 📈 Measured Performance
 
-### 1. **The Decision Fusion Layer**
-Blends heuristic rule outputs with structural GNN predictions:
-$$\text{Final Score} = (\text{PAC-X Weight} \times \text{PAC-X Score}) + (\text{GNN Weight} \times \text{GNN Score})$$
-* **Base Settings:** 0.60 GNN Weight + 0.40 PAC-X Weight.
-* **Dynamic Calibration:** Weights adjust dynamically using GNN structural completeness and prediction certainty:
-  $$\text{Reliability Bonus} = 0.20 \times \left( (0.50 \times \text{Completeness}) + (0.50 \times \text{Certainty}) \right)$$
-* GNN Weight is clamped between `[0.50, 0.80]`, ensuring balanced consensus at all times.
+On the 1,029-sample held-out test split (never used for model selection):
 
-#### Fail-closed zero-day escalation (three verdict states)
+| Metric | Score |
+|---|---|
+| Multiclass accuracy (11 classes) | **99.61%** |
+| Multiclass macro F1 / precision / recall | **99.17%** / **98.49%** / **99.89%** |
+| Binary accuracy | **99.71%** |
+| Binary precision / recall | **99.56%** / **99.78%** |
 
-The fused label is an `argmax` over the **11 families the model was trained on**. A genuinely novel family cannot be named by it, so it gets absorbed into whichever known class is nearest -- and because "benign" is the largest, least structurally distinctive cluster, that is usually where it lands. A zero-day is by definition an attack, so this is the dangerous failure direction: real malware gets cleared.
-
-The pipeline already knows these samples are doubtful -- their fused confidence is below `AGENT2_THRESHOLD`, which is exactly why Agent 2 fires on them. That signal was measured and then discarded by a hard `argmax`. So `apply_zeroday_escalation()` in `app.py` reuses it:
-
-```
-if final_label == "Benign" and confidence < AGENT2_THRESHOLD:
-    final_label = "Suspicious"
-```
-
-* **"Suspicious", not "Malicious"** -- the system has not identified an attack, it has failed to *clear* the sample. Claiming otherwise would overstate what was detected.
-* **Only a Benign verdict escalates** -- a low-confidence *Malicious* verdict is already actioned, so relabelling it adds false alarms and catches nothing new.
-* **No weights change and nothing retrains**, so this cannot regress the model. Accuracy figures elsewhere in this README are unaffected.
-
-Real measured cost/benefit over **12,081 pooled predictions** from all ten leave-one-family-out runs (`python scripts/evaluate_zeroday_escalation.py` -> `data/agent2_tuning/escalation_report.json`):
-
-| Population | Baseline | Escalated |
-|---|---|---|
-| Zero-day caught (held-out families) | 78.36% | **85.45%** |
-| Novel families caught (2,004 samples, 63 families) | 98.40% | **98.40%** |
-| Gate-tripping subset (56 samples, 14 novel families) | 30.36% | **100%** |
-| Known malware caught | 99.98% | **100.00%** |
-| Benign false positives | 0.57% | **3.52%** |
-
-The cost is real and stated plainly: roughly **1 benign sample in 28** is now withheld for review instead of cleared. Past `0.72` the false-positive rate jumps to 22.49%, which is the practical ceiling. Whether 3.52% is acceptable is a deployment decision, which is why the threshold is a tunable rather than a constant.
-
-**Known limitation, tested not assumed:** escalation only catches novel malware whose confidence actually drops below the gate. On the 2,004-sample novel-family set, 32 samples (1.6%, concentrated in `downloadguide` — 18/161 — and `msilperseus` — 7/24) are confidently placed in the wrong class and never reach the gate at all.
-
-The obvious next idea — reject samples far from every known class centroid — was built and tested (`python scripts/evaluate_novelty_detection.py` -> `data/novelty_detection/report.json`), scored through the real production `model.pt`/`CLASS_CENTROIDS`, not a re-implementation. It **fails**: those 32 samples sit *closer* to their nearest centroid (mean similarity 0.79) than the average real known sample does to its own (0.58). This isn't a statistical-outlier problem a distance threshold can catch — it's genuine feature overlap between these malware families' static-import/header signatures and real benign software in this 260-dim feature space. Fixing it needs new discriminative features or supervised augmentation targeting these specific families, not novelty detection.
-
-(In the course of this investigation, an earlier ad hoc — and never-saved — script that had originally produced the pre-correction 91.37%/93.31% figures above was found to have a stale-fallback bug on 151/2,004 rows: a cluster of suspiciously repeated confidence values across unrelated families, disproportionately inflating `downloadguide`'s apparent miss count from a real 18 to a reported 65, and wrongly implicating `genkryptik`, which actually has zero confidently-wrong misses. The table above and this section now reflect the corrected, re-verified numbers.)
-
-### 2. **Agent 1 (Comparative Showdowns)**
-Compares both pathways and generates natural, expert-level forensic reports explaining the diagnosis (using Gemini 2.0 Flash / Flash-Lite; falls back to static templated reasoning if no `GEMINI_API_KEY` is set or the API call fails). It evaluates Model Trust Scores based on completeness, evidence, and model confidence:
-* **PAC-X Trust:** $(0.7 \times \text{PAC-X Confidence}) + (0.3 \times \text{PAC-X Evidence})$
-* **GNN Trust:** $(0.35 \times \text{GNN Raw Confidence}) + (0.10 \times \text{Acc}) + (0.15 \times \text{Completeness}) + (0.25 \times \text{Evidence}) + (0.15 \times \text{Family Confidence})$
-* **Acc** is the model's own measured overall test accuracy (loaded from `training_history.json`'s `final_test_metrics`), a fixed quality prior for the currently-loaded model version -- not this sample's own confidence, which already contributes via the 0.35 term above.
-
-### 3. **Agent 2 (Autonomous Retraining & Self-Healing)**
-To maintain high speed and prevent redundant code blocks, **Agent 2 has no standalone file**. It is divided between:
-* **Trigger Orchestrator:** Located inside `agents/analyst_agent.py` (`trigger_agent_2_retraining()`).
-* **Learning Brain:** Located inside `agentic_pacx/gnn_classification.py` (`--retrain`).
-
-* **Trigger Condition:** Agent 2 pools a sample when the final fused confidence falls below **68% (`AGENT2_THRESHOLD = 0.68`)**. This is not a round-number default -- it was swept against the real fused-confidence pipeline across all ten zero-day runs (`scripts/tune_agent2_threshold.py`). The same threshold drives the fail-closed escalation above, so one number carries one meaning: *"the system cannot vouch for this sample."*
-* **Pooling is automatic. Retraining is NOT.** A low-confidence sample is appended to `data/retrain_pool.pt` with a *provisional* pseudo-label. Nothing fine-tunes the live model until a human clicks **Trigger Agent 2 Retraining**.
-
-> ⚠️ **Why retraining is never automatic.** A pooled sample's pseudo-label is the model's *own guess*, made at precisely the moment that guess is known to be unreliable -- and if the sample really is a novel family, then *no* label over the 11 trained classes is correct. Training on that teaches the model to call novel malware benign. This is not hypothetical: automatic retraining regressed the live model's real held-out accuracy three separate times (99.51% → 97.57% → 96.11% → 96.79%), each time recovered only by retraining from scratch. Automatic execution was removed; pooling (cheap, reversible, useful) was kept.
-
-* **Pool guardrail:** `/api/retrain` inspects the pool first and **refuses** to run if it has collapsed onto one pseudo-label (>90% a single class, or fewer than 2 classes), reporting the real label breakdown instead of failing silently. Inspect it any time via `GET /api/retrain/pool`. The UI shows the pool's composition in the confirm dialog so the human review step has something to actually review.
-* **Post-retrain guardrail:** discards the update (keeping the prior `model.pt`) if held-out test accuracy regresses by more than 3 points after fine-tuning.
-
----
-
-## 📈 System Performance & Health Checks
-
-Measured on the 1,029-sample held-out test split (never used for model selection -- see `core/dataset_manager.py`), after fixing the API/Network node feature construction (see Stage 1 of the audit below):
-
-* **GNN Multiclass Accuracy (11 classes):** **99.61%** (Macro F1: **99.17%**, Macro Precision: **98.49%**, Macro Recall: **99.89%**)
-* **GNN Binary Accuracy (benign/malicious):** **99.71%** (Precision: **99.56%**, Recall: **99.78%**)
-* **PAC-X Heuristic Accuracy, measured on this dataset's CSV modality:** **56.27%** (0% precision/recall on the malicious class -- PAC-X's keyword/entropy heuristics have no signal on a numeric PE-header row; see `ablation_report.json`). PAC-X's designed strength is raw text/API-log input, which this dataset doesn't natively provide -- **82.1%** is a literature reference figure for that modality, not a result measured here.
-
-Regenerate all of the above with `python scripts/build_graph_dataset.py && python -m core.dataset_manager && python agentic_pacx/gnn_classification.py && python scripts/build_ablation_report.py`.
-
-### Professional Health Checks
-* `/api/health` - Live FastAPI process status.
-* `/api/audit/env` - Evaluates CUDA/CPU deep learning hardware acceleration.
-* `/api/audit/dataset` - Verifies tabular and graph database structural alignment.
-
----
-
-## 🚀 Quickstart Guide
-
-### 1. Setup & Installation
+Regenerate with:
 ```bash
-# Clone the repository and install requirements
+python scripts/build_graph_dataset.py && python -m core.dataset_manager && python agentic_pacx/gnn_classification.py && python scripts/build_ablation_report.py
+```
+
+---
+
+## 🚀 Quickstart
+
+### 1. Install
+```bash
 pip install -r requirements.txt
 ```
 
 ### 2. (Optional) Enable real LLM reasoning
-Agent 1 works out of the box with static templated reasoning if no key is configured. To get real Gemini-generated forensic reports:
+Agent 1 works out of the box with static templated reasoning if no key is configured.
 ```bash
 cp .env.example .env
-# then edit .env and paste in a real key from https://aistudio.google.com/apikey
+# edit .env with a Groq API key
 ```
-`agents/analyst_agent.py` loads `.env` automatically (via `python-dotenv`) on every run -- no need to export an environment variable by hand. `.env` is gitignored, so the key never gets committed.
 
-### 3. Launch the Application
-Run the FastAPI backend server (from the root folder):
+### 3. Run
 ```bash
 python app.py
 ```
-Open your browser at **[http://localhost:8000/live_analysis.html](http://localhost:8000/live_analysis.html)**.
+Open **http://localhost:8000/live_analysis.html**.
 
-### 4. Regenerate the dataset/model (optional -- already committed as trained artifacts)
-```bash
-python scripts/build_graph_dataset.py       # data/pyg_dataset.pt
-python -m core.dataset_manager              # split + normalize -> pyg_dataset_norm.pt, norm_stats.pt
-python agentic_pacx/gnn_classification.py   # trains model.pt, writes training_history.json + gnn_outputs.json
-python scripts/build_ablation_report.py     # ablation_report.json
-python scripts/build_demo_samples.py        # refreshes demo_samples/ against the current split
-```
+### 4. Try it
+Upload any file from `demo_samples/` (true labels in `demo_samples/manifest.csv`), or paste `demo_samples/api_call_log_malicious.txt` into the text mode. See `/metrics_report.html` for the full confusion matrix and training curve, `/visual_graphs.html` for the topological graph view.
 
-### 5. Test every feature end-to-end
-* **Live analysis, text mode:** on `/live_analysis.html`, leave the dropdown on "API Call Log (Text)", paste the contents of `demo_samples/api_call_log_malicious.txt` (or `_benign.txt`), click **Analyze Request**. Check: PAC-X panel, GNN panel, the Agent 1 reasoning box, the new **GNN Structural Forensic Report** card, and the Decision Fusion panel all populate.
-* **Live analysis, CSV mode:** switch the dropdown to "Full Feature Record (CSV)" and upload any file from `demo_samples/` (e.g. `gandcrab_3814.csv`) -- these are genuine held-out rows; `demo_samples/manifest.csv` lists the true label for each, so you can confirm the prediction matches.
-* **Live analysis, JSON mode:** switch the dropdown to "Partial Request Data (JSON)" and paste a payload like `{"api_calls": ["ResumeThread", "kernel32!LoadLibraryA"], "ip": "192.168.1.1"}` (see `core/tests/demo_adapter_inputs.py` for more).
-* **Agent 2 (self-healing):** click **"Trigger Agent 2 Retraining"**. It queues in the background and confirms immediately; refresh after ~30-60s to pick up new weights if the pool passed its guardrails (it needs >=20 samples across >=2 classes -- check the server console log for whether it ran or was skipped).
-* **Metrics dashboard:** open `/metrics_report.html` for the full confusion matrix, per-class precision/recall table, and training curve.
-* **Graph visualizations:** open `/visual_graphs.html` for the topological node-graph view.
-* **Health/audit endpoints:** `GET /api/health`, `/api/audit/env`, `/api/audit/dataset`, `/api/report`, `/api/ablation`, `/api/training_history`.
-* **Automated smoke test:** `python core/tests/test_adapter.py` exercises the adapter + model end-to-end without the UI.
+### 5. Health checks
+`GET /api/health`, `/api/audit/env`, `/api/audit/dataset`, `/api/report`, `/api/ablation`, `/api/training_history`.

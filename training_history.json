@@ -1,5 +1,5 @@
 {
-  "run_type": "from_scratch_plus_benign_augmentation_finetune",
+  "run_type": "full_train_clean_isolated_reproduction",
   "history": [
     {
       "epoch": 1,
@@ -122,8 +122,13 @@
     }
   ],
   "final_test_metrics": {
-    "accuracy": 99.51,
-    "f1_macro": 99.62,
+    "accuracy": 99.61,
+    "f1_macro": 99.17,
+    "macro_precision": 98.49,
+    "macro_recall": 99.89,
+    "binary_accuracy": 99.71,
+    "binary_precision": 99.56,
+    "binary_recall": 99.78,
     "n_test_samples": 1029,
     "n_val_samples": 513,
     "n_train_samples": 3596
