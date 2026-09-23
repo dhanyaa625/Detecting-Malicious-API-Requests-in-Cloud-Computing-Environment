@@ -1,23 +1,17 @@
-file,true_label,csv_row_index
-benign_1.csv,benign,1
-benign_2.csv,benign,2
-darkkomet_2899.csv,darkkomet,2899
-darkkomet_2907.csv,darkkomet,2907
-delf_3012.csv,delf,3012
-delf_3013.csv,delf,3013
-dlhelper_3108.csv,dlhelper,3108
-dlhelper_3109.csv,dlhelper,3109
-domaiq_3164.csv,domaiq,3164
-domaiq_3168.csv,domaiq,3168
-driverpack_3253.csv,driverpack,3253
-driverpack_3254.csv,driverpack,3254
-emotet_3313.csv,emotet,3313
-emotet_3324.csv,emotet,3324
-gamarue_3615.csv,gamarue,3615
-gamarue_3616.csv,gamarue,3616
-gamehack_3791.csv,gamehack,3791
-gamehack_3799.csv,gamehack,3799
-gandcrab_3814.csv,gandcrab,3814
-gandcrab_3824.csv,gandcrab,3824
-hotbar_5019.csv,hotbar,5019
-hotbar_5025.csv,hotbar,5025
+file,true_label,csv_row_index,format
+benign_1.csv,benign,1,csv
+darkkomet_2899.csv,darkkomet,2899,csv
+delf_3012.csv,delf,3012,csv
+dlhelper_3108.csv,dlhelper,3108,csv
+domaiq_3164.csv,domaiq,3164,csv
+driverpack_3253.csv,driverpack,3253,csv
+emotet_3313.csv,emotet,3313,csv
+gamarue_3615.csv,gamarue,3615,csv
+gamehack_3791.csv,gamehack,3791,csv
+gandcrab_3814.csv,gandcrab,3814,csv
+hotbar_5019.csv,hotbar,5019,csv
+batch_sample_30.csv,mixed (10 benign + 2 each of 10 families),n/a,csv (batch upload demo -- 30 real rows sampled from data/cleaned_data.csv)
+api_call_log_benign.txt,benign,n/a,api (text)
+api_call_log_malicious.txt,malicious,n/a,api (text)
+api_call_log_benign.json,benign,n/a,json
+api_call_log_malicious.json,malicious,n/a,json

@@ -1,0 +1,18 @@
+{
+  "api": [
+    "kernel32.dll!VirtualAllocEx",
+    "kernel32.dll!WriteProcessMemory",
+    "kernel32.dll!CreateRemoteThread",
+    "ntdll.dll!NtCreateFile",
+    "advapi32.dll!RegDeleteKey",
+    "kernel32.dll!LdrLoadDll",
+    "ws2_32.dll!ConnectNetwork",
+    "kernel32.dll!WinExec",
+    "advapi32.dll!CryptDecrypt",
+    "user32.dll!SetWindowsHookEx"
+  ],
+  "network": [
+    "185.220.101.47",
+    "malicious-update-server.xyz"
+  ]
+}

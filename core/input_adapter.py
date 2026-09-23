@@ -191,10 +191,17 @@ class UniversalInputAdapter:
             if marker in lowered:
                 header_markers.append(marker)
 
+        # "http://"/"https://" used to be in this list -- wrong, since any
+        # legitimate network call (including a benign version-check request)
+        # uses a URL scheme, so it fired on benign logs just as reliably as
+        # malicious ones. Confirmed directly: it was the single biggest
+        # contributor to demo_samples/api_call_log_benign.txt (and an
+        # equivalent JSON payload) scoring 94-97% Malicious despite containing
+        # zero real attack indicators -- removing it alone fixes both.
         suspicious_terms = [
             term for term in [
                 "virtualalloc", "writeprocessmemory", "createremotethread",
-                "powershell", "cmd.exe", "http://", "https://", "rundll32",
+                "powershell", "cmd.exe", "rundll32",
                 "regsvr32", "connectnetwork", "winexec", "cryptdecrypt"
             ]
             if term in lowered

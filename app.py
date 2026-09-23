@@ -425,14 +425,38 @@ def run_gnn_inference(graph, completeness, signal_summary):
         suspicious_count = float(signal_summary.get("suspicious_count", 0))
         api_count = float(signal_summary.get("api_count", 0))
         network_count = float(signal_summary.get("network_count", 0))
+        # Real API/network *volume* isn't itself suspicious -- a benign app
+        # making several file/window calls and one outbound check used to
+        # score almost as "suspicious" as a sample packed with actual attack
+        # APIs, because volume and content-based suspicion were weighted
+        # almost the same (0.08 vs 0.2). Confirmed directly: this alone
+        # produced an evidence_score of ~0.48 for a clean benign log with
+        # zero real indicators. Volume now only breaks ties; suspicious_count
+        # (actual attack-API/behavior keyword hits) carries the real signal.
         evidence_score = min(
             1.0,
-            0.2 * suspicious_count + 0.08 * min(api_count, 5) + 0.08 * min(network_count, 4)
+            0.5 * suspicious_count + 0.02 * min(api_count, 5) + 0.02 * min(network_count, 4)
         )
 
+        # Real bug, confirmed directly: at low completeness (header/entropy
+        # nodes zero-filled -- the text/JSON input paths, which only ever
+        # supply API+network), both the raw GAT model and the centroid
+        # classifier independently predict ~100% malicious regardless of
+        # actual content -- they were trained exclusively on fully-populated
+        # native-schema graphs and have never seen a zero-header input, so
+        # "confidence" there isn't calibrated, it's extrapolation. The old
+        # formula's weights barely responded to completeness (model_weight
+        # stayed ~0.69 and centroid ~0.21 even at completeness 0.25, so their
+        # confidently-wrong ~100% malicious calls still dominated the fused
+        # score). Scaling the completeness *coefficient* itself by
+        # completeness (instead of adding it) collapses model+centroid
+        # weight much faster below full completeness while leaving the
+        # completeness=1.0 case -- the paper's verified 99.61% CSV path --
+        # numerically identical to before (verified: 0.88/0.28 pre-clamp at
+        # completeness=1.0, unchanged).
         model_certainty = compute_model_certainty(probs[0])
-        model_weight = clamp(0.30 + (0.35 * completeness) + (0.30 * model_certainty), 0.25, 0.88)
-        centroid_weight = clamp(0.18 + (0.22 * (1.0 - model_certainty)) + (0.10 * completeness), 0.08, 0.42)
+        model_weight = clamp(0.05 + (0.60 * completeness) + (0.30 * model_certainty * completeness), 0.25, 0.88)
+        centroid_weight = clamp(completeness * (0.18 + (0.22 * (1.0 - model_certainty)) + 0.10), 0.08, 0.42)
         evidence_weight = max(0.0, 1.0 - model_weight - centroid_weight)
         
         total_weight = model_weight + centroid_weight + evidence_weight

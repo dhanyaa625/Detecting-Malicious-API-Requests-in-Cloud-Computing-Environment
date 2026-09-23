@@ -1,0 +1,15 @@
+{
+  "api": [
+    "kernel32.dll!CreateFile",
+    "kernel32.dll!ReadFile",
+    "kernel32.dll!WriteFile",
+    "kernel32.dll!CloseHandle",
+    "user32.dll!CreateWindow",
+    "gdi32.dll!BitBlt",
+    "kernel32.dll!GetModuleHandle",
+    "ole32.dll!CoCreateInstance"
+  ],
+  "network": [
+    "update.example.com"
+  ]
+}
