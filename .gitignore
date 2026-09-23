@@ -49,6 +49,9 @@ pacx_merge_data/
 # Paper source -- kept local only, not published to the GitHub repo
 paper/
 
+# Claude Code tooling config -- not part of the app, no need to ship it
+.claude/
+
 # OS
 .DS_Store
 Thumbs.db
