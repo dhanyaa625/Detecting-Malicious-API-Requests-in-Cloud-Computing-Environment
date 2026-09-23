@@ -19,10 +19,12 @@
                          +-------------------------------+
                                   /            \
                                  v              v
-                     +--------------------+    +--------------------+
-                     |  PATH 1: PAC-X     |    |   PATH 2: GNN      |
-                     |  Heuristic Engine  |    |  Graph Attention   |
-                     +--------------------+    +--------------------+
+                     +--------------------+    +-------------------------------+
+                     |  PATH 1: PAC-X     |    |         PATH 2: S_GNN         |
+                     |  Heuristic Engine  |    | GAT + Centroid Classifier +   |
+                     |                    |    | Heuristic Evidence Score,     |
+                     |                    |    | blended by graph completeness |
+                     +--------------------+    +-------------------------------+
                                  \              /
                                   v            v
                         +-------------------------------+
@@ -37,10 +39,10 @@
                     (Confidence >= 68%)   (Confidence < 68%)
                                 /               \
                                v                 v
-                 +-------------------+     +-------------------------+
-                 | Output + Forensic |     |   AGENT 2: Self-Healing |
-                 | XAI Report        |     |   Zero-Day Retrain Pool |
-                 +-------------------+     +-------------------------+
+                 +-------------------+     +-----------------------------+
+                 | Output + Forensic |     | Relabeled "Suspicious" +    |
+                 | XAI Report        |     | pooled for AGENT 2 retrain  |
+                 +-------------------+     +-----------------------------+
 ```
 
 ---
@@ -81,6 +83,8 @@
 **Universal Input Adapter** accepts four input shapes and normalizes each into the same 4-node graph (PE Header, Section Entropy, API Import/Export, Network/String artifacts): raw API-call text/logs, JSON telemetry, CSV records (native schema or a public Kaggle PE-header schema), or a raw PE binary. Malformed input degrades gracefully to a lower-completeness graph rather than failing outright.
 
 **Decision Fusion Layer** blends the two pathways' scores when they agree (dynamically weighted by graph completeness and model certainty, GNN weight clamped to `[0.50, 0.80]`), or arbitrates by trust score when they disagree — Agent 1 computes those trust scores first, since fusion's disagreement branch depends on them.
+
+**S_GNN is not the bare GAT output.** Internally, the GNN pathway score blends three signals: the raw MalwareGAT softmax, a nearest-centroid classifier over the same graph embedding, and a content-based heuristic evidence score (attack-API/behavior keyword hits, not raw call volume) — weighted by graph completeness and model certainty. This matters most for the text/JSON input paths, which only ever populate 2 of the 4 node categories (API + network, never header/entropy): a confidently-wrong GAT/centroid prediction on that kind of partial graph can no longer dominate the fused verdict outright. Full weight formulas in `app.py`'s `run_gnn_inference`.
 
 **Fail-closed zero-day escalation:** a fused verdict of "Benign" with confidence below the gate (`AGENT2_THRESHOLD = 0.68`) is relabeled "Suspicious" instead of cleared — a labelling rule only, no weights change. Measured over 12,081 pooled leave-one-family-out predictions: zero-day recall rises 78.36% → 85.45%, known-malware detection 99.98% → 100.00%, at a benign false-positive cost of 0.57% → 3.52%. Full derivation and the negative-result novelty-detection experiment are in `paper/agentic_pacx.tex`.
 
